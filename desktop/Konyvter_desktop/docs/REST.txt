@@ -3,5 +3,5 @@
 /admin/search keresés "LIKE"
 /admin/delete (tokenes)
 /admin/add_admin (tokenes)
-/admin/login 
+/admin/login nem lesz külön bejelentkezés ablak, a programkódban lesznek a belépéshez szükséges adatok
 /admin/logout (tokenes)
