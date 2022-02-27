@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +18,16 @@ use App\Http\Controllers\AuthController;
 
 Route::group(["middleware" => ["auth:sanctum"]], function(){
     Route::post("/logout", [AuthController::class, "logout"]);
+
+    Route::get("/admin/reportedads", [AdminController::class, "reportedads"]);
+    Route::get("/admin/users", [AdminController::class, "users"]);
+    Route::get("/admin/reportedads/{adtitle}", [AdminController::class, "searchads"]);
+    Route::get("/admin/users/{username}", [AdminController::class, "searchuser"]);
+    Route::delete("/admin/reportedads/{id}", [AdminController::class, "deleteads"]);
+    Route::delete("/admin/users/{id}", [AdminController::class, "deleteuser"]);
+
 }); 
 Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
+
+Route::get("/admin/reportedads", [AdminController::class, "reportedads"]);
