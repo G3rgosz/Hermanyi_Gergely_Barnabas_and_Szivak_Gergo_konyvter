@@ -14,6 +14,9 @@ class Bgswitch extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "book_id" => $this->book_id,
+            "genre_id" => $this->genre_id
+        ];
     }
 }
