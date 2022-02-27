@@ -21,6 +21,30 @@ class CreateBooksTable extends Migration
             $table->year('release');
             $table->string('language', 50);
         });
+        DB::table('books')->insert(array(
+            'id'=>'1',
+            'title'=>'Az utolsó kívánság',
+            'writer'=>'Andrzej Sapkowski',
+            'publisher'=>'Gabo könyvkiadó',
+            'release'=>'1993',
+            'language'=>'magyar'
+        ));
+        DB::table('books')->insert(array(
+            'id'=>'2',
+            'title'=>'A végzet kardja',
+            'writer'=>'Andrzej Sapkowski',
+            'publisher'=>'Gabo könyvkiadó',
+            'release'=>'1992',
+            'language'=>'magyar'
+        ));
+        DB::table('books')->insert(array(
+            'id'=>'3',
+            'title'=>'Tündevér',
+            'writer'=>'Andrzej Sapkowski',
+            'publisher'=>'Gabo könyvkiadó',
+            'release'=>'1994',
+            'language'=>'magyar'
+        ));
     }
 
     /**

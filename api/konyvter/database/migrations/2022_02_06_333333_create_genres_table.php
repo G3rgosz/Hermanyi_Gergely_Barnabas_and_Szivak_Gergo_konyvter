@@ -17,6 +17,18 @@ class CreateGenresTable extends Migration
             $table->id();
             $table->string('genre', 50)->unique();
         });
+        DB::table('genres')->insert(array(
+            'id'=>'1',
+            'genre'=>'Regény'
+        ));
+        DB::table('genres')->insert(array(
+            'id'=>'2',
+            'genre'=>'Fantasy-irodalom'
+        ));
+        DB::table('genres')->insert(array(
+            'id'=>'3',
+            'genre'=>'High fantasy'
+        ));
     }
 
     /**

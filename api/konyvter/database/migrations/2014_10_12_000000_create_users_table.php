@@ -24,7 +24,25 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        DB::table('users')->insert(array('id'=>'1','username'=>'admin','password'=>bcrypt('admin'),'email'=>'admin@konyvter.hu','admin'=>true,'created_at'=>'2022-02-20 18:00:00','updated_at'=>'2022-02-20 18:00:00'));
+        DB::table('users')->insert(array(
+            'id'=>'1',
+            'username'=>'admin',
+            'password'=>bcrypt('admin'),
+            'email'=>'admin@konyvter.hu',
+            'admin'=>true,
+            'created_at'=>'2022-02-20 18:00:00',
+            'updated_at'=>'2022-02-20 18:00:00'
+        ));
+        DB::table('users')->insert(array(
+            'id'=>'2',
+            'username'=>'TesztElek',
+            'password'=>bcrypt('tesztelek'),
+            'email'=>'elek@teszt.hu',
+            'phone'=>'+36702113423',
+            'admin'=>false,
+            'created_at'=>'2022-02-20 18:00:00',
+            'updated_at'=>'2022-02-20 18:00:00'
+        ));
     }
 
     /**
