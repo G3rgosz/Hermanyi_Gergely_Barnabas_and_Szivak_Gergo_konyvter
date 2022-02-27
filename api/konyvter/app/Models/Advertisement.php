@@ -16,7 +16,7 @@ class Advertisment extends Model
         "sawcounter",
         "picturepath",
         "badcontent",
-        "bid",
-        "uid"
+        "book_id",
+        "user_id"
     ];
 }

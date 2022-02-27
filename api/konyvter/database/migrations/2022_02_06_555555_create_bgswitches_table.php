@@ -14,8 +14,8 @@ class CreateBgswitchesTable extends Migration
     public function up()
     {
         Schema::create('bgswitches', function (Blueprint $table) {
-            $table->foreignId('bid')->constrained('books');
-            $table->foreignId('gid')->constrained('genres');
+            $table->foreignId('book_id')->constrained('books');
+            $table->foreignId('genre_id')->constrained('genres');
         });
     }
 

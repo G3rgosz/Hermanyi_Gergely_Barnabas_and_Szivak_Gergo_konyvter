@@ -21,8 +21,8 @@ class CreateAdvertisementsTable extends Migration
             $table->integer('sawcounter')->nullable();
             $table->string('picturepath');
             $table->text('badcontent')->nullable();
-            $table->foreignId('bid')->constrained('books');
-            $table->foreignId('uid')->constrained('users');
+            $table->foreignId('book_id')->constrained('books');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@ class Bgswitch extends Model
     use HasFactory;
 
     protected $fillable = [
-        "bid",
-        "gid"
+        "book_id",
+        "genre_id"
     ];
 }
