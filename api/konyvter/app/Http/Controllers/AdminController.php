@@ -11,9 +11,7 @@ use App\Models\Advertisement;
 class AdminController extends BaseController{
 
     public function reportedads(){
-        $data = auth( "sanctum" )->user()->currentAccessToken();
-        $user = User::find($data->tokenable_id);
-        if($user->admin){
+        if(auth( "sanctum" )->user()->admin){
             $rads = DB::table('advertisements')
                 ->join('users', 'advertisements.user_id', '=', 'users.id')
                 ->select('advertisements.adtitle', 'users.username', 'advertisements.badcontent', 'advertisements.id')
@@ -28,9 +26,7 @@ class AdminController extends BaseController{
         }
     }
     public function users(){
-        $data = auth( "sanctum" )->user()->currentAccessToken();
-        $user = User::find($data->tokenable_id);
-        if($user->admin){
+        if(auth( "sanctum" )->user()->admin){
             $users = DB::table('users')
                 ->select('username', 'email', 'phone')
                 ->get();
@@ -43,9 +39,7 @@ class AdminController extends BaseController{
         }
     }
     public function searchads($adtitle){
-        $data = auth( "sanctum" )->user()->currentAccessToken();
-        $user = User::find($data->tokenable_id);
-        if($user->admin){
+        if(auth( "sanctum" )->user()->admin){
             $rads = DB::table('advertisements')
                 ->join('users', 'advertisements.user_id', '=', 'users.id')
                 ->select('advertisements.adtitle', 'users.username', 'advertisements.badcontent', 'advertisements.id')
@@ -61,9 +55,7 @@ class AdminController extends BaseController{
         }
     }
     public function searchuser($username){
-        $data = auth( "sanctum" )->user()->currentAccessToken();
-        $user = User::find($data->tokenable_id);
-        if($user->admin){
+        if(auth( "sanctum" )->user()->admin){
             $users = DB::table('users')
                 ->select('username', 'email', 'phone')
                 ->where('username', 'like', '%'.$username.'%')
@@ -77,9 +69,7 @@ class AdminController extends BaseController{
         }
     }
     public function deleteads($id){
-        $data = auth( "sanctum" )->user()->currentAccessToken();
-        $user = User::find($data->tokenable_id);
-        if($user->admin){
+        if(auth( "sanctum" )->user()->admin){
             if( is_null(Advertisement::find($id))){
                 return $this->sendError("Nincs ilyen hirdetés");
             }
@@ -90,8 +80,7 @@ class AdminController extends BaseController{
         }
     }
     public function deleteuser($id){
-        $data = auth( "sanctum" )->user()->currentAccessToken();
-        $user = User::find($data->tokenable_id);
+        $user = auth( "sanctum" )->user();
         if($user->admin){
             if( is_null(User::find($id))){
                 return $this->sendError("Nincs ilyen felhasználó");
