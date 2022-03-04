@@ -10,10 +10,11 @@ use App\Models\User;
 class AuthController extends BaseController {
     public function register( Request $request ) {
         $validator = Validator::make( $request->all() , [
-            "username" => "required",
-            "email" => "required",
-            "password" => "required",
+            "username" => "required|min:4|max:50",
+            "email" => "required|email|max:255",
+            "password" => "required|min:5|max:50",
             "confirm_password" => "required|same:password",
+            "phone" => "digits:11"
         ]);
         if( $validator->fails() ) {
             return $this->sendError( "Validálási hiba", $validator->errors() );
