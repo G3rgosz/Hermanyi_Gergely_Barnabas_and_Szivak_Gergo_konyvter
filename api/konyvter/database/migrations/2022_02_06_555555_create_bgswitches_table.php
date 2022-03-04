@@ -21,7 +21,7 @@ class CreateBgswitchesTable extends Migration
         DB::table('bgswitches')->insert(array('book_id'=>'1','genre_id'=>'2'));
         DB::table('bgswitches')->insert(array('book_id'=>'1','genre_id'=>'3'));
         DB::table('bgswitches')->insert(array('book_id'=>'2','genre_id'=>'1'));
-        DB::table('bgswitches')->insert(array('book_id'=>'2','genre_id'=>'2'));
+        // DB::table('bgswitches')->insert(array('book_id'=>'2','genre_id'=>'2'));
         DB::table('bgswitches')->insert(array('book_id'=>'2','genre_id'=>'3'));
         DB::table('bgswitches')->insert(array('book_id'=>'3','genre_id'=>'1'));
         DB::table('bgswitches')->insert(array('book_id'=>'3','genre_id'=>'2'));

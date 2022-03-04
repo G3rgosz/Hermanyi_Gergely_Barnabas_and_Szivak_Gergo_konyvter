@@ -10,8 +10,8 @@ use App\Models\User;
 class AuthController extends BaseController {
     public function register( Request $request ) {
         $validator = Validator::make( $request->all() , [
-            "username" => "required|min:4|max:50",
-            "email" => "required|email|max:255",
+            "username" => "required|min:4|max:50|unique:users",
+            "email" => "required|email|max:255|unique:users",
             "password" => "required|min:5|max:50",
             "confirm_password" => "required|same:password",
             "phone" => "digits:11"

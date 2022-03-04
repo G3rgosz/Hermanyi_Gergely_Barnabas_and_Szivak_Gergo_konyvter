@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,4 @@ Route::group(["middleware" => ["auth:sanctum"]], function(){
 Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
 
-Route::get("/admin/reportedads", [AdminController::class, "reportedads"]);
+Route::get("/web/books", [BookController::class, "index"]);
