@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class BookController extends BaseController{
 
     public function index(){
-        $bookData = $this->getBookData();
+        $bookData = $this->getBookData(null);
         return $this->sendResponse( $bookData, "Könyvek betöltve" );
     }
     public function create(Request $request){
@@ -23,7 +23,7 @@ class BookController extends BaseController{
             "title" => "required|max:100",
             "writer" => "required|max:255",
             "publisher" => "max:255",
-            "release" => "digits:4|integer|min:1900|max:".(date('Y')+1),
+            "release" => "digits:4|integer|min:1901|max:".date('Y'),
             "language" => "max:50",
             "genres" => "required|array"
         ]);
@@ -71,10 +71,15 @@ class BookController extends BaseController{
         }
     }
     public function show($id){
-
+        $test = Book::find($id);
+        if( is_null($test)){
+            return $this->sendError("Nincs ilyen könyv");
+        }
+        $bookData = $this->getBookData($id);
+        return $this->sendResponse( $bookData, "Könyv betöltve" );
     }
     private function checkExist($input){
-        $bookData = $this->getBookData();
+        $bookData = $this->getBookData(null);
         $input['genres' ] = array_values($input['genres']);
         foreach ($bookData as $book) {
             if($book['title'] == $input['title'] && 
@@ -88,28 +93,36 @@ class BookController extends BaseController{
         }
         return null;   
     }
-    private function getBookData(){
-        $books = Book::all();
-        foreach ($books as $book) {
-            $genres = DB::table('genres')
-                ->join('bgswitches', 'genres.id', '=', 'bgswitches.genre_id')
-                ->select('genres.genre')
-                ->where('bgswitches.book_id', '=', $book->id)
-                ->get();
-            foreach ($genres as $genre) {
-                $genreData[] = $genre->genre;
+    private function getBookData($inId){
+        if(isset($inId)){
+            $book = Book::find($inId);
+            $bookData[] = $this->readData($book);
+        }else{
+            $books = Book::all();
+            foreach ($books as $book) {
+                $bookData[] = $this->readData($book);
             }
-            $book = array(
-                'id' => $book->id,
-                'title' => $book->title,
-                'writer' => $book->writer,
-                'publisher' => $book->publisher,
-                'release' => $book->release,
-                'language' => $book->language
-            );
-            $bookData[] = $book + array('genres' => $genreData);
-            $genreData = [];
         }
+        return $bookData;
+    }
+    private function readData($book){
+        $genres = DB::table('genres')
+            ->join('bgswitches', 'genres.id', '=', 'bgswitches.genre_id')
+            ->select('genres.genre')
+            ->where('bgswitches.book_id', '=', $book->id)
+            ->get();
+        foreach ($genres as $genre) {
+            $genreData[] = $genre->genre;
+        }
+        $book = array(
+            'id' => $book->id,
+            'title' => $book->title,
+            'writer' => $book->writer,
+            'publisher' => $book->publisher,
+            'release' => $book->release,
+            'language' => $book->language
+        );
+        $bookData = $book + array('genres' => $genreData);
         return $bookData;
     }
 }
