@@ -16,4 +16,5 @@ class Book extends Model
         "release",
         "language"
     ];
+    public $timestamps = false;
 }

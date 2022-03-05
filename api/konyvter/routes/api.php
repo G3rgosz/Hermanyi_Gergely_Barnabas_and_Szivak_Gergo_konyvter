@@ -32,3 +32,4 @@ Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
 
 Route::get("/web/books", [BookController::class, "index"]);
+Route::post("/web/books", [BookController::class, "create"]);

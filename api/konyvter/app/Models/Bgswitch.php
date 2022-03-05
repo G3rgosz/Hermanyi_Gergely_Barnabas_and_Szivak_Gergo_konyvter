@@ -13,4 +13,5 @@ class Bgswitch extends Model
         "book_id",
         "genre_id"
     ];
+    public $timestamps = false;
 }

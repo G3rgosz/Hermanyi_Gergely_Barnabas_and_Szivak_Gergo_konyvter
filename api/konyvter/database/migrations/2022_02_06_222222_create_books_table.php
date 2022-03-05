@@ -17,9 +17,9 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->string('title', 100);
             $table->string('writer');
-            $table->string('publisher');
-            $table->year('release');
-            $table->string('language', 50);
+            $table->string('publisher')->nullable();
+            $table->year('release')->nullable();
+            $table->string('language', 50)->nullable();
         });
         DB::table('books')->insert(array(
             'id'=>'1',
