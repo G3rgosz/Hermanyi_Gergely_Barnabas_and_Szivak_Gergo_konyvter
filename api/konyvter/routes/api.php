@@ -39,5 +39,6 @@ Route::get("/web/books", [BookController::class, "index"]);
 Route::get("/web/books/{id}", [BookController::class, "show"]);
 
 Route::get("/web/advertisements", [AdvertisementController::class, "index"]);
+Route::get("/web/advertisements/{id}", [AdvertisementController::class, "show"]);
 
 

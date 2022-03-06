@@ -34,7 +34,7 @@ class CreateAdvertisementsTable extends Migration
             'badcontent'=>'A képen nem oda illő tartalom szerepel',
             'book_id'=>'1',
             'user_id'=>'2',
-            'picturepath'=>'teszt/teszt.img',
+            'picturepath'=>'/storage/test_images/TesztElek/1/witcher1.jpg',
             'created_at'=>'2022-02-27 18:00:00',
             'updated_at'=>'2022-02-27 18:00:00'
         ));
@@ -47,7 +47,7 @@ class CreateAdvertisementsTable extends Migration
             'badcontent'=>null,
             'book_id'=>'2',
             'user_id'=>'2',
-            'picturepath'=>'teszt/teszt.img',
+            'picturepath'=>'/storage/test_images/TesztElek/2/witcher2.jpg',
             'created_at'=>'2022-02-27 18:00:00',
             'updated_at'=>'2022-02-27 18:00:00'
         ));
@@ -60,7 +60,7 @@ class CreateAdvertisementsTable extends Migration
             'badcontent'=>'A képen nem oda illő tartalom szerepel',
             'book_id'=>'3',
             'user_id'=>'2',
-            'picturepath'=>'teszt/teszt.img',
+            'picturepath'=>'/storage/test_images/TesztElek/3/witcher3.jpg',
             'created_at'=>'2022-02-27 18:00:00',
             'updated_at'=>'2022-02-27 18:00:00'
         ));
