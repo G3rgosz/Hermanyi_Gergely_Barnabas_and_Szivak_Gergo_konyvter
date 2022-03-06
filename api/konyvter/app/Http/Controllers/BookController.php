@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Models\Book;
 use App\Models\Bgswitch;
-use App\Http\Resources\Book as BookResource;
 use Illuminate\Support\Facades\DB;
 
 

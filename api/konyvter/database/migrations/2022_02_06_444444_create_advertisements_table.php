@@ -19,7 +19,7 @@ class CreateAdvertisementsTable extends Migration
             $table->text('description');
             $table->integer('price');
             $table->integer('sawcounter')->nullable();
-            $table->string('picturepath');
+            $table->string('picturepath')->nullable();
             $table->text('badcontent')->nullable();
             $table->foreignId('book_id')->constrained('books');
             $table->foreignId('user_id')->constrained('users');

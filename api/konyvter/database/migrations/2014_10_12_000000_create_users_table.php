@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->char('phone', 12)->nullable();
+            $table->char('phone', 11)->nullable();
             $table->boolean('admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration
             'username'=>'TesztElek',
             'password'=>bcrypt('tesztelek'),
             'email'=>'elek@teszt.hu',
-            'phone'=>'+36702113423',
+            'phone'=>'36702113423',
             'admin'=>false,
             'created_at'=>'2022-02-20 18:00:00',
             'updated_at'=>'2022-02-20 18:00:00'
