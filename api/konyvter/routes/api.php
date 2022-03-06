@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\AdvertisementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,6 @@ Route::post("/login", [AuthController::class, "login"]);
 
 Route::get("/web/books", [BookController::class, "index"]);
 Route::get("/web/books/{id}", [BookController::class, "show"]);
+
+Route::get("/web/advertisements", [AdvertisementController::class, "index"]);
 

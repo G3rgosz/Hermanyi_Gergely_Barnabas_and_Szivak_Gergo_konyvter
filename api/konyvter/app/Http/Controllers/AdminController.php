@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Advertisement;

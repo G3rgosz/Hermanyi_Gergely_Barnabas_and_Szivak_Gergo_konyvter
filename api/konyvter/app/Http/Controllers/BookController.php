@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\BaseController as BaseController;
 use Validator;
 use App\Models\Book;
 use App\Models\Bgswitch;
