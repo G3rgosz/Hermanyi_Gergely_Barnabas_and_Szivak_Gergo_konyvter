@@ -23,7 +23,7 @@ class BookController extends BaseController{
             "title" => "required|max:100",
             "writer" => "required|max:255",
             "publisher" => "max:255",
-            "release" => "digits:4|integer|min:1901|max:".date('Y'),
+            "release" => "integer|min:-5000|max:".date('Y'),
             "language" => "max:50",
             "genres" => "required|array"
         ]);
