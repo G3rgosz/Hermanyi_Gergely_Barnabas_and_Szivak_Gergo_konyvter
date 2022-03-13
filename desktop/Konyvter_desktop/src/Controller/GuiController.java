@@ -10,7 +10,7 @@ public class GuiController {
     
     public GuiController() {
         
-        
+        restMdl = new RESTModel();
         initWindow();
         ActionListeners();
         getToken();
@@ -28,22 +28,19 @@ public class GuiController {
     
 
     private void search() {
-
+        restMdl.tryLogout();
     }
     private void exit() {
         System.exit(0);
     }
-    private void addAdmin() {}
+    private void addAdmin() {
+    
+
+    }
     private void getToken() {
         
-        restMdl = new RESTModel();
-        String token = restMdl.tryLogin();
-        if(token.isBlank()){
-            mainFrm.setStatusLbl("Sikertelen");
-            
-        }else{
-            mainFrm.setStatusLbl("Sikeres");
-        }
+
+        
     }
 
 }

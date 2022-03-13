@@ -14,14 +14,18 @@ public class RESTModel {
     private String token;
     private URL url;
     
+    public RESTModel() {
+        token = tryLogin();
+    }
+
     public String tryLogin() {
-        
+        String result = "";
         try {
-            token = Login();
+            result = Login();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return token;
+        return result;
     }
     private String Login() throws Exception{
         
@@ -40,20 +44,57 @@ public class RESTModel {
         stream.write(out);
         
         conn.connect();
+        String text = "";
+        int responseCode = conn.getResponseCode();
+        if(responseCode == 200) {
+            text = new String(
+                conn.getInputStream().readAllBytes(), 
+                StandardCharsets.UTF_8);
+        }else {
+            throw new RuntimeException("Http válasz: " + responseCode);
+        }
 
+        //új JSONelemző.elemző(text)
+        JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
+        JsonObject tokenObject = jsonObject.getAsJsonObject("data");
+        //a substring levágja az idézőjeleket
+        //token = tokenObject.get("token").toString().substring(1, 45);
+        
+        String token = tokenObject.get("token").toString().substring(1, 43);
+        System.out.println(token);
+        return token;
+    }
+    public void tryLogout() {
+        try {
+            
+            Logout();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void Logout() throws Exception{
+    
+        URL url = new URL("http://localhost:8000/api/logout");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        
+        conn.setRequestProperty("Authorization", "Bearer " +token);
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        
+        String data = token;
+        //System.out.println(data);
+        //System.out.println(token);
+        byte[] out = data.getBytes(StandardCharsets.UTF_8);
+        
+        OutputStream stream = conn.getOutputStream();
+        stream.write(out);
+        
         String text = "";
         text = new String(
                 conn.getInputStream().readAllBytes(), 
                 StandardCharsets.UTF_8);
         
-        //új JSONelemző.elemző(text)
-        JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
-        JsonObject tokenObject = jsonObject.getAsJsonObject("data");
-        //a substring levágja az idézőjeleket
-        token = tokenObject.get("token").toString().substring(1, 45);
-        
-        return token;
+        //System.out.println(text);
     }
-
 
 }
