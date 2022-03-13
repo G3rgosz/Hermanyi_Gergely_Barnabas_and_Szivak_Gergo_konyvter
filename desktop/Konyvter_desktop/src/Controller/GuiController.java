@@ -1,18 +1,26 @@
 package Controller;
 
 import Model.RESTModel;
+import Model.ViewModel;
 import View.mainFrame;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class GuiController {
 
     private mainFrame mainFrm;
     private RESTModel restMdl;
-    
+    private ViewModel viewMdl;
+    private Vector<Vector<Object>> tableData;
+    private Vector<Vector<Object>> asd;
     public GuiController() {
         
         restMdl = new RESTModel();
+        viewMdl = new ViewModel();
         initWindow();
         ActionListeners();
+        initTables();
         getToken();
     }
     private void ActionListeners() {
@@ -25,12 +33,31 @@ public class GuiController {
         mainFrm = new mainFrame();
         mainFrm.setVisible(true);
     }
+    private void initTables() {
     
+        Vector<String> columnNames = new Vector<>();
+
+        switch(mainFrm.getTableTb().getSelectedIndex()) {
+            case 0->    {
+                columnNames = viewMdl.getUserColumnNames();
+                tableData = restMdl.tryUsers();
+                TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
+                mainFrm.getUserTbl().setModel(tableMdl);
+                }
+            case 1 ->   {
+                columnNames = viewMdl.getAdvertismentColumnNames();
+                tableData = restMdl.tryUsers();
+                TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
+                mainFrm.getAdvertismentTbl().setModel(tableMdl);
+                }
+        }
+    }
 
     private void search() {
-        restMdl.tryLogout();
+        restMdl.tryUsers();
     }
     private void exit() {
+        restMdl.tryLogout();
         System.exit(0);
     }
     private void addAdmin() {

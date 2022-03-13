@@ -5,6 +5,8 @@
 package View;
 
 import javax.swing.JButton;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -32,13 +34,13 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         northPnl = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        searchTf = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
-        searchBtn = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
+        searchTf = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
+        searchBtn = new javax.swing.JButton();
         eastPnl = new javax.swing.JPanel();
         southPnl = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -54,13 +56,18 @@ public class mainFrame extends javax.swing.JFrame {
         exitBtn = new javax.swing.JButton();
         westPnl = new javax.swing.JPanel();
         centerPnl = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
         tableTb = new javax.swing.JTabbedPane();
-        advertismentTb = new javax.swing.JPanel();
+        userTb = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        advertismentTbl = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        userTbl = new javax.swing.JTable();
+        advertismentTb = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        advertismentTbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
@@ -70,23 +77,29 @@ public class mainFrame extends javax.swing.JFrame {
         northPnl.setPreferredSize(new java.awt.Dimension(678, 50));
         northPnl.setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-
-        searchTf.setPreferredSize(new java.awt.Dimension(100, 35));
-        searchTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTfActionPerformed(evt);
-            }
-        });
-        jPanel8.add(searchTf);
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
 
         northPnl.add(jPanel8);
 
-        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        searchBtn.setText("Keresés");
-        searchBtn.setPreferredSize(new java.awt.Dimension(90, 35));
-        jPanel9.add(searchBtn);
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
 
         northPnl.add(jPanel9);
 
@@ -116,29 +129,23 @@ public class mainFrame extends javax.swing.JFrame {
 
         northPnl.add(jPanel11);
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        searchTf.setPreferredSize(new java.awt.Dimension(100, 35));
+        searchTf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTfActionPerformed(evt);
+            }
+        });
+        jPanel10.add(searchTf);
 
         northPnl.add(jPanel10);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        searchBtn.setText("Keresés");
+        searchBtn.setPreferredSize(new java.awt.Dimension(90, 35));
+        jPanel7.add(searchBtn);
 
         northPnl.add(jPanel7);
 
@@ -252,7 +259,88 @@ public class mainFrame extends javax.swing.JFrame {
 
         jPanel1.add(westPnl, java.awt.BorderLayout.LINE_START);
 
-        centerPnl.setLayout(new java.awt.GridLayout(1, 1));
+        centerPnl.setLayout(new java.awt.BorderLayout());
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(944, 5));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 944, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+
+        centerPnl.add(jPanel3, java.awt.BorderLayout.PAGE_START);
+
+        jPanel17.setPreferredSize(new java.awt.Dimension(5, 263));
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 358, Short.MAX_VALUE)
+        );
+
+        centerPnl.add(jPanel17, java.awt.BorderLayout.LINE_END);
+
+        jPanel18.setPreferredSize(new java.awt.Dimension(944, 5));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 944, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+
+        centerPnl.add(jPanel18, java.awt.BorderLayout.PAGE_END);
+
+        jPanel19.setPreferredSize(new java.awt.Dimension(5, 358));
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 358, Short.MAX_VALUE)
+        );
+
+        centerPnl.add(jPanel19, java.awt.BorderLayout.LINE_START);
+
+        jPanel20.setLayout(new java.awt.GridLayout());
+
+        userTb.setLayout(new java.awt.GridLayout(1, 1));
+
+        userTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(userTbl);
+
+        userTb.add(jScrollPane1);
+
+        tableTb.addTab("tab1", userTb);
 
         advertismentTb.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -267,32 +355,15 @@ public class mainFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(advertismentTbl);
+        jScrollPane2.setViewportView(advertismentTbl);
 
-        advertismentTb.add(jScrollPane1);
+        advertismentTb.add(jScrollPane2);
 
-        tableTb.addTab("tab1", advertismentTb);
+        tableTb.addTab("tab2", advertismentTb);
 
-        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel20.add(tableTb);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        jPanel4.add(jScrollPane2);
-
-        tableTb.addTab("tab2", jPanel4);
-
-        centerPnl.add(tableTb);
+        centerPnl.add(jPanel20, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(centerPnl, java.awt.BorderLayout.CENTER);
 
@@ -360,8 +431,12 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -369,13 +444,14 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel northPnl;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchTf;
     private javax.swing.JPanel southPnl;
     private javax.swing.JLabel statusLbl;
     private javax.swing.JTabbedPane tableTb;
+    private javax.swing.JPanel userTb;
+    private javax.swing.JTable userTbl;
     private javax.swing.JPanel westPnl;
     // End of variables declaration//GEN-END:variables
     public JButton getAdminBtn() {
@@ -400,5 +476,14 @@ public class mainFrame extends javax.swing.JFrame {
 
     public void setStatusLbl(String text) {
         statusLbl.setText(text);
+    }
+    public JTabbedPane getTableTb() {
+        return tableTb;
+    }
+    public JTable getUserTbl() {
+        return userTbl;
+    }
+    public JTable getAdvertismentTbl() {
+        return advertismentTbl;
     }
 }
