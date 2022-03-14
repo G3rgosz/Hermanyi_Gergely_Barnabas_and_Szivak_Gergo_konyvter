@@ -20,12 +20,10 @@ public class GuiController {
         viewMdl = new ViewModel();
         initWindow();
         ActionListeners();
-        initTables();
-        getToken();
     }
     private void ActionListeners() {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
-        mainFrm.getDeleteBtn().addActionListener( event -> {  } );
+        mainFrm.getDeleteBtn().addActionListener( event -> { delete(); } );
         mainFrm.getAdminBtn().addActionListener(event -> { addAdmin(); });
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
         mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
@@ -34,6 +32,7 @@ public class GuiController {
     private void initWindow() {
         mainFrm = new mainFrame();
         mainFrm.setVisible(true);
+        initTables();
     }
     private void initTables() {
     
@@ -55,8 +54,15 @@ public class GuiController {
     }
 
     private void search() {
-        //restMdl.tryUsers();
-        //restMdl.tryAdvertisments();
+        int openTab = mainFrm.getTableTb().getSelectedIndex();
+        String search_text = mainFrm.getSearchTf().getText();
+        if(openTab == 0) {
+            restMdl.setUser_Text(search_text);
+            initTables();
+        }else {
+            restMdl.setAd_Text(search_text);
+            initTables();
+        }
     }
     private void exit() {
         restMdl.tryLogout();
@@ -64,11 +70,9 @@ public class GuiController {
     }
     private void addAdmin() {
     
-
-    }
-    private void getToken() {
         
-
+    }
+    private void delete() {
         
     }
 

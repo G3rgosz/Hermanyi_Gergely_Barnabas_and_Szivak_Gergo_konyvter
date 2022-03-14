@@ -21,9 +21,13 @@ public class RESTModel {
     
     private String token;
     private URL url;
+    private String user_text;
+    private String ad_text;
     
     public RESTModel() {
         token = tryLogin();
+        user_text = "";
+        ad_text = "";
     }
 
     public String tryLogin() {
@@ -117,7 +121,7 @@ public class RESTModel {
     }
     private Vector<Vector<Object>> Users() throws Exception{
     
-        URL url = new URL("http://localhost:8000/api/admin/users/");
+        URL url = new URL("http://localhost:8000/api/admin/users/" + user_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
         conn.setRequestProperty("Authorization", "Bearer " +token);
@@ -175,7 +179,7 @@ public class RESTModel {
     }
     private Vector<Vector<Object>> Advertisments() throws Exception{
     
-        URL url = new URL("http://localhost:8000/api/admin/reportedads/");
+        URL url = new URL("http://localhost:8000/api/admin/reportedads/" + ad_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
         conn.setRequestProperty("Authorization", "Bearer " +token);
@@ -222,5 +226,11 @@ public class RESTModel {
         //System.out.println(advertisments);
         
         return advertisments;
+    }
+    public void setUser_Text(String search_text) {
+        this.user_text = search_text;
+    }
+    public void setAd_Text(String search_text) {
+        this.ad_text = search_text;
     }
 }
