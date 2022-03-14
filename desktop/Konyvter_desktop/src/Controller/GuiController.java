@@ -28,6 +28,8 @@ public class GuiController {
         mainFrm.getDeleteBtn().addActionListener( event -> {  } );
         mainFrm.getAdminBtn().addActionListener(event -> { addAdmin(); });
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
+        mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
+
     }
     private void initWindow() {
         mainFrm = new mainFrame();
@@ -36,25 +38,25 @@ public class GuiController {
     private void initTables() {
     
         Vector<String> columnNames = new Vector<>();
-
-        switch(mainFrm.getTableTb().getSelectedIndex()) {
-            case 0->    {
+        tableData = new Vector<>();
+        
+        if(mainFrm.getTableTb().getSelectedIndex() == 0) {
                 columnNames = viewMdl.getUserColumnNames();
                 tableData = restMdl.tryUsers();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 mainFrm.getUserTbl().setModel(tableMdl);
-                }
-            case 1 ->   {
+        }else {
                 columnNames = viewMdl.getAdvertismentColumnNames();
-                tableData = restMdl.tryUsers();
+                tableData = restMdl.tryAdvertisments();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 mainFrm.getAdvertismentTbl().setModel(tableMdl);
-                }
         }
+        
     }
 
     private void search() {
-        restMdl.tryUsers();
+        //restMdl.tryUsers();
+        //restMdl.tryAdvertisments();
     }
     private void exit() {
         restMdl.tryLogout();

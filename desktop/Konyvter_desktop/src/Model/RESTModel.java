@@ -123,13 +123,7 @@ public class RESTModel {
         conn.setRequestProperty("Authorization", "Bearer " +token);
         conn.setRequestMethod("GET");
         conn.setDoOutput(true);
-        
-        //String data = token;
-        //byte[] out = data.getBytes(StandardCharsets.UTF_8);
-        
-        //OutputStream stream = conn.getOutputStream();
-        //stream.write(out);
-        
+
         conn.connect();
         
         String text = "";
@@ -152,7 +146,7 @@ public class RESTModel {
         UserModel[] userArray = gson.fromJson(arr, UserModel[].class);
         ArrayList<UserModel> lista = new ArrayList<>(Arrays.asList(userArray));
         
-        System.out.println("lista: " +lista);
+        //System.out.println("lista: " +lista);
         
         Vector<Vector<Object>> users = new Vector<>();
         for(UserModel usermodel: lista) {
@@ -166,8 +160,67 @@ public class RESTModel {
             users.add(user);
             
         }
-        System.out.println(users);
+        //System.out.println(users);
         
         return users;
+    }
+    public Vector<Vector<Object>> tryAdvertisments() {
+        Vector<Vector<Object>> advertisments = new Vector<>();
+        try {
+            advertisments = Advertisments();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return advertisments;
+    }
+    private Vector<Vector<Object>> Advertisments() throws Exception{
+    
+        URL url = new URL("http://localhost:8000/api/admin/reportedads/");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        
+        conn.setRequestProperty("Authorization", "Bearer " +token);
+        conn.setRequestMethod("GET");
+        conn.setDoOutput(true);
+
+        conn.connect();
+        
+        String text = "";
+        int responseCode = conn.getResponseCode();
+        if(responseCode == 200) {
+            text = new String(
+                conn.getInputStream().readAllBytes(), 
+                StandardCharsets.UTF_8);
+        }else {
+            throw new RuntimeException("Http válasz: " + responseCode);
+        }
+        //System.out.println(text);
+        JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        JsonArray arr = jsonObject.getAsJsonArray("data");
+        
+        AdvertismentModel[] adArray = gson.fromJson(arr, AdvertismentModel[].class);
+        ArrayList<AdvertismentModel> lista = new ArrayList<>(Arrays.asList(adArray));
+        
+        //System.out.println("lista: " +lista);
+        
+        Vector<Vector<Object>> advertisments = new Vector<>();
+        for(AdvertismentModel advertismentmodel: lista) {
+            
+            Vector<Object> advertisment = new Vector<>();
+            
+            advertisment.add(advertismentmodel.adtitle);
+            advertisment.add(advertismentmodel.username);
+            advertisment.add(advertismentmodel.badcontent);
+            advertisment.add(advertismentmodel.id);
+            
+            advertisments.add(advertisment);
+            
+        }
+        //System.out.println(advertisments);
+        
+        return advertisments;
     }
 }

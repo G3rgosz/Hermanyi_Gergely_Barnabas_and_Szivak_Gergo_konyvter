@@ -321,7 +321,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         centerPnl.add(jPanel19, java.awt.BorderLayout.LINE_START);
 
-        jPanel20.setLayout(new java.awt.GridLayout());
+        jPanel20.setLayout(new java.awt.GridLayout(1, 0));
 
         userTb.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -340,7 +340,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         userTb.add(jScrollPane1);
 
-        tableTb.addTab("tab1", userTb);
+        tableTb.addTab("Felhasználók", userTb);
 
         advertismentTb.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -359,7 +359,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         advertismentTb.add(jScrollPane2);
 
-        tableTb.addTab("tab2", advertismentTb);
+        tableTb.addTab("Jelentett hirdetések", advertismentTb);
 
         jPanel20.add(tableTb);
 
