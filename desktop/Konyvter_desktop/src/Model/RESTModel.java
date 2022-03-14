@@ -18,16 +18,10 @@ import java.util.Vector;
 
 
 public class RESTModel {
-    
-    private String token;
     private URL url;
-    private String user_text;
-    private String ad_text;
-    
+
     public RESTModel() {
-        token = tryLogin();
-        user_text = "";
-        ad_text = "";
+        
     }
 
     public String tryLogin() {
@@ -65,27 +59,26 @@ public class RESTModel {
         }else {
             throw new RuntimeException("Http válasz: " + responseCode);
         }
-
         //új JSONelemző.elemző(text)
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         JsonObject tokenObject = jsonObject.getAsJsonObject("data");
         //a substring levágja az idézőjeleket
         //token = tokenObject.get("token").toString().substring(1, 45);
         
-        String token = tokenObject.get("token").toString().substring(1, 44);
-
-        System.out.println(token);
-        return token;
+        String token = tokenObject.get("token").toString();
+        String asd = token.substring(1, 44);
+        //System.out.println(asd);
+        return asd;
     }
-    public void tryLogout() {
+    public void tryLogout(String token) {
         try {
             
-            Logout();
+            Logout(token);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    private void Logout() throws Exception{
+    private void Logout(String token) throws Exception{
     
         URL url = new URL("http://localhost:8000/api/logout");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -110,18 +103,18 @@ public class RESTModel {
         System.out.println(text);
     }
 
-    public Vector<Vector<Object>> tryUsers() {
+    public Vector<Vector<Object>> tryUsers(String token, String search_text) {
         Vector<Vector<Object>> users = new Vector<>();
         try {
-            users = Users();
+            users = Users(token, search_text);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return users;
     }
-    private Vector<Vector<Object>> Users() throws Exception{
+    private Vector<Vector<Object>> Users(String token, String search_text) throws Exception{
     
-        URL url = new URL("http://localhost:8000/api/admin/users/" + user_text);
+        URL url = new URL("http://localhost:8000/api/admin/users/" + search_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
         conn.setRequestProperty("Authorization", "Bearer " +token);
@@ -168,22 +161,21 @@ public class RESTModel {
         
         return users;
     }
-    public Vector<Vector<Object>> tryAdvertisments() {
+    public Vector<Vector<Object>> tryAdvertisments(String token, String search_text, String ad_method) {
         Vector<Vector<Object>> advertisments = new Vector<>();
         try {
-            advertisments = Advertisments();
+            advertisments = Advertisments(token, search_text, ad_method);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return advertisments;
     }
-    private Vector<Vector<Object>> Advertisments() throws Exception{
-    
-        URL url = new URL("http://localhost:8000/api/admin/reportedads/" + ad_text);
+    private Vector<Vector<Object>> Advertisments(String token, String search_text, String ad_method) throws Exception{
+        URL url = new URL("http://localhost:8000/api/admin/reportedads/" + search_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
         conn.setRequestProperty("Authorization", "Bearer " +token);
-        conn.setRequestMethod("GET");
+        conn.setRequestMethod(ad_method);
         conn.setDoOutput(true);
 
         conn.connect();
@@ -227,10 +219,5 @@ public class RESTModel {
         
         return advertisments;
     }
-    public void setUser_Text(String search_text) {
-        this.user_text = search_text;
-    }
-    public void setAd_Text(String search_text) {
-        this.ad_text = search_text;
-    }
+
 }

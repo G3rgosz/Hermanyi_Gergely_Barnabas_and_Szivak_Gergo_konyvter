@@ -129,22 +129,22 @@ public class mainFrame extends javax.swing.JFrame {
 
         northPnl.add(jPanel11);
 
-        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 10));
 
         searchTf.setPreferredSize(new java.awt.Dimension(100, 35));
-        searchTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTfActionPerformed(evt);
-            }
-        });
         jPanel10.add(searchTf);
 
         northPnl.add(jPanel10);
 
-        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
 
         searchBtn.setText("Keresés");
-        searchBtn.setPreferredSize(new java.awt.Dimension(90, 35));
+        searchBtn.setPreferredSize(new java.awt.Dimension(100, 35));
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
         jPanel7.add(searchBtn);
 
         northPnl.add(jPanel7);
@@ -167,23 +167,18 @@ public class mainFrame extends javax.swing.JFrame {
         southPnl.setPreferredSize(new java.awt.Dimension(678, 50));
         southPnl.setLayout(new java.awt.GridLayout(1, 7));
 
-        jPanel14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
+        jPanel14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 2));
 
         deleteBtn.setText("Törlés");
-        deleteBtn.setPreferredSize(new java.awt.Dimension(90, 35));
+        deleteBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel14.add(deleteBtn);
 
         southPnl.add(jPanel14);
 
-        jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
+        jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 2));
 
         adminBtn.setText("Hozzáadás");
-        adminBtn.setPreferredSize(new java.awt.Dimension(90, 35));
-        adminBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminBtnActionPerformed(evt);
-            }
-        });
+        adminBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel5.add(adminBtn);
 
         southPnl.add(jPanel5);
@@ -236,10 +231,10 @@ public class mainFrame extends javax.swing.JFrame {
 
         southPnl.add(jPanel13);
 
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 2));
 
         exitBtn.setText("Kilépés");
-        exitBtn.setPreferredSize(new java.awt.Dimension(90, 35));
+        exitBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel2.add(exitBtn);
 
         southPnl.add(jPanel2);
@@ -372,13 +367,9 @@ public class mainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTfActionPerformed
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchTfActionPerformed
-
-    private void adminBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adminBtnActionPerformed
+    }//GEN-LAST:event_searchBtnActionPerformed
 
     /**
      * @param args the command line arguments

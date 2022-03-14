@@ -13,13 +13,17 @@ public class GuiController {
     private RESTModel restMdl;
     private ViewModel viewMdl;
     private Vector<Vector<Object>> tableData;
-    private Vector<Vector<Object>> asd;
-    public GuiController() {
+    private RESTController restCtr;
+    
+    public GuiController(RESTController restCtr) {
         
-        restMdl = new RESTModel();
+        this.restCtr = restCtr;
+        //restMdl = new RESTModel();
         viewMdl = new ViewModel();
         initWindow();
         ActionListeners();
+        new Thread(runner).start();
+        
     }
     private void ActionListeners() {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
@@ -41,12 +45,12 @@ public class GuiController {
         
         if(mainFrm.getTableTb().getSelectedIndex() == 0) {
                 columnNames = viewMdl.getUserColumnNames();
-                tableData = restMdl.tryUsers();
+                tableData = restCtr.getUsers();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 mainFrm.getUserTbl().setModel(tableMdl);
         }else {
                 columnNames = viewMdl.getAdvertismentColumnNames();
-                tableData = restMdl.tryAdvertisments();
+                tableData = restCtr.getAdvertisments();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 mainFrm.getAdvertismentTbl().setModel(tableMdl);
         }
@@ -56,24 +60,69 @@ public class GuiController {
     private void search() {
         int openTab = mainFrm.getTableTb().getSelectedIndex();
         String search_text = mainFrm.getSearchTf().getText();
+        String method = "GET";
         if(openTab == 0) {
-            restMdl.setUser_Text(search_text);
+            restCtr.setData(search_text, method);
             initTables();
         }else {
-            restMdl.setAd_Text(search_text);
+            restCtr.setData(search_text, method);
             initTables();
         }
     }
     private void exit() {
-        restMdl.tryLogout();
+        restCtr.Logout();
         System.exit(0);
     }
+    //TODO
     private void addAdmin() {
     
         
     }
+    //TODO: befejezni a törlést
     private void delete() {
+        int openTab = mainFrm.getTableTb().getSelectedIndex();
+        int row = mainFrm.getAdvertismentTbl().getSelectedRow();
+        String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
+        System.out.println(value);
+        String method = "DELETE";
+        if(openTab == 0) {
+            deleteUser(method);
+        }else {
+            deleteAdvertisment(method);
+        }
+    }
+    //TODO: id szükséges a törléshez, de nem kapunk a REST API-tól. Szükséges egyeztetni a Backend fejlesztővel
+    private void deleteUser(String method) {
+        int row = mainFrm.getUserTbl().getSelectedRow();
+        String value = mainFrm.getUserTbl().getModel().getValueAt(row, 0).toString();
         
+        restCtr.setData(value, method);
+        initTables();
+    }
+    private void deleteAdvertisment(String method) {
+        int row = mainFrm.getAdvertismentTbl().getSelectedRow();
+        String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
+        
+        restCtr.setData(value, method);
+        initTables();
     }
 
+    Runnable runner = new Runnable() {
+        @Override
+        public void run() {
+            timer();
+        }
+    };
+    public void timer() {
+        boolean time = true;
+        //for(;;) {        }
+        while(time) {
+               initTables();
+               try {
+                Thread.sleep(30000);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
