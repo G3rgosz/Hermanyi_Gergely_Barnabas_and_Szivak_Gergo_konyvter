@@ -27,7 +27,7 @@ class AdminController extends BaseController{
     public function users(){
         if(auth( "sanctum" )->user()->admin){
             $users = DB::table('users')
-                ->select('username', 'email', 'phone')
+                ->select('username', 'email', 'phone', 'id')
                 ->get();
             if(is_null($users)){
                 return $this->sendError("Nincsenek felhasználók");
@@ -56,7 +56,7 @@ class AdminController extends BaseController{
     public function searchuser($username){
         if(auth( "sanctum" )->user()->admin){
             $users = DB::table('users')
-                ->select('username', 'email', 'phone')
+                ->select('username', 'email', 'phone', 'id')
                 ->where('username', 'like', '%'.$username.'%')
                 ->get();
             if(is_null($users)){
