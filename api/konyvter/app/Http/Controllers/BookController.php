@@ -70,11 +70,94 @@ class BookController extends BaseController{
     }
     public function show($id){
         $test = Book::find($id);
-        if( is_null($test)){
+        if(is_null($test)){
             return $this->sendError("Nincs ilyen könyv");
         }
         $bookData = $this->getBookData($id);
         return $this->sendResponse( $bookData, "Könyv betöltve" );
+    }
+    public function update(Request $request, $id){
+        $book = Book::find($id);
+        if(is_null($book)){
+            return $this->sendError("Nincs ilyen könyv");
+        }else{
+            $advertisements = DB::table('advertisements')
+                ->where('book_id', '=', $book->id)
+                ->count();
+            if($advertisements > 1){ //A könyv egy másik felhasználónál használatban van, ezért használjuk a create metódust!
+                return $this->create($request);
+            }
+        }
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            "title" => "required|max:100",
+            "writer" => "required|max:255",
+            "publisher" => "max:255",
+            "release" => "integer|min:-5000|max:".date('Y'),
+            "language" => "max:50",
+            "genres" => "required|array"
+        ]);
+        if($validator->fails()){
+            return $this->sendError($validator->errors());
+        }
+        $input["genres"] = array_unique($input["genres"]);
+        asort($input["genres"]);
+        $exist_id = $this->checkExist($input);
+        if(is_null($exist_id)){
+            $genres = $input["genres"];
+            foreach ($genres as $genre) {
+                $checker = DB::table('genres')
+                    ->select('id')
+                    ->where('genre', '=', $genre)
+                    ->get();
+                if(count($checker) == 0){
+                    return $this->sendError("Nincs ilyen műfaj: ".$genre);
+                }
+            }
+            try {
+                $book->update($input);
+                DB::table('bgswitches')
+                    ->where('book_id', '=', $book->id)
+                    ->delete();
+                foreach ($genres as $genre) {
+                    $genreid = DB::table('genres')
+                        ->select('id')
+                        ->where('genre', '=', $genre)
+                        ->get();
+                    $bgswitch = Bgswitch::create([
+                        'book_id' => $book->id,
+                        'genre_id' => $genreid[0]->id,
+                    ]);
+                }
+                return $this->sendResponse($book->id, "Könyv módosítva");
+            } catch (\Throwable $e) {
+                return $this->sendError("Hiba a kiírás során", $e);
+            }
+        }else{
+            return $this->sendResponse($exist_id, "Már van ilyen könyv");
+        }
+    }
+    public function delete($id){
+        $book = Book::find($id);
+        if(is_null($book)){
+            return $this->sendError("Nincs ilyen könyv");
+        }else{
+            $advertisements = DB::table('advertisements')
+                ->where('book_id', '=', $book->id)
+                ->count();
+            if($advertisements != 0){ 
+                return $this->sendError("A könyv szerepel egy hirdetésben, előbb törölje a hirdetést");
+            }
+        }
+        try {
+            DB::table('bgswitches')
+                ->where('book_id', '=', $book->id)
+                ->delete();
+            $book->delete();
+            return $this->sendResponse([], "A könyv és a hozzá tartozó kapcsolótábla adatai törölve");
+        } catch (\Throwable $e) {
+            return $this->sendError("Hiba a törlés során", $e);
+        }
     }
     private function checkExist($input){
         $bookData = $this->getBookData(null);

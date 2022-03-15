@@ -29,6 +29,8 @@ Route::group(["middleware" => ["auth:sanctum"]], function(){
     Route::delete("/admin/users/{id}", [AdminController::class, "deleteuser"]);
 
     Route::post("/web/books", [BookController::class, "create"]);
+    Route::put("/web/books/{id}", [BookController::class, "update"]);
+    Route::delete("/web/books/{id}", [BookController::class, "delete"]);
 
     Route::post("/web/advertisements", [AdvertisementController::class, "create"]);
 }); 
