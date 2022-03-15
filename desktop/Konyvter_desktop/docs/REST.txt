@@ -1,0 +1,7 @@
+/admin/kapcsolat minden adat az advertisment-ből : hirdetés neve, kihez tartozik, indoklás hogy miért jelentve, link a hirdetéshez(csak id jön át, id alapján töröl)  (tokenes)
+/admin/all_user minden adat a user-ből : név, email, telefon (név vafgy email alapján töröl) (tokenes)
+/admin/search keresés "LIKE"
+/admin/delete (tokenes)
+/admin/add_admin (tokenes)
+/admin/login nem lesz külön bejelentkezés ablak, a programkódban lesznek a belépéshez szükséges adatok
+/admin/logout (tokenes)
