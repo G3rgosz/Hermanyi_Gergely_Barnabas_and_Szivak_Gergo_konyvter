@@ -18,12 +18,13 @@ import java.util.Vector;
 
 
 public class RESTModel {
-    private URL url;
+
+    private ResponseModel responseMdl;
 
     public RESTModel() {
-        
+        responseMdl = new ResponseModel();
     }
-
+    
     public String tryLogin() {
         String result = "";
         try {
@@ -39,13 +40,11 @@ public class RESTModel {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
-        //conn.setRequestProperty("Accept", "application/json");
         conn.setRequestProperty("Content-Type", "application/json");
         
         String data= "{\"username\":\"admin\",\"password\":\"admin\"}";
         byte[] out = data.getBytes(StandardCharsets.UTF_8);
         
-        //ez küldi be az adatokat
         OutputStream stream = conn.getOutputStream();
         stream.write(out);
         
@@ -59,16 +58,12 @@ public class RESTModel {
         }else {
             throw new RuntimeException("Http válasz: " + responseCode);
         }
-        //új JSONelemző.elemző(text)
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         JsonObject tokenObject = jsonObject.getAsJsonObject("data");
-        //a substring levágja az idézőjeleket
-        //token = tokenObject.get("token").toString().substring(1, 45);
         
-        String token = tokenObject.get("token").toString();
-        String asd = token.substring(1, 44);
-        //System.out.println(asd);
-        return asd;
+        String token_raw = tokenObject.get("token").toString();
+        String token = token_raw.substring(1, token_raw.length() - 1);
+        return token;
     }
     public void tryLogout(String token) {
         try {
@@ -88,8 +83,6 @@ public class RESTModel {
         conn.setDoOutput(true);
         
         String data = token;
-        //System.out.println(data);
-        //System.out.println(token);
         byte[] out = data.getBytes(StandardCharsets.UTF_8);
         
         OutputStream stream = conn.getOutputStream();
@@ -103,22 +96,22 @@ public class RESTModel {
         System.out.println(text);
     }
 
-    public Vector<Vector<Object>> tryUsers(String token, String search_text) {
+    public Vector<Vector<Object>> tryUsers(String token, String search_text, String method) {
         Vector<Vector<Object>> users = new Vector<>();
         try {
-            users = Users(token, search_text);
+            users = Users(token, search_text, method);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return users;
     }
-    private Vector<Vector<Object>> Users(String token, String search_text) throws Exception{
+    private Vector<Vector<Object>> Users(String token, String search_text, String method) throws Exception{
     
         URL url = new URL("http://localhost:8000/api/admin/users/" + search_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
         conn.setRequestProperty("Authorization", "Bearer " +token);
-        conn.setRequestMethod("GET");
+        conn.setRequestMethod(method);
         conn.setDoOutput(true);
 
         conn.connect();
@@ -132,7 +125,6 @@ public class RESTModel {
         }else {
             throw new RuntimeException("Http válasz: " + responseCode);
         }
-        //System.out.println(text);
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -143,22 +135,19 @@ public class RESTModel {
         UserModel[] userArray = gson.fromJson(arr, UserModel[].class);
         ArrayList<UserModel> lista = new ArrayList<>(Arrays.asList(userArray));
         
-        //System.out.println("lista: " +lista);
-        
         Vector<Vector<Object>> users = new Vector<>();
         for(UserModel usermodel: lista) {
             
             Vector<Object> user = new Vector<>();
-            
+
             user.add(usermodel.username);
             user.add(usermodel.email);
             user.add(usermodel.phone);
+            user.add(usermodel.id);
             
             users.add(user);
             
         }
-        //System.out.println(users);
-        
         return users;
     }
     public Vector<Vector<Object>> tryAdvertisments(String token, String search_text, String ad_method) {
@@ -189,7 +178,6 @@ public class RESTModel {
         }else {
             throw new RuntimeException("Http válasz: " + responseCode);
         }
-        //System.out.println(text);
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -199,9 +187,7 @@ public class RESTModel {
         
         AdvertismentModel[] adArray = gson.fromJson(arr, AdvertismentModel[].class);
         ArrayList<AdvertismentModel> lista = new ArrayList<>(Arrays.asList(adArray));
-        
-        //System.out.println("lista: " +lista);
-        
+
         Vector<Vector<Object>> advertisments = new Vector<>();
         for(AdvertismentModel advertismentmodel: lista) {
             
@@ -215,7 +201,8 @@ public class RESTModel {
             advertisments.add(advertisment);
             
         }
-        //System.out.println(advertisments);
+
+        responseMdl.setData(ad_method, responseCode);
         
         return advertisments;
     }

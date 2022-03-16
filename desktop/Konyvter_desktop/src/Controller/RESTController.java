@@ -27,7 +27,7 @@ public class RESTController {
     public Vector<Vector<Object>> getUsers() {
         Vector<Vector<Object>> users = new Vector<>();
         
-        users = restMdl.tryUsers(token, search_text);
+        users = restMdl.tryUsers(token, search_text, method);
         
         return users;
     }
