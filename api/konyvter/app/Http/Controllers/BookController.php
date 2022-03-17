@@ -55,7 +55,7 @@ class BookController extends BaseController{
                         ->select('id')
                         ->where('genre', '=', $genre)
                         ->get();
-                    $bgswitch = Bgswitch::create([
+                    Bgswitch::create([
                         'book_id' => $book->id,
                         'genre_id' => $genreid[0]->id,
                     ]);
@@ -124,14 +124,14 @@ class BookController extends BaseController{
                         ->select('id')
                         ->where('genre', '=', $genre)
                         ->get();
-                    $bgswitch = Bgswitch::create([
+                    Bgswitch::create([
                         'book_id' => $book->id,
                         'genre_id' => $genreid[0]->id,
                     ]);
                 }
                 return $this->sendResponse($book->id, "Könyv módosítva");
             } catch (\Throwable $e) {
-                return $this->sendError("Hiba a kiírás során", $e);
+                return $this->sendError("Hiba a módosítás során", $e);
             }
         }else{
             return $this->sendResponse($exist_id, "Már van ilyen könyv");

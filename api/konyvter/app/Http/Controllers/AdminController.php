@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Advertisement;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends BaseController{
 
@@ -63,38 +64,6 @@ class AdminController extends BaseController{
                 return $this->sendError("Nincs találat a keresésre");
             }
             return $this->sendResponse($users, "Keresési találatok betöltve");
-        }else{
-            return $this->sendError("Nincsen admin jogosultsága");
-        }
-    }
-    public function deleteads($id){
-        if(auth( "sanctum" )->user()->admin){
-            if( is_null(Advertisement::find($id))){
-                return $this->sendError("Nincs ilyen hirdetés");
-            }
-            Advertisement::destroy($id);
-            return $this->sendResponse([], "A hirdetés törölve");
-        }else{
-            return $this->sendError("Nincsen admin jogosultsága");
-        }
-    }
-    public function deleteuser($id){
-        $user = auth( "sanctum" )->user();
-        if($user->admin){
-            if( is_null(User::find($id))){
-                return $this->sendError("Nincs ilyen felhasználó");
-            } elseif($user->id == $id){
-                return $this->sendError("Az admin nem törölhető");
-            }
-            $adid = DB::table('advertisements')
-                ->select('advertisements.id')
-                ->where('advertisements.user_id', '=', $id)
-                ->get();
-            foreach ($adid as $aid) {
-                Advertisement::destroy($aid->id);
-            }
-            User::destroy($id);
-            return $this->sendResponse([], "A felhasználó és a hozzá tartozó hirdetések törölve");
         }else{
             return $this->sendError("Nincsen admin jogosultsága");
         }
