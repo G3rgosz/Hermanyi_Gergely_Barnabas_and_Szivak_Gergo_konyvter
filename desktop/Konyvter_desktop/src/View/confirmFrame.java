@@ -12,9 +12,7 @@ import javax.swing.JButton;
  */
 public class confirmFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form confirmFrame
-     */
+
     public confirmFrame() {
         initComponents();
     }
@@ -40,6 +38,7 @@ public class confirmFrame extends javax.swing.JFrame {
         questionLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(360, 240));
 
         northPnl.setPreferredSize(new java.awt.Dimension(559, 20));
 
@@ -47,7 +46,7 @@ public class confirmFrame extends javax.swing.JFrame {
         northPnl.setLayout(northPnlLayout);
         northPnlLayout.setHorizontalGroup(
             northPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
         northPnlLayout.setVerticalGroup(
             northPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,7 +65,7 @@ public class confirmFrame extends javax.swing.JFrame {
         );
         eastPnlLayout.setVerticalGroup(
             eastPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addGap(0, 240, Short.MAX_VALUE)
         );
 
         getContentPane().add(eastPnl, java.awt.BorderLayout.LINE_END);
@@ -98,7 +97,7 @@ public class confirmFrame extends javax.swing.JFrame {
         );
         westPnlLayout.setVerticalGroup(
             westPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addGap(0, 240, Short.MAX_VALUE)
         );
 
         getContentPane().add(westPnl, java.awt.BorderLayout.LINE_START);
@@ -106,7 +105,7 @@ public class confirmFrame extends javax.swing.JFrame {
         centerPnl.setLayout(new java.awt.GridLayout(1, 0));
 
         questionLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        questionLbl.setText("jLabel1");
+        questionLbl.setText("Biztosan törli a kiválasztott elemet?");
         centerPnl.add(questionLbl);
 
         getContentPane().add(centerPnl, java.awt.BorderLayout.CENTER);

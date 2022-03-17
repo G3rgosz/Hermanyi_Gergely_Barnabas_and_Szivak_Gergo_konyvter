@@ -2,6 +2,7 @@ package Controller;
 
 import Model.RESTModel;
 import Model.ViewModel;
+import View.confirmFrame;
 import View.mainFrame;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +11,7 @@ import javax.swing.table.TableModel;
 public class GuiController {
 
     private mainFrame mainFrm;
+    private confirmFrame confirmFrm;
     private RESTModel restMdl;
     private ViewModel viewMdl;
     private Vector<Vector<Object>> tableData;
@@ -18,25 +20,36 @@ public class GuiController {
     public GuiController(RESTController restCtr) {
         
         this.restCtr = restCtr;
-        //restMdl = new RESTModel();
         viewMdl = new ViewModel();
-        initWindow();
+        initFrames();
         ActionListeners();
-        new Thread(runner).start();
-        
+        ThreadStarter();
     }
     private void ActionListeners() {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
-        mainFrm.getDeleteBtn().addActionListener( event -> { delete(); } );
+        mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmFrame(); } );
         mainFrm.getAdminBtn().addActionListener(event -> { addAdmin(); });
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
         mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
-
+        
+        confirmFrm.getConfirmBtn().addActionListener( event -> { delete(); } );
+        confirmFrm.getCancelBtn().addActionListener( event -> { disposeConfrimFrame(); } );
     }
-    private void initWindow() {
+    private void initFrames() {
         mainFrm = new mainFrame();
         mainFrm.setVisible(true);
+        
+        confirmFrm = new confirmFrame();
+        
         initTables();
+    }
+
+    private void initConfirmFrame() {
+        confirmFrm.setVisible(true);
+        confirmFrm.setAlwaysOnTop(true);
+    }
+    private void disposeConfrimFrame() {
+        confirmFrm.dispose();
     }
     private void initTables() {
     
@@ -53,8 +66,10 @@ public class GuiController {
                 tableData = restCtr.getAdvertisments();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 mainFrm.getAdvertismentTbl().setModel(tableMdl);
-        }
-        
+        }   
+    }
+    private void ThreadStarter() {
+        new Thread(runner).start();
     }
 
     private void search() {
@@ -78,44 +93,38 @@ public class GuiController {
     
         
     }
-    //TODO: befejezni a törlést
+    
+    //TODO: úgy törölni felhasználót vagy hirdetést hogy nincs megjelenítve a GUI-n az id
     private void delete() {
         int openTab = mainFrm.getTableTb().getSelectedIndex();
-        int row = mainFrm.getAdvertismentTbl().getSelectedRow();
-        String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
-        System.out.println(value);
         String method = "DELETE";
         if(openTab == 0) {
             deleteUser(method);
         }else {
             deleteAdvertisment(method);
         }
+        confirmFrm.dispose();
     }
-    //TODO: id szükséges a törléshez, de nem kapunk a REST API-tól. Szükséges egyeztetni a Backend fejlesztővel
     private void deleteUser(String method) {
         int row = mainFrm.getUserTbl().getSelectedRow();
-        String value = mainFrm.getUserTbl().getModel().getValueAt(row, 0).toString();
-        
+        String value = mainFrm.getUserTbl().getModel().getValueAt(row, 3).toString();
+
         restCtr.setData(value, method);
         initTables();
     }
     private void deleteAdvertisment(String method) {
         int row = mainFrm.getAdvertismentTbl().getSelectedRow();
         String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
-        
+
         restCtr.setData(value, method);
         initTables();
     }
 
-    Runnable runner = new Runnable() {
-        @Override
-        public void run() {
-            timer();
-        }
+    Runnable runner = () -> {
+        timer();
     };
     public void timer() {
         boolean time = true;
-        //for(;;) {        }
         while(time) {
                initTables();
                try {

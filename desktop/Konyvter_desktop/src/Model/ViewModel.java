@@ -10,6 +10,7 @@ public class ViewModel {
         columnNames.add("Felhasználónév");
         columnNames.add("Email, cím");
         columnNames.add("telefonszám");
+        columnNames.add("Azonosító");
         
         return columnNames;
     }
