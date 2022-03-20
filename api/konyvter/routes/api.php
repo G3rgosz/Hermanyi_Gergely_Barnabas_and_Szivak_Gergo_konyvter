@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AdvertisementController;
@@ -21,16 +22,21 @@ use App\Http\Controllers\AdvertisementController;
 Route::group(["middleware" => ["auth:sanctum"]], function(){
     Route::post("/logout", [AuthController::class, "logout"]);
 
+    Route::put("/account/{id?}", [AccountController::class, "update"]);
+    Route::delete("/account/{id?}", [AccountController::class, "delete"]);
+
     Route::get("/admin/reportedads", [AdminController::class, "reportedads"]);
     Route::get("/admin/users", [AdminController::class, "users"]);
     Route::get("/admin/reportedads/{adtitle}", [AdminController::class, "searchads"]);
     Route::get("/admin/users/{username}", [AdminController::class, "searchuser"]);
-    Route::delete("/admin/reportedads/{id}", [AdminController::class, "deleteads"]);
-    Route::delete("/admin/users/{id}", [AdminController::class, "deleteuser"]);
 
     Route::post("/web/books", [BookController::class, "create"]);
+    Route::put("/web/books/{id}", [BookController::class, "update"]);
+    Route::delete("/web/books/{id}", [BookController::class, "delete"]);
 
     Route::post("/web/advertisements", [AdvertisementController::class, "create"]);
+    Route::put("/web/advertisements/{id}", [AdvertisementController::class, "update"]);
+    Route::delete("/web/advertisements/{id}", [AdvertisementController::class, "delete"]);
 }); 
 Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
@@ -40,5 +46,6 @@ Route::get("/web/books/{id}", [BookController::class, "show"]);
 
 Route::get("/web/advertisements", [AdvertisementController::class, "index"]);
 Route::get("/web/advertisements/{id}", [AdvertisementController::class, "show"]);
+Route::post("/web/advertisements/filter", [AdvertisementController::class, "filter"]);
 
 
