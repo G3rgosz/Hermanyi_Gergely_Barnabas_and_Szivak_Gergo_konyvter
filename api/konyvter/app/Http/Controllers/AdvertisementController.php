@@ -22,7 +22,7 @@ class AdvertisementController extends BaseController{
             "adtitle" => "required|max:50",
             "description" => "required",
             "price" => "required|integer",
-            'image' => 'required|image:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image:jpeg,png,jpg,gif,svg|max:8192',
             "book_id" => "required|integer",
         ]);
         if($validator->fails()){
@@ -36,7 +36,7 @@ class AdvertisementController extends BaseController{
                 "book_id" => $input['book_id'],
                 "user_id" => auth( "sanctum" )->user()->id
             ]);
-            $destination = 'public/images/'.auth( "sanctum" )->user()->username.'/'.$advertisement->id.'/';
+            $destination = 'public/images/'.auth( "sanctum" )->user()->username.'/'.$advertisement->id;
             $path = Storage::put($destination, $input['image']);
             $advertisement->picturepath = Storage::url($path);
             $advertisement->save();
@@ -64,7 +64,7 @@ class AdvertisementController extends BaseController{
                 "adtitle" => "required|max:50",
                 "description" => "required",
                 "price" => "required|integer",
-                'image' => 'required|image:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'required|image:jpeg,png,jpg,gif,svg|max:8192',
                 "book_id" => "required|integer",
             ]);
             if($validator->fails()){
@@ -78,7 +78,7 @@ class AdvertisementController extends BaseController{
                     "book_id" => $input['book_id'],
                     "user_id" => $user->id
                 ]);
-                $destination = 'public/images/'.$user->username.'/'.$advertisement->id.'/';
+                $destination = 'public/images/'.$user->username.'/'.$advertisement->id;
                 $files = Storage::files($destination);
                 Storage::delete($files);
                 $path = Storage::put($destination, $input['image']);
@@ -99,7 +99,7 @@ class AdvertisementController extends BaseController{
             return $this->sendError("Nincs ilyen hirdetés");
         }elseif($advertisement->user_id == $user->id || $user->admin){
             try {
-                $destination = 'public/images/'.$user->username.'/'.$advertisement->id.'/';
+                $destination = 'public/images/'.$user->username.'/'.$advertisement->id;
                 Storage::deleteDirectory($destination);
                 Advertisement::destroy($id);
                 return $this->sendResponse([], "A hirdetés törölve");
@@ -201,6 +201,7 @@ class AdvertisementController extends BaseController{
                 $adData = array_intersect($adData, $filterData);
             }
         }
+        $advertisements = null;
         foreach ($adData as $id){
             $advertisement = DB::table('advertisements')
                 ->select('*')
