@@ -45,13 +45,8 @@ public class mainFrame extends javax.swing.JFrame {
         southPnl = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         deleteBtn = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        adminBtn = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         statusLbl = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         exitBtn = new javax.swing.JButton();
         westPnl = new javax.swing.JPanel();
@@ -140,11 +135,6 @@ public class mainFrame extends javax.swing.JFrame {
 
         searchBtn.setText("Keresés");
         searchBtn.setPreferredSize(new java.awt.Dimension(100, 35));
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
         jPanel7.add(searchBtn);
 
         northPnl.add(jPanel7);
@@ -165,36 +155,15 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel1.add(eastPnl, java.awt.BorderLayout.LINE_END);
 
         southPnl.setPreferredSize(new java.awt.Dimension(678, 50));
-        southPnl.setLayout(new java.awt.GridLayout(1, 7));
+        southPnl.setLayout(new java.awt.GridLayout(1, 3));
 
-        jPanel14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 2));
+        jPanel14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 2));
 
         deleteBtn.setText("Törlés");
         deleteBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel14.add(deleteBtn);
 
         southPnl.add(jPanel14);
-
-        jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 2));
-
-        adminBtn.setText("Hozzáadás");
-        adminBtn.setPreferredSize(new java.awt.Dimension(100, 35));
-        jPanel5.add(adminBtn);
-
-        southPnl.add(jPanel5);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 137, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        southPnl.add(jPanel6);
 
         jPanel16.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
 
@@ -205,33 +174,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         southPnl.add(jPanel16);
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 137, Short.MAX_VALUE)
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        southPnl.add(jPanel15);
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 137, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        southPnl.add(jPanel13);
-
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 2));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 20, 2));
 
         exitBtn.setText("Kilépés");
         exitBtn.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -367,10 +310,6 @@ public class mainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchBtnActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -407,7 +346,6 @@ public class mainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton adminBtn;
     private javax.swing.JPanel advertismentTb;
     private javax.swing.JTable advertismentTbl;
     private javax.swing.JPanel centerPnl;
@@ -418,9 +356,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
@@ -428,8 +364,6 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -445,10 +379,6 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JTable userTbl;
     private javax.swing.JPanel westPnl;
     // End of variables declaration//GEN-END:variables
-    public JButton getAdminBtn() {
-        return adminBtn;
-    }
-
     public JButton getDeleteBtn() {
         return deleteBtn;
     }

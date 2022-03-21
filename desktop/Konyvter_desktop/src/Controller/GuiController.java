@@ -4,6 +4,7 @@ import Model.RESTModel;
 import Model.ViewModel;
 import View.confirmFrame;
 import View.mainFrame;
+import java.awt.Color;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -28,7 +29,6 @@ public class GuiController {
     private void ActionListeners() {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
         mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmFrame(); } );
-        mainFrm.getAdminBtn().addActionListener(event -> { addAdmin(); });
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
         mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
         
@@ -43,7 +43,6 @@ public class GuiController {
         
         initTables();
     }
-
     private void initConfirmFrame() {
         confirmFrm.setVisible(true);
         confirmFrm.setAlwaysOnTop(true);
@@ -71,16 +70,14 @@ public class GuiController {
     private void ThreadStarter() {
         new Thread(runner).start();
     }
-
     private void search() {
         int openTab = mainFrm.getTableTb().getSelectedIndex();
         String search_text = mainFrm.getSearchTf().getText();
-        String method = "GET";
         if(openTab == 0) {
-            restCtr.setData(search_text, method);
+            restCtr.setSearchData(search_text);
             initTables();
         }else {
-            restCtr.setData(search_text, method);
+            restCtr.setSearchData(search_text);
             initTables();
         }
     }
@@ -88,42 +85,46 @@ public class GuiController {
         restCtr.Logout();
         System.exit(0);
     }
-    //TODO
-    private void addAdmin() {
-    
-        
-    }
-    
-    //TODO: úgy törölni felhasználót vagy hirdetést hogy nincs megjelenítve a GUI-n az id
     private void delete() {
         int openTab = mainFrm.getTableTb().getSelectedIndex();
-        String method = "DELETE";
         if(openTab == 0) {
-            deleteUser(method);
+            deleteUser();
         }else {
-            deleteAdvertisment(method);
+            deleteAdvertisment();
         }
         confirmFrm.dispose();
     }
-    private void deleteUser(String method) {
+    private void deleteUser() {
         int row = mainFrm.getUserTbl().getSelectedRow();
         String value = mainFrm.getUserTbl().getModel().getValueAt(row, 3).toString();
-
-        restCtr.setData(value, method);
+        restCtr.setDeleteData(value);
+        
+        boolean success = restCtr.DeleteUser();
+        if(success) {
+            mainFrm.setStatusLbl("Sikeres felhasználó és hozzá tartozó hirdetések törlése");
+        }else{
+            mainFrm.setStatusLbl("Sikertelen felhasználó törlés");
+        }
         initTables();
     }
-    private void deleteAdvertisment(String method) {
+    private void deleteAdvertisment() {
         int row = mainFrm.getAdvertismentTbl().getSelectedRow();
         String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
-
-        restCtr.setData(value, method);
+        restCtr.setDeleteData(value);
+        
+        boolean success = restCtr.DeleteAdvertisment();
+        if( success ) {
+            mainFrm.setStatusLbl("Sikeres hirdetés törlés");
+        }else {
+            mainFrm.setStatusLbl("Sikertelen hirdetés törlés");
+        }
         initTables();
     }
-
+    
     Runnable runner = () -> {
         timer();
     };
-    public void timer() {
+    private void timer() {
         boolean time = true;
         while(time) {
                initTables();

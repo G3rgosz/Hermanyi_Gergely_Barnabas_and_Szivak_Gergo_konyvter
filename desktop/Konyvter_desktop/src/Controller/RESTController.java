@@ -8,13 +8,13 @@ public class RESTController {
     private RESTModel restMdl;
     private String token;
     private String search_text;
-    private String method;
+    private String id;
     
     public RESTController() {
         restMdl = new RESTModel();
         token = getToken();
         search_text = "";
-        method = "GET";
+        id = "";
     }
     private String getToken() {
         String token = restMdl.tryLogin();
@@ -27,20 +27,31 @@ public class RESTController {
     public Vector<Vector<Object>> getUsers() {
         Vector<Vector<Object>> users = new Vector<>();
         
-        users = restMdl.tryUsers(token, search_text, method);
+        users = restMdl.tryUsers(token, search_text);
         
         return users;
     }
     public Vector<Vector<Object>> getAdvertisments() {
         Vector<Vector<Object>> advertisments = new Vector<>();
         
-        advertisments = restMdl.tryAdvertisments(token, search_text, method);
+        advertisments = restMdl.tryAdvertisments(token, search_text);
         
         return advertisments;
     }
-    public void setData(String search_text, String method) {
+    public Boolean DeleteUser() {
+        boolean success = restMdl.tryDeleteUsers(token, id);
+        return success;
+    }
+    public Boolean DeleteAdvertisment() {
+        
+        boolean success = restMdl.tryDeleteAdvertisments(token, id);
+        return success;
+    }
+    public void setSearchData(String search_text) {
         
         this.search_text = search_text;
-        this.method = method;
+    }
+    public void setDeleteData(String id) {
+        this.id = id;
     }
 }

@@ -19,12 +19,6 @@ import java.util.Vector;
 
 public class RESTModel {
 
-    private ResponseModel responseMdl;
-
-    public RESTModel() {
-        responseMdl = new ResponseModel();
-    }
-    
     public String tryLogin() {
         String result = "";
         try {
@@ -87,31 +81,25 @@ public class RESTModel {
         
         OutputStream stream = conn.getOutputStream();
         stream.write(out);
-        
-        String text = "";
-        text = new String(
-                conn.getInputStream().readAllBytes(), 
-                StandardCharsets.UTF_8);
-        
-        System.out.println(text);
+
     }
 
-    public Vector<Vector<Object>> tryUsers(String token, String search_text, String method) {
+    public Vector<Vector<Object>> tryUsers(String token, String search_text) {
         Vector<Vector<Object>> users = new Vector<>();
         try {
-            users = Users(token, search_text, method);
+            users = Users(token, search_text);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return users;
     }
-    private Vector<Vector<Object>> Users(String token, String search_text, String method) throws Exception{
+    private Vector<Vector<Object>> Users(String token, String search_text) throws Exception{
     
         URL url = new URL("http://localhost:8000/api/admin/users/" + search_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
         conn.setRequestProperty("Authorization", "Bearer " +token);
-        conn.setRequestMethod(method);
+        conn.setRequestMethod("GET");
         conn.setDoOutput(true);
 
         conn.connect();
@@ -150,21 +138,21 @@ public class RESTModel {
         }
         return users;
     }
-    public Vector<Vector<Object>> tryAdvertisments(String token, String search_text, String ad_method) {
+    public Vector<Vector<Object>> tryAdvertisments(String token, String search_text) {
         Vector<Vector<Object>> advertisments = new Vector<>();
         try {
-            advertisments = Advertisments(token, search_text, ad_method);
+            advertisments = Advertisments(token, search_text);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return advertisments;
     }
-    private Vector<Vector<Object>> Advertisments(String token, String search_text, String ad_method) throws Exception{
+    private Vector<Vector<Object>> Advertisments(String token, String search_text) throws Exception{
         URL url = new URL("http://localhost:8000/api/admin/reportedads/" + search_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
         conn.setRequestProperty("Authorization", "Bearer " +token);
-        conn.setRequestMethod(ad_method);
+        conn.setRequestMethod("GET");
         conn.setDoOutput(true);
 
         conn.connect();
@@ -201,10 +189,61 @@ public class RESTModel {
             advertisments.add(advertisment);
             
         }
-
-        responseMdl.setData(ad_method, responseCode);
-        
         return advertisments;
+    }
+    
+    public Boolean tryDeleteUsers(String token, String id) {
+        boolean success = false;
+        try {
+            success = DeleteUsers(token, id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return success;
+    }
+    private Boolean DeleteUsers(String token, String id) throws Exception{
+    
+        URL url = new URL("http://localhost:8000/api/account/" + id);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        
+        conn.setRequestProperty("Authorization", "Bearer " +token);
+        conn.setRequestMethod("DELETE");
+        conn.setDoOutput(true);
+
+        conn.connect();
+        
+        boolean success = false;
+        int responseCode = conn.getResponseCode();
+        if(responseCode == 200) {
+            success = true;
+        }
+        return success;
+    }
+    public Boolean tryDeleteAdvertisments(String token, String id) {
+        boolean success = false;
+        try {
+            success = DeleteAdvertisments(token, id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return success;
+    }
+    private Boolean DeleteAdvertisments(String token, String id) throws Exception{
+        URL url = new URL("http://localhost:8000/api/web/advertisements/" + id);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        
+        conn.setRequestProperty("Authorization", "Bearer " +token);
+        conn.setRequestMethod("DELETE");
+        conn.setDoOutput(true);
+
+        conn.connect();
+        
+        int responseCode = conn.getResponseCode();
+        boolean success = false;
+        if(responseCode == 200) {
+            success = true;
+        }
+        return success;
     }
 
 }
