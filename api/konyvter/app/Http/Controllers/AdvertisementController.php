@@ -100,7 +100,9 @@ class AdvertisementController extends BaseController{
             try {
                 $destination = 'public/images/'.$user->username.'/'.$advertisement->id;
                 Storage::deleteDirectory($destination);
+                $book_id = $advertisement->book_id;
                 Advertisement::destroy($id);
+                (new BookController)->delete($book_id);
                 return $this->sendResponse([], "A hirdetés törölve");
             } catch (\Throwable $e) {
                 return $this->sendError("Hiba a törlés során", $e);
