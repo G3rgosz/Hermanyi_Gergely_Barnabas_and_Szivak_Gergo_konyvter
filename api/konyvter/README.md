@@ -29,22 +29,24 @@ Végpont | Metódus | Hitelesítés | Siker
 /api/register | POST | nem | 200 OK |
 /api/login | POST | nem | 200 OK |
 /api/logout | POST | igen | 200 OK |
-/api/admin/reportedads | GET | igen/admin | 200 OK |
-/api/admin/users | GET | igen/admin | 200 OK |
-/api/admin/reportedads/{adtitle} | GET | igen/admin | 200 OK |
-/api/admin/users/{username} | GET | igen/admin | 200 OK |
+/api/admin/reportedads | GET | igen & admin | 200 OK |
+/api/admin/users | GET | igen & admin | 200 OK |
+/api/admin/reportedads/{adtitle} | GET | igen & admin | 200 OK |
+/api/admin/users/{username} | GET | igen & admin | 200 OK |
+/api/admin/reportedads/remove/{id} | PUT | igen & admin | 200 OK |
 /api/web/books | GET | nem | 200 OK |
 /api/web/books | POST | igen | 200 OK |
 /api/web/books/{id} | GET | nem | 200 OK |
 /api/web/books/{id} | PUT | igen | 200 OK |
 /api/web/books/{id} | DELETE | igen | 200 OK |
-/api/account/{id?} | PUT | igen | 200 OK |
-/api/account/{id?} | DELETE | igen | 200 OK |
+/api/account/{id?} | PUT | igen/user vagy admin | 200 OK |
+/api/account/{id?} | DELETE | igen/user vagy admin | 200 OK |
 /api/web/advertisements | GET | nem | 200 OK |
 /api/web/advertisements | POST | igen | 200 OK |
 /api/web/advertisements/{id} | GET | nem | 200 OK |
 /api/web/advertisements/{id} | POST/_method:PUT | igen | 200 OK |
-/api/web/advertisements/{id} | DELETE | igen | 200 OK |
+/api/web/advertisements/report/{id} | PUT | igen | 200 OK |
+/api/web/advertisements/{id} | DELETE | igen/user vagy admin | 200 OK |
 /api/web/advertisements/filter | POST | nem | 200 OK |
 
 ### Megjegyzés a végpontokhoz

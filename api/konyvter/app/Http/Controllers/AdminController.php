@@ -68,4 +68,23 @@ class AdminController extends BaseController{
             return $this->sendError("Nincsen admin jogosultsága");
         }
     }
+    public function removeReport($id){
+        if(auth( "sanctum" )->user()->admin){
+            $advertisement = Advertisement::find($id);
+            if(is_null($advertisement)){
+                return $this->sendError("Nincs ilyen hirdetés");
+            }elseif($advertisement->badcontent == null){
+                return $this->sendError("A hirdetés nincs jelentve");
+            }
+            try {
+                $advertisement->badcontent = null;
+                $advertisement->save();
+                return $this->sendResponse($advertisement->badcontent, "Minden rendben! Jelentés visszavonva.");
+            } catch (\Throwable $e) {
+                return $this->sendError("Hiba a visszavonás során", $e);
+            }
+        }else{
+            return $this->sendError("Nincsen admin jogosultsága");
+        }
+    }
 }

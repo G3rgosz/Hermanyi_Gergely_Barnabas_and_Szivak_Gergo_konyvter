@@ -73,7 +73,7 @@ class AccountController extends BaseController{
                 try {
                     $destination = 'public/images/'.$account->username;
                     Storage::deleteDirectory($destination);
-                    Advertisement::destroy($adid->id);
+                    (new AdvertisementController)->delete($adid->id);
                 } catch (\Throwable $e) {
                     return $this->sendError("Hiba a hirdetések törlése során", $e);
                 }
@@ -81,8 +81,12 @@ class AccountController extends BaseController{
             DB::table('personal_access_tokens')
                 ->where('tokenable_id', '=', $account->id)
                 ->delete();
-            User::destroy($account->id);
-            return $this->sendResponse([], "A felhasználó és a hozzá tartozó hirdetések törölve");
+            try {
+                User::destroy($account->id);
+                return $this->sendResponse([], "A felhasználó és a hozzá tartozó hirdetések törölve");
+            } catch (\Throwable $e) {
+                return $this->sendError("Hiba a felhasználó törlése során", $e);
+            }
         }else{
             return $this->sendError("Ez nem az ön fiókja és nincs admin jogosultsága ezért nem törölheti");
         }

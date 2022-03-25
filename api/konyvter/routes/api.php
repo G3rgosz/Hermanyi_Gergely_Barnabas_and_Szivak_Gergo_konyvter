@@ -29,6 +29,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function(){
     Route::get("/admin/users", [AdminController::class, "users"]);
     Route::get("/admin/reportedads/{adtitle}", [AdminController::class, "searchads"]);
     Route::get("/admin/users/{username}", [AdminController::class, "searchuser"]);
+    Route::put("/admin/reportedads/remove/{id}", [AdminController::class, "removeReport"]);
 
     Route::post("/web/books", [BookController::class, "create"]);
     Route::put("/web/books/{id}", [BookController::class, "update"]);
@@ -36,6 +37,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function(){
 
     Route::post("/web/advertisements", [AdvertisementController::class, "create"]);
     Route::put("/web/advertisements/{id}", [AdvertisementController::class, "update"]);
+    Route::put("/web/advertisements/report/{id}", [AdvertisementController::class, "reportAd"]);
     Route::delete("/web/advertisements/{id}", [AdvertisementController::class, "delete"]);
 }); 
 Route::post("/register", [AuthController::class, "register"]);
