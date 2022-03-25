@@ -52,7 +52,6 @@ class AdvertisementController extends BaseController{
         }
         return $this->sendResponse( $advertisement, "Hirdetés betöltve");
     }
-    //https://laravel.io/forum/02-13-2014-i-can-not-get-inputs-from-a-putpatch-request
     public function update(Request $request, $id){
         $advertisement = Advertisement::find($id);
         $user = auth( "sanctum" )->user();
@@ -108,6 +107,26 @@ class AdvertisementController extends BaseController{
             }
         }else{
             return $this->sendError("Ez nem az ön hirdetése és nincs admin jogosultsága ezért nem törölheti");
+        }
+    }
+    public function reportAd(Request $request, $id){
+        $advertisement = Advertisement::find($id);
+        if(is_null($advertisement)){
+            return $this->sendError("Nincs ilyen hirdetés");
+        }
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            "badcontent" => "required|min:20"
+        ]);
+        if($validator->fails()){
+            return $this->sendError($validator->errors());
+        }
+        try {
+            $advertisement->badcontent = $input["badcontent"];
+            $advertisement->save();
+            return $this->sendResponse(new AdvertisementResource($advertisement), "Hirdetés jelentve");
+        } catch (\Throwable $e) {
+            return $this->sendError("Hiba a jelentés során", $e);
         }
     }
     public function filter(Request $request){
