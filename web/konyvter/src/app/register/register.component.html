@@ -1,0 +1,29 @@
+
+<div class="mt-5">
+      <h2>Regisztráció</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="mail">
+                  <span *ngIf="registerForm.controls['mail'].invalid && registerForm.controls['mail'].touched">Az e-mail cím kötelező</span>
+            </div>
+            <div class="mb-3">
+                  <label for="user" class="form-label">Felhasználónév</label>
+                  <input type="text" class="form-control" id="user" formControlName="user">
+                  <span *ngIf="registerForm.controls['user'].invalid && registerForm.controls['user'].touched">A felhasználónév kötelező</span>
+            </div>
+            <div class="mb-3">            
+                  <label for="exampleInputPassword1" class="form-label">Jelszó</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" formControlName="pass">
+                  <span *ngIf="registerForm.controls['pass'].invalid && registerForm.controls['pass'].touched">A jelszó kötelező</span>
+            </div>
+            <div class="mb-3">            
+                  <label for="exampleInputPassword2" class="form-label">Jelszó újra</label>
+                  <input type="password" class="form-control" id="exampleInputPassword2" formControlName="pass2">
+                  <span *ngIf="registerForm.controls['pass2'].invalid && registerForm.controls['pass2'].touched">A jelszó kötelező</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Regisztráció</button>
+        </form>
+</div>
+
+
