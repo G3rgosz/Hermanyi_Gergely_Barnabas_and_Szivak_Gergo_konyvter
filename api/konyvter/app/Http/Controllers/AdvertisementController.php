@@ -131,6 +131,16 @@ class AdvertisementController extends BaseController{
             return $this->sendError("Hiba a jelentés során", $e);
         }
     }
+    public function getMyAds(){
+        $user = auth("sanctum")->user();
+        $advertisements = DB::table('advertisements')
+            ->where('user_id', '=', $user->id)
+            ->get();
+        if(count($advertisements)==0){
+            return $this->sendError("Jelenleg még nincsenek hirdetéseid");
+        }
+        return $this->sendResponse( $advertisements, "Hirdetéseid betöltve");
+    }
     public function filter(Request $request){
         $input = $request->all();
         $validator = Validator::make($input, [
