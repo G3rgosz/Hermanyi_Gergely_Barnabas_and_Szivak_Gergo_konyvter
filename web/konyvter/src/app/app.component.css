@@ -1,10 +1,9 @@
-
+body{
+    font-family: Georgia, serif;
+}
 .navbar-brand{
     font-family: Georgia, serif;
     font-weight: bold;
-}
-.nav-item{
-    font-family: Georgia, serif;
 }
 .bi-gear{
     color: black;
@@ -15,8 +14,6 @@
     border-color: black;
 }
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    margin-top: 20px;
     width: 100%;
 }

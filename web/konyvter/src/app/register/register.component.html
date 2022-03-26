@@ -23,6 +23,11 @@
                         <input type="password" class="form-control" id="exampleInputPassword2" formControlName="pass2">
                         <span *ngIf="registerForm.controls['pass2'].invalid && registerForm.controls['pass2'].touched">A jelszó kötelező</span>
                   </div>
+                  <div class="mb-3">
+                        <label for="phone" class="form-label">Telefonszám</label>
+                        <input type="text" class="form-control" id="phone" formControlName="phone">
+                        <span *ngIf="registerForm.controls['phone'].invalid"></span>
+                  </div>
                   <button type="submit" class="btn book-bg2">Regisztráció</button>
             </form>
       </div>

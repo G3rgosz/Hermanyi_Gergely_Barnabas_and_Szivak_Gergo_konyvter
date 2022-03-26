@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
       mail: new FormControl('', [Validators.required, Validators.email]),
       user: new FormControl('', [Validators.required, Validators.pattern('[a-zéáűőúöüóA-ZÉÁŰŐÚÖÜÓ0-9]+')]),
       pass: new FormControl('', Validators.required),
-      pass2: new FormControl('', Validators.required)
+      pass2: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.pattern('[0-9]{11}'))
     });
   }
   register(){
@@ -30,17 +31,16 @@ export class RegisterComponent implements OnInit {
     let user = this.registerForm.value.user;
     let pass = this.registerForm.value.pass;
     let pass2 = this.registerForm.value.pass2;
+    let phone = this.registerForm.value.phone;
 
-    this.auth.register(mail, user, pass, pass2)
-    .subscribe(res => {
-      console.log(res);
-      if (res.success) {
-        // console.log(res.success);
+    this.auth.register(mail, user, pass, pass2, phone)
+    .subscribe(
+      (res) => {
         alert("Sikeres regisztráció!");
         this.router.navigate(['']);
-      }else{
+      }, (error) => {
+        console.error(error);
         alert("A regisztráció sikertelen!");
-      }
-    })
+      })
   }
 }

@@ -9,13 +9,25 @@ export class AuthService {
   host = 'http://localhost:8000/api/';
   constructor(private http: HttpClient,private router: Router) { }
 
-  register(mail: string, user: string, pass: string, pass2: string) {
-    
-    let authData = {
-      email: mail,
-      username: user,
-      password: pass,
-      confirm_password: pass2
+  register(mail: string, user: string, pass: string, pass2: string, phone: string) {
+
+    let authData;
+
+    if(phone == ""){
+      authData = {
+        email: mail,
+        username: user,
+        password: pass,
+        confirm_password: pass2
+      }
+    }else{
+      authData = {
+        email: mail,
+        username: user,
+        password: pass,
+        confirm_password: pass2,
+        phone: phone
+      }
     }
     let data = JSON.stringify(authData);
 

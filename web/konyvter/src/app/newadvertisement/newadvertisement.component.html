@@ -1,1 +1,62 @@
-<p>newadvertisement works!</p>
+
+<h1 class="mt-4">Hírdetésfeladás</h1>
+<div class="mt-2">
+  <form class="row g-3">
+    <h3>1.Könyv adatai</h3>
+    <div class="col-md-6">
+      <label for="title" class="form-label">Könyv címe</label>
+      <input type="text" class="form-control" id="title">
+    </div>
+    <div class="col-md-6">
+      <label for="writer" class="form-label">Író</label>
+      <input type="text" class="form-control" id="writer">
+    </div>
+    <div class="col-md-6">
+      <label for="publisher" class="form-label">Kiadó</label>
+      <input type="text" class="form-control" id="publisher">
+    </div>
+    <div class="col-md-6">
+      <label for="release" class="form-label">Megjelenési év</label>
+      <input type="text" class="form-control" id="release">
+    </div>
+    <div class="col-md-4">
+      <label for="language" class="form-label">Nyelv</label>
+      <select id="language" class="form-select">
+        <option selected>magyar</option>
+        <option>angol</option>
+        <option>német</option>
+        <option>spanyol</option>
+        <option>egyéb...</option>
+      </select>
+    </div>
+    <div class="col-12">
+      <p>Műfajok</p>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="Regény">
+        <label class="form-check-label" for="Regény">
+            Regény
+        </label>
+      </div>
+    </div>
+    <h3>2.Hirdetrés adatai adatai</h3>
+    <div class="col-md-6">
+        <label for="adtitle" class="form-label">Hirdetés címe</label>
+        <input type="text" class="form-control" id="adtitle">
+    </div>
+    <div class="col-md-6">
+        <label for="price" class="form-label">Ár</label>
+        <input type="text" class="form-control" id="price">
+    </div>
+    <div class="mb-3">
+        <label for="formFile" class="form-label">Hirdetési kép feltöltése</label>
+        <input class="form-control" type="file" id="formFile">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Leírás</label>
+        <textarea class="form-control" id="description" rows="5"></textarea>
+      </div>
+    <div class="col-12">
+      <button type="submit" class="btn book-bg2">Hirdetés feladása</button>
+    </div>
+  </form>
+</div>
