@@ -6,6 +6,9 @@
 .nav-item{
     font-family: Georgia, serif;
 }
+.bi-gear{
+    color: black;
+}
 .navbar .btn{
     border-style: solid;
     border-width: 1px;

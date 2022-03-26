@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { MainComponent } from './main/main.component';
+import { NewadvertisementComponent } from './newadvertisement/newadvertisement.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    MainComponent
+    MainComponent,
+    NewadvertisementComponent
   ],
   imports: [
     BrowserModule,

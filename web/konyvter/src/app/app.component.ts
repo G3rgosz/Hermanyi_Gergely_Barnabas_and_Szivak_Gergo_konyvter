@@ -33,6 +33,9 @@ export class AppComponent implements OnInit {
     let pass = this.loginForm.value.pass;
 
     this.loginForm.reset();
+    if(this.router.url === '/register'){
+      this.router.navigate(['']);
+    }
 
     this.auth.login(user, pass)
     .subscribe(
@@ -54,6 +57,7 @@ export class AppComponent implements OnInit {
   }
   logout(){
     this.auth.logout();
+    this.router.navigate(['']);
   }
 }
 

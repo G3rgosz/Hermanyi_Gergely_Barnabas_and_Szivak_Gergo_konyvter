@@ -18,8 +18,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div *ngIf="isLoggedIn()">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">Hirdetéseim</a>
+            </li>
+          </div>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Hirdetésfeladás</a>
+            <div *ngIf="isLoggedIn()">
+              <a class="nav-link" aria-current="page" href="/newadvertisement">Hirdetésfeladás</a>
+            </div>
+            <div *ngIf="!isLoggedIn()">
+              <a class="nav-link" aria-current="page" href="/newadvertisement" data-bs-toggle="modal" data-bs-target="#modal">Hirdetésfeladás</a>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
@@ -28,6 +38,11 @@
           </li>
         </ul>
         <div class="d-flex">
+          <div *ngIf="isLoggedIn()">
+            <a class="nav-link" aria-current="page" href="#">
+              <i class="bi bi-gear"></i>
+            </a>
+          </div>
           <div *ngIf="!isLoggedIn()">
             <a class="btn book-bg2" aria-current="page" data-bs-toggle="modal" data-bs-target="#modal">
               Bejelentkezés <i class="bi bi-box-arrow-in-right"></i>
