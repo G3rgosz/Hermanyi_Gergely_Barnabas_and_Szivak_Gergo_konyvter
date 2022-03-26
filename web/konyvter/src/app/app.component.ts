@@ -25,11 +25,14 @@ export class AppComponent implements OnInit {
       user: [''],
       pass: ['']
     });
+    this.loginForm.reset();
   }
 
   login() {
     let user = this.loginForm.value.user;
     let pass = this.loginForm.value.pass;
+
+    this.loginForm.reset();
 
     this.auth.login(user, pass)
     .subscribe(
@@ -37,14 +40,13 @@ export class AppComponent implements OnInit {
         localStorage.setItem('currentUser', 
         JSON.stringify({token: res.data.token, name: res.data.name})
         );
-        this.refresh();
       }, (error) => {
-        console.error('error caught in component');
-        this.refresh();
+        console.error(error);
         alert("A belépés sikertelen!");
       })
   }
   regpage(){
+    this.loginForm.reset();
     this.router.navigate(['register']);
   }
   isLoggedIn() {
@@ -53,8 +55,5 @@ export class AppComponent implements OnInit {
   logout(){
     this.auth.logout();
   }
-  refresh(): void {
-    window.location.reload();
-}
 }
 

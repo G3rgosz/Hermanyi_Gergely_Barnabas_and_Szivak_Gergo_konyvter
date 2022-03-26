@@ -10,7 +10,7 @@
   <!-- Nav -->
   <nav class="navbar navbar-expand-lg navbar-light book-bg1">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="">
         <i class="bi bi-book"></i> Főoldal
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +29,13 @@
         </ul>
         <div class="d-flex">
           <div *ngIf="!isLoggedIn()">
-            <a class="btn btn-outline-dark" aria-current="page" data-bs-toggle="modal" data-bs-target="#modal">
-              Bejelentkezés<i class="bi bi-box-arrow-in-right"></i>
+            <a class="btn book-bg2" aria-current="page" data-bs-toggle="modal" data-bs-target="#modal">
+              Bejelentkezés <i class="bi bi-box-arrow-in-right"></i>
             </a>
           </div>
           <div *ngIf="isLoggedIn()">
-            <a class="btn btn-outline-dark" aria-current="page" (click)="logout()">
-              Kijelentkezés<i class="bi bi-box-arrow-in-right"></i>
+            <a class="btn book-bg2" aria-current="page" (click)="logout()">
+              Kijelentkezés <i class="bi bi-box-arrow-right"></i>
             </a>
           </div>
         </div>
@@ -65,7 +65,7 @@
                   formControlName="pass">
             </div>
             <div class="modal-footer">
-              <button (click)="regpage()" class="btn btn-secondary" data-bs-dismiss="modal">Regisztráció</button>
+              <button type="button" (click)="regpage()" class="btn btn-secondary" data-bs-dismiss="modal">Regisztráció</button>
               <button type="submit" class="btn book-bg2" data-bs-dismiss="modal">Belépés</button>
             </div>
           </form>
@@ -74,8 +74,20 @@
     </div>
   </div>
   <!-- Modal vége -->
+
   <div class="container">
+
     <router-outlet></router-outlet>
+
   </div>
+
+  <!-- Footer -->
+  <footer class="footer text-center text-lg-start book-bg1">
+    <div class="text-center p-3">
+      © 2022 Copyright:
+      <a class="text-dark" href="https://github.com/Gergosz-2000/konyvter">Hermányi&Szivák</a>
+    </div>
+  </footer>
+  <!-- Footer vége-->
 </body>
 </html>

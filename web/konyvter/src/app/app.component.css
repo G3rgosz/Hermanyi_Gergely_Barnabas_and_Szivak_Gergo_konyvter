@@ -1,3 +1,19 @@
-/* .bi-box-arrow-in-right{
-    font-size: 30px;
-} */
+
+.navbar-brand{
+    font-family: Georgia, serif;
+    font-weight: bold;
+}
+.nav-item{
+    font-family: Georgia, serif;
+}
+.navbar .btn{
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
