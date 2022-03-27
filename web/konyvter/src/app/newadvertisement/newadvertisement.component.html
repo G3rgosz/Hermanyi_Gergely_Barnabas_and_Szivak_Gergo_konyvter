@@ -6,10 +6,12 @@
     <div class="col-md-6">
       <label for="title" class="form-label">Könyv címe</label>
       <input type="text" class="form-control" id="title" formControlName="title">
+      <span *ngIf="newadForm.controls['title'].invalid && newadForm.controls['title'].touched">A könyv címe kötelező</span>
     </div>
     <div class="col-md-6">
       <label for="writer" class="form-label">Író</label>
       <input type="text" class="form-control" id="writer" formControlName="writer">
+      <span *ngIf="newadForm.controls['writer'].invalid && newadForm.controls['writer'].touched">Az író kötelező</span>
     </div>
     <div class="col-md-6">
       <label for="publisher" class="form-label">Kiadó</label>
@@ -18,6 +20,7 @@
     <div class="col-md-6">
       <label for="release" class="form-label">Megjelenési év</label>
       <input type="text" class="form-control" id="release" formControlName="release">
+      <span *ngIf="newadForm.controls['release'].invalid && newadForm.controls['release'].touched">A megjelenési év kötelező (szám, -5000 és 2022 között)</span>
     </div>
     <div class="col-md-4">
       <label for="language" class="form-label">Nyelv</label>
@@ -40,21 +43,25 @@
     <div class="col-md-6">
         <label for="adtitle" class="form-label">Hirdetés címe</label>
         <input type="text" class="form-control" id="adtitle" formControlName="adtitle">
+        <span *ngIf="newadForm.controls['adtitle'].invalid && newadForm.controls['adtitle'].touched">A hirdetés címe kötelező</span>
     </div>
     <div class="col-md-6">
         <label for="price" class="form-label">Ár</label>
         <input type="text" class="form-control" id="price" formControlName="price">
+        <span *ngIf="newadForm.controls['price'].invalid && newadForm.controls['price'].touched">Az ár megadása kötelező (szám, maximum 11 karakter)</span>
     </div>
     <div class="mb-3">
         <label for="formFile" class="form-label">Hirdetési kép feltöltése</label>
-        <input class="form-control" type="file" id="formFile" (change)="handleFileInput($event)" formControlName="image">
+        <input class="form-control" type="file" id="formFile" accept="image/jpeg, image/png, image/jpg" (change)="handleFileInput($event)" formControlName="image">
+        <span *ngIf="newadForm.controls['image'].invalid && newadForm.controls['image'].touched">A képfeltöltés kötelező</span>
     </div>
     <div class="mb-3">
         <label for="description" class="form-label">Leírás</label>
         <textarea class="form-control" id="description" rows="5" formControlName="description"></textarea>
+        <span *ngIf="newadForm.controls['description'].invalid && newadForm.controls['description'].touched">A leírás kötelező, minimum 20 karakterben</span>
       </div>
     <div class="col-12">
-      <button type="submit" class="btn book-bg2">Hirdetés létrehozása</button>
+      <button type="submit" class="btn book-bg2" [disabled]="!newadForm.valid">Hirdetés létrehozása</button>
     </div>
   </form>
 </div>

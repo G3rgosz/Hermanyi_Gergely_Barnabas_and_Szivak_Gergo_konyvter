@@ -37,32 +37,31 @@ export class NewadvertisementComponent implements OnInit {
         console.error(error);
     });
     this.newadForm = new FormGroup({
-      title: new FormControl(''),
-      writer: new FormControl(''),
-      publisher: new FormControl(''),
-      release: new FormControl(''),
-      language: new FormControl(''),
+      title: new FormControl('', [Validators.required,  Validators.maxLength(100)]),
+      writer: new FormControl('', [Validators.required,  Validators.maxLength(255)]),
+      publisher: new FormControl('', Validators.maxLength(255)),
+      release: new FormControl('', [Validators.required, Validators.pattern("[-0-9]*$"), Validators.maxLength(5), Validators.min(-5000), Validators.max(2022)]),
+      language: new FormControl('', Validators.maxLength(50)),
       genres: new FormControl(''),
-      adtitle: new FormControl(''),
-      price: new FormControl(''),
-      image: new FormControl(''),
-      description: new FormControl('')
+      adtitle: new FormControl('', [Validators.required,  Validators.maxLength(50)]),
+      price: new FormControl('', [Validators.required,  Validators.maxLength(11), Validators.pattern("[0-9]*$")]),
+      image: new FormControl('', Validators.required),
+      description: new FormControl('', [Validators.required,  Validators.minLength(20)])
     });
   }
   newAdvertisement(){
     
-    // let title = this.newadForm.value.title;
-    // let writer = this.newadForm.value.writer;
-    // let publisher = this.newadForm.value.publisher;
-    // let release = this.newadForm.value.release;
-    // let language = this.newadForm.value.language;
+    let title = this.newadForm.value.title;
+    let writer = this.newadForm.value.writer;
+    let publisher = this.newadForm.value.publisher;
+    let release = this.newadForm.value.release;
+    let language = this.newadForm.value.language;
     let genres = this.genreList;
-    // let adtitle = this.newadForm.value.adtitle;
-    // let price = this.newadForm.value.price;
+    let adtitle = this.newadForm.value.adtitle;
+    let price = this.newadForm.value.price;
     let image = this.file;
-    // let description = this.newadForm.value.description;
-    // console.log(title,writer,publisher,release,language,genres,adtitle,price,image,description);
-    console.log(genres, image);
+    let description = this.newadForm.value.description;
+    console.log(title,writer,publisher,release,language,genres,adtitle,price,image,description);
   }
   public checkboxController(genre:string){
     if(this.genreList.includes(genre)){

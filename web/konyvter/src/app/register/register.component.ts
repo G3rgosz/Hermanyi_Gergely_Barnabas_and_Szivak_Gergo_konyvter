@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['']);
       }, (error) => {
         console.error(error);
-        alert("A regisztráció sikertelen!");
+        alert("A regisztráció sikertelen!\nEllenőrizze, hogy a jelszavak egyeznek-e?\nValamint lehetséges, hogy a felhasználónév vagy e-mail cím már regisztrálva van, ez esetben próbáljon meg másik e-mail címet és felhasználó nevet!");
       })
   }
 }
