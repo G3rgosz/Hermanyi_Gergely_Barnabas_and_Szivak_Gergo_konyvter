@@ -11,24 +11,24 @@
                   <div class="mb-3">
                         <label for="user" class="form-label">Felhasználónév</label>
                         <input type="text" class="form-control" id="user" formControlName="user">
-                        <span *ngIf="registerForm.controls['user'].invalid && registerForm.controls['user'].touched">A felhasználónév kötelező</span>
+                        <span *ngIf="registerForm.controls['user'].invalid && registerForm.controls['user'].touched">A felhasználónév kötelező, legalább 4 karakter</span>
                   </div>
                   <div class="mb-3">            
                         <label for="exampleInputPassword1" class="form-label">Jelszó</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" formControlName="pass">
-                        <span *ngIf="registerForm.controls['pass'].invalid && registerForm.controls['pass'].touched">A jelszó kötelező</span>
+                        <span *ngIf="registerForm.controls['pass'].invalid && registerForm.controls['pass'].touched">A jelszó kötelező, legalább 5 karakter</span>
                   </div>
                   <div class="mb-3">            
                         <label for="exampleInputPassword2" class="form-label">Jelszó újra</label>
                         <input type="password" class="form-control" id="exampleInputPassword2" formControlName="pass2">
-                        <span *ngIf="registerForm.controls['pass2'].invalid && registerForm.controls['pass2'].touched">A jelszó kötelező</span>
+                        <span *ngIf="registerForm.controls['pass2'].invalid && registerForm.controls['pass2'].touched">A jelszó kötelező, legalább 5 karakter</span>
                   </div>
                   <div class="mb-3">
                         <label for="phone" class="form-label">Telefonszám</label>
                         <input type="text" class="form-control" id="phone" formControlName="phone">
                         <span *ngIf="registerForm.controls['phone'].invalid"></span>
                   </div>
-                  <button type="submit" class="btn book-bg2">Regisztráció</button>
+                  <button type="submit" class="btn book-bg2"  [disabled]="!registerForm.valid">Regisztráció</button>
             </form>
       </div>
 </div>
