@@ -10,10 +10,10 @@ import javax.swing.JButton;
  *
  * @author herma
  */
-public class confirmFrame extends javax.swing.JFrame {
+public class confirmNotProblematicFrame extends javax.swing.JFrame {
 
 
-    public confirmFrame() {
+    public confirmNotProblematicFrame() {
         initComponents();
     }
 
@@ -105,7 +105,6 @@ public class confirmFrame extends javax.swing.JFrame {
         centerPnl.setLayout(new java.awt.GridLayout(1, 0));
 
         questionLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        questionLbl.setText("Biztosan törli a kiválasztott elemet?");
         centerPnl.add(questionLbl);
 
         getContentPane().add(centerPnl, java.awt.BorderLayout.CENTER);
@@ -130,20 +129,21 @@ public class confirmFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(confirmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(confirmNotProblematicFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(confirmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(confirmNotProblematicFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(confirmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(confirmNotProblematicFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(confirmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(confirmNotProblematicFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new confirmFrame().setVisible(true);
+                new confirmNotProblematicFrame().setVisible(true);
             }
         });
     }

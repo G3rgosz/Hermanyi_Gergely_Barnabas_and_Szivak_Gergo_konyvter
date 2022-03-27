@@ -163,7 +163,6 @@
         <Component class="javax.swing.JLabel" name="questionLbl">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Biztosan t&#xf6;rli a kiv&#xe1;lasztott elemet?"/>
           </Properties>
         </Component>
       </SubComponents>

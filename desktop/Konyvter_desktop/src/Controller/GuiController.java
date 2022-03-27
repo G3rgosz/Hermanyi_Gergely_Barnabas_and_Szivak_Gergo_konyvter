@@ -2,9 +2,9 @@ package Controller;
 
 import Model.RESTModel;
 import Model.ViewModel;
-import View.confirmFrame;
+import View.confirmDeleteFrame;
+import View.confirmNotProblematicFrame;
 import View.mainFrame;
-import java.awt.Color;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -12,7 +12,8 @@ import javax.swing.table.TableModel;
 public class GuiController {
 
     private mainFrame mainFrm;
-    private confirmFrame confirmFrm;
+    private confirmDeleteFrame deleteFrm;
+    private confirmNotProblematicFrame problemFrm;
     private RESTModel restMdl;
     private ViewModel viewMdl;
     private Vector<Vector<Object>> tableData;
@@ -24,31 +25,53 @@ public class GuiController {
         viewMdl = new ViewModel();
         initFrames();
         ActionListeners();
+        getLoginStatus();
         ThreadStarter();
     }
     private void ActionListeners() {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
-        mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmFrame(); } );
+        mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmDeleteFrame(); } );
+        mainFrm.getValidBtn().addActionListener( event -> { initConfirmProblematicFrame(); } );
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
         mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
         
-        confirmFrm.getConfirmBtn().addActionListener( event -> { delete(); } );
-        confirmFrm.getCancelBtn().addActionListener( event -> { disposeConfrimFrame(); } );
+        deleteFrm.getConfirmBtn().addActionListener( event -> { delete(); } );
+        deleteFrm.getCancelBtn().addActionListener( event -> { disposeConfrimDeleteFrame(); } );
+        
+        problemFrm.getConfirmBtn().addActionListener( event -> { validAdvertisment(); } );
+        problemFrm.getCancelBtn().addActionListener( event -> { disposeConfirmProblematicFrame(); } );
     }
     private void initFrames() {
-        mainFrm = new mainFrame();
-        mainFrm.setVisible(true);
+        initMainFrameProperties();
         
-        confirmFrm = new confirmFrame();
-        
+        deleteFrm = new confirmDeleteFrame();
+        problemFrm = new confirmNotProblematicFrame();
+
         initTables();
     }
-    private void initConfirmFrame() {
-        confirmFrm.setVisible(true);
-        confirmFrm.setAlwaysOnTop(true);
+    private void initMainFrameProperties() {
+        mainFrm = new mainFrame();
+        mainFrm.setTitle("Könyvtér asztali alkalmazás");
+        mainFrm.setLocationRelativeTo(null);
+        mainFrm.setVisible(true);
     }
-    private void disposeConfrimFrame() {
-        confirmFrm.dispose();
+    private void initConfirmDeleteFrame() {
+        deleteFrm.setLocationRelativeTo(mainFrm);
+        deleteFrm.setQuestionLbl("Biztosan törli a kiválasztott elemet?");
+        deleteFrm.setVisible(true);
+        deleteFrm.setAlwaysOnTop(true);
+    }
+    private void disposeConfrimDeleteFrame() {
+        deleteFrm.dispose();
+    }
+    private void initConfirmProblematicFrame() {
+        problemFrm.setLocationRelativeTo(mainFrm);
+        problemFrm.setQuestionLbl("Biztosan nincsen probléma a hirdetéssel?");
+        problemFrm.setVisible(true);
+        problemFrm.setAlwaysOnTop(true);
+    }
+    private void disposeConfirmProblematicFrame() {
+        problemFrm.dispose();
     }
     private void initTables() {
     
@@ -86,39 +109,58 @@ public class GuiController {
         System.exit(0);
     }
     private void delete() {
+        clearStatusLbl();
+        
         int openTab = mainFrm.getTableTb().getSelectedIndex();
         if(openTab == 0) {
             deleteUser();
         }else {
             deleteAdvertisment();
         }
-        confirmFrm.dispose();
+        deleteFrm.dispose();
     }
     private void deleteUser() {
         int row = mainFrm.getUserTbl().getSelectedRow();
         String value = mainFrm.getUserTbl().getModel().getValueAt(row, 3).toString();
-        restCtr.setDeleteData(value);
+        restCtr.setId(value);
         
-        boolean success = restCtr.DeleteUser();
-        if(success) {
-            mainFrm.setStatusLbl("Sikeres felhasználó és hozzá tartozó hirdetések törlése");
-        }else{
-            mainFrm.setStatusLbl("Sikertelen felhasználó törlés");
-        }
+        restCtr.DeleteUser();
+        mainFrm.setStatusLbl(restCtr.getDeleteUserMessage());
+        
         initTables();
     }
     private void deleteAdvertisment() {
         int row = mainFrm.getAdvertismentTbl().getSelectedRow();
         String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
-        restCtr.setDeleteData(value);
+        restCtr.setId(value);
         
-        boolean success = restCtr.DeleteAdvertisment();
-        if( success ) {
-            mainFrm.setStatusLbl("Sikeres hirdetés törlés");
-        }else {
-            mainFrm.setStatusLbl("Sikertelen hirdetés törlés");
-        }
+        restCtr.DeleteAdvertisment();
+        mainFrm.setStatusLbl(restCtr.getDeleteAdvertismentMessage());
+        
         initTables();
+    }
+    private void validAdvertisment() {
+        int row = mainFrm.getAdvertismentTbl().getSelectedRow();
+        String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
+        restCtr.setId(value);
+        
+        restCtr.ValidAdvertisment();
+        mainFrm.setStatusLbl(restCtr.getValidAdvertismentMessage());
+        
+        disposeConfirmProblematicFrame();
+        
+        initTables();
+    }
+    private void getLoginStatus() {
+        String message = restCtr.getLoginMessage();
+        if(restCtr.getLoginMessage() != null) {
+            mainFrm.setStatusLbl(restCtr.getLoginMessage());
+        }else {
+            mainFrm.setStatusLbl("Nincs kapcsolat a kiszolgálóval!");
+        }
+    }
+    private void clearStatusLbl() {
+        mainFrm.setStatusLbl("");
     }
     
     Runnable runner = () -> {

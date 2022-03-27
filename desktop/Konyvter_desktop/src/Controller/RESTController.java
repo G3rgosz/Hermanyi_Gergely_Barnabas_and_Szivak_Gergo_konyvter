@@ -18,7 +18,6 @@ public class RESTController {
     }
     private String getToken() {
         String token = restMdl.tryLogin();
-        System.out.println(token);
         return token;
     }
     public void Logout() {
@@ -43,15 +42,33 @@ public class RESTController {
         return success;
     }
     public Boolean DeleteAdvertisment() {
-        
         boolean success = restMdl.tryDeleteAdvertisments(token, id);
         return success;
     }
+    public Boolean ValidAdvertisment() {
+        boolean success = restMdl.tryValidAdvertisments(token, id);
+        return success;
+    }
     public void setSearchData(String search_text) {
-        
         this.search_text = search_text;
     }
-    public void setDeleteData(String id) {
+    public void setId(String id) {
         this.id = id;
+    }
+    public String getLoginMessage() {
+       String message = restMdl.getLoginMessage();
+       return message;
+    }
+    public String getDeleteAdvertismentMessage() {
+        String message = restMdl.getDeleteAdvertismentMessage();
+        return message;
+    }
+    public String getDeleteUserMessage() {
+        String message = restMdl.getDeleteUserMessage();
+        return message;
+    }
+    public String getValidAdvertismentMessage() {
+        String message = restMdl.getvalidAdvertismentMessage();
+        return message;
     }
 }
