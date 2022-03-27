@@ -97,7 +97,7 @@ export class AuthService {
     return this.http.post<any>(url, '', httpOption)
     .subscribe(res => {
       console.log(res);
-      this.router.navigate(['login']);
+      this.router.navigate(['']);
     })
   }
 }

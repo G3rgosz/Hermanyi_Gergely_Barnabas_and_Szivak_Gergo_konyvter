@@ -10,7 +10,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm !: FormGroup
+  registerForm !: FormGroup;
+  clicked = false;
 
   constructor(
     private auth: AuthService,
@@ -19,10 +20,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      mail: new FormControl('', [Validators.required, Validators.email]),
-      user: new FormControl('', [Validators.required, Validators.pattern('[a-zéáűőúöüóA-ZÉÁŰŐÚÖÜÓ0-9]+')]),
-      pass: new FormControl('', Validators.required),
-      pass2: new FormControl('', Validators.required),
+      mail: new FormControl('', [Validators.required, Validators.email,  Validators.maxLength(255)]),
+      user: new FormControl('', [Validators.required, Validators.pattern('[a-zéáíűőúöüóA-ZÉÁÍSŰŐÚÖÜÓ0-9]+'), Validators.minLength(4), Validators.maxLength(50)]),
+      pass: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+      pass2: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
       phone: new FormControl('', Validators.pattern('[0-9]{11}'))
     });
   }
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['']);
       }, (error) => {
         console.error(error);
-        alert("A regisztráció sikertelen!");
+        alert("A regisztráció sikertelen!\nEllenőrizze, hogy a jelszavak egyeznek-e?\nValamint lehetséges, hogy a felhasználónév vagy e-mail cím már regisztrálva van, ez esetben próbáljon meg másik e-mail címet és felhasználó nevet!");
       })
   }
 }

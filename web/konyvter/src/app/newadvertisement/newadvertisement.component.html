@@ -1,27 +1,30 @@
 
-<h1 class="mt-4">Hírdetésfeladás</h1>
+<h1 class="mt-4"><ins>Hírdetésfeladás</ins></h1>
 <div class="mt-2">
-  <form class="row g-3">
+  <form class="row g-3" [formGroup]="newadForm" (ngSubmit)="newAdvertisement(); clicked = true;">
     <h3>1.Könyv adatai</h3>
     <div class="col-md-6">
       <label for="title" class="form-label">Könyv címe</label>
-      <input type="text" class="form-control" id="title">
+      <input type="text" class="form-control" id="title" formControlName="title">
+      <span *ngIf="newadForm.controls['title'].invalid && newadForm.controls['title'].touched">A könyv címe kötelező</span>
     </div>
     <div class="col-md-6">
       <label for="writer" class="form-label">Író</label>
-      <input type="text" class="form-control" id="writer">
+      <input type="text" class="form-control" id="writer" formControlName="writer">
+      <span *ngIf="newadForm.controls['writer'].invalid && newadForm.controls['writer'].touched">Az író kötelező</span>
     </div>
     <div class="col-md-6">
       <label for="publisher" class="form-label">Kiadó</label>
-      <input type="text" class="form-control" id="publisher">
+      <input type="text" class="form-control" id="publisher" formControlName="publisher">
     </div>
     <div class="col-md-6">
       <label for="release" class="form-label">Megjelenési év</label>
-      <input type="text" class="form-control" id="release">
+      <input type="text" class="form-control" id="release" formControlName="release">
+      <span *ngIf="newadForm.controls['release'].invalid && newadForm.controls['release'].touched">A megjelenési év kötelező (szám, -5000 és 2022 között)</span>
     </div>
     <div class="col-md-4">
       <label for="language" class="form-label">Nyelv</label>
-      <select id="language" class="form-select">
+      <select id="language" class="form-select" formControlName="language">
         <option selected>magyar</option>
         <option>angol</option>
         <option>német</option>
@@ -31,32 +34,34 @@
     </div>
     <div class="col-12">
       <p>Műfajok</p>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="Regény">
-        <label class="form-check-label" for="Regény">
-            Regény
-        </label>
-      </div>
+        <div class="form-check form-check-inline" *ngFor="let genre of genres">
+          <input class="form-check-input" id={{genre.id}} type="checkbox" (change)="checkboxController(genre.genre)">
+            {{genre.genre}}
+        </div>
     </div>
     <h3>2.Hirdetrés adatai adatai</h3>
     <div class="col-md-6">
         <label for="adtitle" class="form-label">Hirdetés címe</label>
-        <input type="text" class="form-control" id="adtitle">
+        <input type="text" class="form-control" id="adtitle" formControlName="adtitle">
+        <span *ngIf="newadForm.controls['adtitle'].invalid && newadForm.controls['adtitle'].touched">A hirdetés címe kötelező</span>
     </div>
     <div class="col-md-6">
         <label for="price" class="form-label">Ár</label>
-        <input type="text" class="form-control" id="price">
+        <input type="text" class="form-control" id="price" formControlName="price">
+        <span *ngIf="newadForm.controls['price'].invalid && newadForm.controls['price'].touched">Az ár megadása kötelező (szám, maximum 11 karakter)</span>
     </div>
     <div class="mb-3">
         <label for="formFile" class="form-label">Hirdetési kép feltöltése</label>
-        <input class="form-control" type="file" id="formFile">
+        <input class="form-control" type="file" id="formFile" accept="image/jpeg, image/png, image/jpg" (change)="handleFileInput($event)" formControlName="image">
+        <span *ngIf="newadForm.controls['image'].invalid && newadForm.controls['image'].touched">A képfeltöltés kötelező</span>
     </div>
     <div class="mb-3">
         <label for="description" class="form-label">Leírás</label>
-        <textarea class="form-control" id="description" rows="5"></textarea>
+        <textarea class="form-control" id="description" rows="5" formControlName="description"></textarea>
+        <span *ngIf="newadForm.controls['description'].invalid && newadForm.controls['description'].touched">A leírás kötelező, minimum 20 karakterben</span>
       </div>
     <div class="col-12">
-      <button type="submit" class="btn book-bg2">Hirdetés feladása</button>
+      <button type="submit" class="btn book-bg2" [disabled]="clicked" [disabled]="!newadForm.valid">Hirdetés létrehozása</button>
     </div>
   </form>
 </div>

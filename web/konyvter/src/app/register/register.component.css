@@ -3,3 +3,6 @@ input.ng-invalid {
     border-width: 3px;
     border-color: red;
 }
+span{
+    color: red;
+}
