@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Validators, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { Validators, FormControl, FormGroup} from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../shared/auth.service';
 
@@ -11,17 +11,17 @@ import { AuthService } from '../shared/auth.service';
 })
 export class NewadvertisementComponent implements OnInit {
 
+  clicked = false;
   genres:any;
-  newadForm !: FormGroup;
+  newadForm!: FormGroup;
   genreList: string[] =[];
-  // file: File | null = null;
-  bookid:any;
-  imageSrc: string = "";
+  file!:File;
+  bookid!:number;
+
   host = 'http://localhost:8000/api/';
 
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder,
     private http: HttpClient,
     private auth: AuthService
   ) { 
@@ -52,30 +52,20 @@ export class NewadvertisementComponent implements OnInit {
     if(this.genreList.length == 0){
       alert("Válasszon ki legalább egy műfajt!")
     }else{
-      let bookData = {
-        title: this.newadForm.value.title,
-        writer: this.newadForm.value.writer,
-        publisher: this.newadForm.value.publisher,
-        release: this.newadForm.value.release,
-        language: this.newadForm.value.language,
-        genres: this.genreList
-      }
-
-      this.newBook(bookData)
+      this.newBook()
       .subscribe(
         (res) => {
-          this.bookid = res.data;
-          alert("Könyv sikeresen felvéve!");
+          this.newAd(res.data)
+          .subscribe(
+            (res) => {
+              alert("Hirdetés sikeresen felvéve!");
+              this.router.navigate(['']);
+            }, (error) => {
+              console.error(error);
+            })
         }, (error) => {
           console.error(error);
-        })
-      this.newAd()
-      .subscribe(
-        (res) => {
-          alert("Hirdetés sikeresen felvéve!");
-        }, (error) => {
-          console.error(error);
-        })
+        });
     }
   }
   checkboxController(genre:string){
@@ -87,24 +77,27 @@ export class NewadvertisementComponent implements OnInit {
     }
   }
   handleFileInput(event: any) {
-    let file = event.target.files[0]
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.imageSrc = reader.result as string;
-    }
+    this.file = event.target.files[0];
   }
   getGenres(){
     let endpoint = 'web/genres';
     let url = this.host + endpoint;
     return this.http.get<any>(url);
   }
-  newBook(bookData:any){
+  newBook(){
     let endpoint = 'web/books';
     let url = this.host + endpoint;
 
+    let bookData = {
+      title: this.newadForm.value.title,
+      writer: this.newadForm.value.writer,
+      publisher: this.newadForm.value.publisher,
+      release: this.newadForm.value.release,
+      language: this.newadForm.value.language,
+      genres: this.genreList
+    }
     let token = this.auth.isLoggedIn();
-    
+
     let data = JSON.stringify(bookData);
     let headerObj = new HttpHeaders({
       'Content-Type':'application/json',
@@ -115,28 +108,25 @@ export class NewadvertisementComponent implements OnInit {
     }
     return this.http.post<any>(url,data,header);
   }
-  newAd(){
-    let endpoint = 'api/web/advertisements';
+  newAd(data:any){
+    let endpoint = 'web/advertisements';
     let url = this.host + endpoint;
+    const formData = new FormData();
 
-    const formData: any = new FormData();
-    formData.append("adtitle", this.newadForm.value.adtitle);
+    formData.append('adtitle', this.newadForm.value.adtitle);
     formData.append("price", this.newadForm.value.price);
     formData.append("description", this.newadForm.value.description);
-    formData.append("book_id", this.bookid);
-    formData.append("image", this.imageSrc); 
+    formData.append("book_id", data);
+    formData.append("image", this.file); 
 
     let token = this.auth.isLoggedIn();
 
     let headerObj = new HttpHeaders({
-      'Content-Type':'multipart/form-data; boundary=---011000010111000001101001',
       'Authorization': `Bearer ${token}`
     })
     let header = {
       headers: headerObj
     }
-    console.log(url);
-    console.log(formData);
     return this.http.post<any>(url,formData,header);
   }
 }

@@ -10,7 +10,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm !: FormGroup
+  registerForm !: FormGroup;
+  clicked = false;
 
   constructor(
     private auth: AuthService,

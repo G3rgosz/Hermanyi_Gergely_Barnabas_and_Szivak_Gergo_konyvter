@@ -2,7 +2,7 @@
 <div class="row justify-content-center mt-5">
       <div class="col-xl-4 col-lg-6 col-md-8 col-sm-12 ">
             <h2><ins>Regisztráció</ins></h2>
-            <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <form [formGroup]="registerForm" (ngSubmit)="register(); clicked = true;">
                   <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="mail">
@@ -28,7 +28,7 @@
                         <input type="text" class="form-control" id="phone" formControlName="phone">
                         <span *ngIf="registerForm.controls['phone'].invalid"></span>
                   </div>
-                  <button type="submit" class="btn book-bg2"  [disabled]="!registerForm.valid">Regisztráció</button>
+                  <button type="submit" class="btn book-bg2" [disabled]="clicked" [disabled]="!registerForm.valid">Regisztráció</button>
             </form>
       </div>
 </div>
