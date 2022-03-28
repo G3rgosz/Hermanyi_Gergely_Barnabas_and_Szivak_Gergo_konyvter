@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class AdvertisementController extends BaseController{
     
     public function index(){
-        $advertisements = Advertisement::all();
+        $advertisements = DB::table('advertisements')->orderByDesc('created_at')->get();
         return $this->sendResponse( $advertisements, "Hirdetések betöltve" );
     }
     //TODO: Először A könyvet létehozni és az id-t továbbküldeni ide
@@ -50,6 +50,8 @@ class AdvertisementController extends BaseController{
         if(is_null($advertisement)){
             return $this->sendError("Nincs ilyen hirdetés");
         }
+        $advertisement->sawcounter+=1;
+        $advertisement->save();
         return $this->sendResponse( $advertisement, "Hirdetés betöltve");
     }
     public function update(Request $request, $id){
