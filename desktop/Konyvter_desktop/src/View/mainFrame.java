@@ -5,7 +5,6 @@
 package View;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -37,7 +36,7 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         deleteBtn = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
-        validBtn = new javax.swing.JButton();
+        notValidBtn = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -47,9 +46,9 @@ public class mainFrame extends javax.swing.JFrame {
         eastPnl = new javax.swing.JPanel();
         southPnl = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
+        updateBtn = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         statusLbl = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         exitBtn = new javax.swing.JButton();
         westPnl = new javax.swing.JPanel();
@@ -83,9 +82,12 @@ public class mainFrame extends javax.swing.JFrame {
 
         northPnl.add(jPanel8);
 
-        validBtn.setText("Valós");
-        validBtn.setPreferredSize(new java.awt.Dimension(100, 35));
-        jPanel9.add(validBtn);
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
+
+        notValidBtn.setText("Nem valós");
+        notValidBtn.setPreferredSize(new java.awt.Dimension(100, 35));
+        jPanel9.add(notValidBtn);
+        notValidBtn.setVisible(false);
 
         northPnl.add(jPanel9);
 
@@ -146,18 +148,15 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel1.add(eastPnl, java.awt.BorderLayout.LINE_END);
 
         southPnl.setPreferredSize(new java.awt.Dimension(678, 50));
-        southPnl.setLayout(new java.awt.GridLayout(1, 4));
+        southPnl.setLayout(new java.awt.GridLayout(1, 3));
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        jPanel14.setPreferredSize(new java.awt.Dimension(110, 39));
+        jPanel14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 2));
+
+        updateBtn.setText("Frissítés");
+        updateBtn.setPreferredSize(new java.awt.Dimension(90, 35));
+        jPanel14.add(updateBtn);
+        updateBtn.setVisible(false);
 
         southPnl.add(jPanel14);
 
@@ -168,19 +167,6 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel16.add(statusLbl);
 
         southPnl.add(jPanel16);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        southPnl.add(jPanel4);
 
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 20, 2));
 
@@ -372,21 +358,21 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel northPnl;
+    private javax.swing.JButton notValidBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchTf;
     private javax.swing.JPanel southPnl;
     private javax.swing.JLabel statusLbl;
     private javax.swing.JTabbedPane tableTb;
+    private javax.swing.JButton updateBtn;
     private javax.swing.JPanel userTb;
     private javax.swing.JTable userTbl;
-    private javax.swing.JButton validBtn;
     private javax.swing.JPanel westPnl;
     // End of variables declaration//GEN-END:variables
     public JButton getDeleteBtn() {
@@ -398,8 +384,11 @@ public class mainFrame extends javax.swing.JFrame {
     public JButton getSearchBtn() {
         return searchBtn;
     }
-    public JButton getValidBtn() {
-        return validBtn;
+    public JButton getNotValidBtn() {
+        return notValidBtn;
+    }
+    public JButton getUpdateBtn() {
+        return updateBtn;
     }
     public JTextField getSearchTf() {
         return searchTf;

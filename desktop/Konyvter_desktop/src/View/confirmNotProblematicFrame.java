@@ -38,6 +38,7 @@ public class confirmNotProblematicFrame extends javax.swing.JFrame {
         questionLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Figyelem!");
         setPreferredSize(new java.awt.Dimension(360, 240));
 
         northPnl.setPreferredSize(new java.awt.Dimension(559, 20));

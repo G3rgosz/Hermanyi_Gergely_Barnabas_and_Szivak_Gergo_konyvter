@@ -65,15 +65,20 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel9">
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+                <Property name="verticalGap" type="int" value="10"/>
+              </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="validBtn">
+                <Component class="javax.swing.JButton" name="notValidBtn">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Val&#xf3;s"/>
+                    <Property name="text" type="java.lang.String" value="Nem val&#xf3;s"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[100, 35]"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="notValidBtn.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -174,24 +179,35 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-            <Property name="columns" type="int" value="4"/>
+            <Property name="columns" type="int" value="3"/>
             <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel14">
+              <Properties>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[110, 39]"/>
+                </Property>
+              </Properties>
 
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="241" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+                <Property name="alignment" type="int" value="0"/>
+                <Property name="horizontalGap" type="int" value="20"/>
+                <Property name="verticalGap" type="int" value="2"/>
               </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="updateBtn">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Friss&#xed;t&#xe9;s"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[90, 35]"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="updateBtn.setVisible(false);"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel16">
 
@@ -206,21 +222,6 @@
                   </Properties>
                 </Component>
               </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="jPanel4">
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="241" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel2">
 

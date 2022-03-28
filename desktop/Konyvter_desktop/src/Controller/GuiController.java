@@ -1,11 +1,12 @@
 package Controller;
 
-import Model.RESTModel;
 import Model.ViewModel;
 import View.confirmDeleteFrame;
 import View.confirmNotProblematicFrame;
 import View.mainFrame;
+import java.net.URL;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -14,7 +15,6 @@ public class GuiController {
     private mainFrame mainFrm;
     private confirmDeleteFrame deleteFrm;
     private confirmNotProblematicFrame problemFrm;
-    private RESTModel restMdl;
     private ViewModel viewMdl;
     private Vector<Vector<Object>> tableData;
     private RESTController restCtr;
@@ -31,7 +31,8 @@ public class GuiController {
     private void ActionListeners() {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
         mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmDeleteFrame(); } );
-        mainFrm.getValidBtn().addActionListener( event -> { initConfirmProblematicFrame(); } );
+        mainFrm.getNotValidBtn().addActionListener( event -> { initConfirmProblematicFrame(); } );
+        mainFrm.getUpdateBtn().addActionListener( event -> { reConnect(); } );
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
         mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
         
@@ -73,6 +74,16 @@ public class GuiController {
     private void disposeConfirmProblematicFrame() {
         problemFrm.dispose();
     }
+    private void reConnect() { 
+        clearStatusLbl();
+        restCtr = new RESTController();
+        getLoginStatus();
+        if(restCtr.getLoginMessage() != null) {
+            mainFrm.getUpdateBtn().setVisible(false);
+        }
+        initTables();
+
+    }
     private void initTables() {
     
         Vector<String> columnNames = new Vector<>();
@@ -91,7 +102,8 @@ public class GuiController {
         }   
     }
     private void ThreadStarter() {
-        new Thread(runner).start();
+        new Thread(thread02).start();
+        new Thread(thread03).start();
     }
     private void search() {
         int openTab = mainFrm.getTableTb().getSelectedIndex();
@@ -157,24 +169,44 @@ public class GuiController {
             mainFrm.setStatusLbl(restCtr.getLoginMessage());
         }else {
             mainFrm.setStatusLbl("Nincs kapcsolat a kiszolgálóval!");
+            refresh();
         }
+    }
+    private void refresh() {
+        mainFrm.getUpdateBtn().setVisible(true);
     }
     private void clearStatusLbl() {
         mainFrm.setStatusLbl("");
     }
-    
-    Runnable runner = () -> {
+    Runnable thread02 = () -> {
         timer();
     };
+    Runnable thread03 = () -> {
+        validBtnAvability();
+    };
     private void timer() {
-        boolean time = true;
-        while(time) {
+        while(true) {
                initTables();
                try {
                 Thread.sleep(30000);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (InterruptedException ex){
+                Thread.currentThread().interrupt();
             }
         }
+    }
+    private void validBtnAvability() {
+        while(true) {
+            if(mainFrm.getTableTb().getSelectedIndex() != 0) {
+                mainFrm.getNotValidBtn().setVisible(true);
+            }else {
+                mainFrm.getNotValidBtn().setVisible(false);
+            }
+            try{
+		Thread.sleep(50);
+            }catch(InterruptedException ex){
+                Thread.currentThread().interrupt();
+            }
+        }
+
     }
 }
