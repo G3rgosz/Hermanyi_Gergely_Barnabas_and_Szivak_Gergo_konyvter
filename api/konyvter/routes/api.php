@@ -54,4 +54,4 @@ Route::get("/web/advertisements", [AdvertisementController::class, "index"]);
 Route::get("/web/advertisements/{id}", [AdvertisementController::class, "show"]);
 Route::post("/web/advertisements/filter", [AdvertisementController::class, "filter"]);
 
-
+Route::get("/account/{id}", [AccountController::class, "show"]);

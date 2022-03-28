@@ -11,6 +11,17 @@ use Validator;
 
 class AccountController extends BaseController{
 
+    public function show($id){
+        $test = User::find($id);
+        if( is_null($test)){
+            return $this->sendError("Nincs ilyen felhasználó");
+        }
+        $userinfo = DB::table('users')
+            ->select('username', 'email', 'phone')
+            ->where('id', '=', $id)
+            ->get();
+        return $this->sendResponse( $userinfo, "Felhasználó nyilvános adatai betöltve");
+    }
     public function update(Request $request, $id = null){
         $user = auth("sanctum")->user();
         if(is_null($id)){
