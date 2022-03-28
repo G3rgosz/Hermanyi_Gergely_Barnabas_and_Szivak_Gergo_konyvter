@@ -146,6 +146,7 @@ class AdvertisementController extends BaseController{
     public function filter(Request $request){
         $input = $request->all();
         $validator = Validator::make($input, [
+            "adtitle" => "max:50",
             "title" => "max:100",
             "max_price" => "integer",
             "writer" => "max:255",
@@ -158,7 +159,23 @@ class AdvertisementController extends BaseController{
         foreach ($ads as $ad) {
             $adData[] = $ad->id;
         }
+        if(isset($input["adtitle"])){
+            $filters = DB::table('advertisements')
+                ->select('id')
+                ->where('adtitle', 'like', '%'.$input["adtitle"].'%')
+                ->get();
+            if(count($filters)==0){
+                return $this->sendError("Nincs találat a szűrésre");
+            }else{
+                foreach ($filters as $filter) {
+                    $filterData[] = $filter->id;
+                }
+                $adData = array_intersect($adData, $filterData);
+            }
+        }
         if(isset($input["title"])){
+            $filterData = null;
+            $filters = null;
             $filters = DB::table('advertisements')
                 ->join('books', 'advertisements.book_id', '=', 'books.id')
                 ->where('books.title', 'like', '%'.$input["title"].'%')
@@ -225,7 +242,7 @@ class AdvertisementController extends BaseController{
                     ->where('bgswitches.genre_id', '=', $genreid[0]->id)
                     ->get(); 
             }
-            if(count($filters)==0){
+            if(is_null($filters)){
                 return $this->sendError("Nincs találat a szűrésre");
             }else{
                 foreach ($filters as $filter) {
