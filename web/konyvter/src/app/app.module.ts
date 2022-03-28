@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { MainComponent } from './main/main.component';
 import { NewadvertisementComponent } from './newadvertisement/newadvertisement.component';
+import { MyadvertisementsComponent } from './myadvertisements/myadvertisements.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     MainComponent,
-    NewadvertisementComponent
+    NewadvertisementComponent,
+    MyadvertisementsComponent
   ],
   imports: [
     BrowserModule,

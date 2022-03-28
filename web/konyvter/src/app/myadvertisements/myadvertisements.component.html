@@ -1,0 +1,20 @@
+<h2 class="mt-4"><ins>Hirdetéseim</ins></h2>
+<div class="row mt-3" *ngFor="let myad of myads">
+  <div class="col-8">
+    <a class="nav-link text-dark" href="/">
+      <div class="row card-body block-card">
+        <div class="col-sm-5 box">
+          <img class="" src="{{server}}{{myad.picturepath}}" alt="Hirdetési kép">
+        </div>
+        <div class="col-sm-7">
+          <h4 class="card-title text-break"><b>{{myad.adtitle}}</b></h4>
+          <p class="card-text">Ár: {{myad.price}} Ft</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-4">
+    <a class="btn book-bg2 btn-sm mt-3" href="">Szerkesztés</a><br>
+    <a class="btn btn-danger btn-sm mt-2" href="">Törlés</a>
+  </div>
+</div>

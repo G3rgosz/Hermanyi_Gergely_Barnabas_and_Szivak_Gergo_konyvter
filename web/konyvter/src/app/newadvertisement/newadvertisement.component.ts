@@ -42,8 +42,8 @@ export class NewadvertisementComponent implements OnInit {
       release: new FormControl('', [Validators.required, Validators.pattern("[-0-9]*$"), Validators.maxLength(5), Validators.min(-5000), Validators.max(2022)]),
       language: new FormControl('', Validators.maxLength(50)),
       genres: new FormControl(''),
-      adtitle: new FormControl('', [Validators.required,  Validators.maxLength(50)]),
-      price: new FormControl('', [Validators.required,  Validators.maxLength(11), Validators.pattern("[0-9]*$")]),
+      adtitle: new FormControl('', [Validators.required,  Validators.maxLength(49)]),
+      price: new FormControl('', [Validators.required,  Validators.maxLength(10), Validators.pattern("[0-9]*$")]),
       image: new FormControl('', Validators.required),
       description: new FormControl('', [Validators.required,  Validators.minLength(20)])
     });
@@ -59,7 +59,7 @@ export class NewadvertisementComponent implements OnInit {
           .subscribe(
             (res) => {
               alert("Hirdetés sikeresen felvéve!");
-              this.router.navigate(['']);
+              this.router.navigate(['myadvertisements']);
             }, (error) => {
               console.error(error);
             })
@@ -76,7 +76,7 @@ export class NewadvertisementComponent implements OnInit {
       this.genreList.push(genre);
     }
   }
-  handleFileInput(event: any) {
+  handleFileInput(event:any) {
     this.file = event.target.files[0];
   }
   getGenres(){
