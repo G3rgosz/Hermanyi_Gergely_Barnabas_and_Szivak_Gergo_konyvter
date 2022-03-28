@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Validators, FormControl, FormGroup} from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../shared/auth.service';
 @Component({
@@ -44,8 +43,10 @@ export class MyadvertisementsComponent implements OnInit {
         console.error(error);
     });
   }
+  navigateAd(id:any){
+    this.router.navigate(['advertisement/', id]);
+  }
   delete(id:any){
-    console.error(id);
     let endpoint = 'web/advertisements/';
     let url = this.host + endpoint + id;
     
@@ -60,7 +61,6 @@ export class MyadvertisementsComponent implements OnInit {
     this.http.delete<any>(url,header)
     .subscribe(
       (res) => {
-        console.log(res);
         location.reload();
       }, (error) => {
         console.error(error);

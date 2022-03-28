@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { MainComponent } from './main/main.component';
 import { NewadvertisementComponent } from './newadvertisement/newadvertisement.component';
 import { MyadvertisementsComponent } from './myadvertisements/myadvertisements.component';
+import { AdvertisementComponent } from './advertisement/advertisement.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MyadvertisementsComponent } from './myadvertisements/myadvertisements.c
     RegisterComponent,
     MainComponent,
     NewadvertisementComponent,
-    MyadvertisementsComponent
+    MyadvertisementsComponent,
+    AdvertisementComponent
   ],
   imports: [
     BrowserModule,

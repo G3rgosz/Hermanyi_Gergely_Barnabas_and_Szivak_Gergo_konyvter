@@ -1,7 +1,7 @@
 <h2 class="mt-4"><ins>Hirdetéseim</ins></h2>
 <div class="row mt-3" *ngFor="let myad of myads">
   <div class="col-8">
-    <a class="nav-link text-dark" href="/">
+    <a class="nav-link text-dark" (click)="navigateAd(myad.id)">
       <div class="row card-body block-card">
         <div class="col-sm-5 box">
           <img class="" src="{{server}}{{myad.picturepath}}" alt="Hirdetési kép">
