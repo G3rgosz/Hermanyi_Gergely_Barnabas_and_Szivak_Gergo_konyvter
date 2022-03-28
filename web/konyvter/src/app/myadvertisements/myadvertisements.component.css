@@ -1,11 +1,12 @@
 a:hover > .block-card{
     background-color: #f2e5bb;
+    transform: scale(1.01);
+    transition: .5s;
 }
 .block-card {
     border: 1px #FFFFFF solid;
     padding: 0;
     box-shadow: 1px 1px 8px #d8d8d8;
-    background-color: #FFFFFF;
 }
 .box {
     max-width: 100%;

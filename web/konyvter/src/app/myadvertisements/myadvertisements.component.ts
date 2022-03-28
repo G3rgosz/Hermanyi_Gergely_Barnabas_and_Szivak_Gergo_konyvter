@@ -31,7 +31,6 @@ export class MyadvertisementsComponent implements OnInit {
     let token = this.auth.isLoggedIn();
 
     let headerObj = new HttpHeaders({
-      'Content-Type':'application/json',
       'Authorization': `Bearer ${token}`
     })
     let header = {
@@ -41,6 +40,28 @@ export class MyadvertisementsComponent implements OnInit {
     .subscribe(
       (res) => {
         this.myads = res.data;
+      }, (error) => {
+        console.error(error);
+    });
+  }
+  delete(id:any){
+    console.error(id);
+    let endpoint = 'web/advertisements/';
+    let url = this.host + endpoint + id;
+    
+    let token = this.auth.isLoggedIn();
+
+    let headerObj = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    let header = {
+      headers: headerObj
+    }
+    this.http.delete<any>(url,header)
+    .subscribe(
+      (res) => {
+        console.log(res);
+        location.reload();
       }, (error) => {
         console.error(error);
     });

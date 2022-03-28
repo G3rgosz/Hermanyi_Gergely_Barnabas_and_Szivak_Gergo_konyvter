@@ -5,8 +5,13 @@ body{
     font-family: Georgia, serif;
     font-weight: bold;
 }
-.bi-gear{
-    color: black;
+.settingsIcon{
+    max-width: 60%;
+    max-height: 60%;
+}
+.settingsIcon:hover{
+    transform: scale(1.1);
+    transition: .5s;
 }
 .navbar .btn{
     border-style: solid;

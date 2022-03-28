@@ -51,7 +51,9 @@ export class NewadvertisementComponent implements OnInit {
   newAdvertisement(){
     if(this.genreList.length == 0){
       alert("Válasszon ki legalább egy műfajt!")
+      this.clicked = false;
     }else{
+      this.clicked = true;
       this.newBook()
       .subscribe(
         (res) => {
