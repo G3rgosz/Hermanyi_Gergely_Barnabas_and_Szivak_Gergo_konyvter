@@ -1,18 +1,20 @@
 package Controller;
 
-import Model.RESTModel;
 import Model.ViewModel;
-import View.confirmFrame;
+import View.confirmDeleteFrame;
+import View.confirmNotProblematicFrame;
 import View.mainFrame;
+import java.net.URL;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class GuiController {
 
     private mainFrame mainFrm;
-    private confirmFrame confirmFrm;
-    private RESTModel restMdl;
+    private confirmDeleteFrame deleteFrm;
+    private confirmNotProblematicFrame problemFrm;
     private ViewModel viewMdl;
     private Vector<Vector<Object>> tableData;
     private RESTController restCtr;
@@ -23,33 +25,64 @@ public class GuiController {
         viewMdl = new ViewModel();
         initFrames();
         ActionListeners();
+        getLoginStatus();
         ThreadStarter();
     }
     private void ActionListeners() {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
-        mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmFrame(); } );
-        mainFrm.getAdminBtn().addActionListener(event -> { addAdmin(); });
+        mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmDeleteFrame(); } );
+        mainFrm.getNotValidBtn().addActionListener( event -> { initConfirmProblematicFrame(); } );
+        mainFrm.getUpdateBtn().addActionListener( event -> { reConnect(); } );
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
         mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
         
-        confirmFrm.getConfirmBtn().addActionListener( event -> { delete(); } );
-        confirmFrm.getCancelBtn().addActionListener( event -> { disposeConfrimFrame(); } );
+        deleteFrm.getConfirmBtn().addActionListener( event -> { delete(); } );
+        deleteFrm.getCancelBtn().addActionListener( event -> { disposeConfrimDeleteFrame(); } );
+        
+        problemFrm.getConfirmBtn().addActionListener( event -> { validAdvertisment(); } );
+        problemFrm.getCancelBtn().addActionListener( event -> { disposeConfirmProblematicFrame(); } );
     }
     private void initFrames() {
-        mainFrm = new mainFrame();
-        mainFrm.setVisible(true);
+        initMainFrameProperties();
         
-        confirmFrm = new confirmFrame();
-        
+        deleteFrm = new confirmDeleteFrame();
+        problemFrm = new confirmNotProblematicFrame();
+
         initTables();
     }
-
-    private void initConfirmFrame() {
-        confirmFrm.setVisible(true);
-        confirmFrm.setAlwaysOnTop(true);
+    private void initMainFrameProperties() {
+        mainFrm = new mainFrame();
+        mainFrm.setTitle("Könyvtér asztali alkalmazás");
+        mainFrm.setLocationRelativeTo(null);
+        mainFrm.setVisible(true);
     }
-    private void disposeConfrimFrame() {
-        confirmFrm.dispose();
+    private void initConfirmDeleteFrame() {
+        deleteFrm.setLocationRelativeTo(mainFrm);
+        deleteFrm.setQuestionLbl("Biztosan törli a kiválasztott elemet?");
+        deleteFrm.setVisible(true);
+        deleteFrm.setAlwaysOnTop(true);
+    }
+    private void disposeConfrimDeleteFrame() {
+        deleteFrm.dispose();
+    }
+    private void initConfirmProblematicFrame() {
+        problemFrm.setLocationRelativeTo(mainFrm);
+        problemFrm.setQuestionLbl("Biztosan nincsen probléma a hirdetéssel?");
+        problemFrm.setVisible(true);
+        problemFrm.setAlwaysOnTop(true);
+    }
+    private void disposeConfirmProblematicFrame() {
+        problemFrm.dispose();
+    }
+    private void reConnect() { 
+        clearStatusLbl();
+        restCtr = new RESTController();
+        getLoginStatus();
+        if(restCtr.getLoginMessage() != null) {
+            mainFrm.getUpdateBtn().setVisible(false);
+        }
+        initTables();
+
     }
     private void initTables() {
     
@@ -69,18 +102,17 @@ public class GuiController {
         }   
     }
     private void ThreadStarter() {
-        new Thread(runner).start();
+        new Thread(thread02).start();
+        new Thread(thread03).start();
     }
-
     private void search() {
         int openTab = mainFrm.getTableTb().getSelectedIndex();
         String search_text = mainFrm.getSearchTf().getText();
-        String method = "GET";
         if(openTab == 0) {
-            restCtr.setData(search_text, method);
+            restCtr.setSearchData(search_text);
             initTables();
         }else {
-            restCtr.setData(search_text, method);
+            restCtr.setSearchData(search_text);
             initTables();
         }
     }
@@ -88,50 +120,93 @@ public class GuiController {
         restCtr.Logout();
         System.exit(0);
     }
-    //TODO
-    private void addAdmin() {
-    
-        
-    }
-    
-    //TODO: úgy törölni felhasználót vagy hirdetést hogy nincs megjelenítve a GUI-n az id
     private void delete() {
+        clearStatusLbl();
+        
         int openTab = mainFrm.getTableTb().getSelectedIndex();
-        String method = "DELETE";
         if(openTab == 0) {
-            deleteUser(method);
+            deleteUser();
         }else {
-            deleteAdvertisment(method);
+            deleteAdvertisment();
         }
-        confirmFrm.dispose();
+        deleteFrm.dispose();
     }
-    private void deleteUser(String method) {
+    private void deleteUser() {
         int row = mainFrm.getUserTbl().getSelectedRow();
         String value = mainFrm.getUserTbl().getModel().getValueAt(row, 3).toString();
-
-        restCtr.setData(value, method);
+        restCtr.setId(value);
+        
+        restCtr.DeleteUser();
+        mainFrm.setStatusLbl(restCtr.getDeleteUserMessage());
+        
         initTables();
     }
-    private void deleteAdvertisment(String method) {
+    private void deleteAdvertisment() {
         int row = mainFrm.getAdvertismentTbl().getSelectedRow();
         String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
-
-        restCtr.setData(value, method);
+        restCtr.setId(value);
+        
+        restCtr.DeleteAdvertisment();
+        mainFrm.setStatusLbl(restCtr.getDeleteAdvertismentMessage());
+        
         initTables();
     }
-
-    Runnable runner = () -> {
+    private void validAdvertisment() {
+        int row = mainFrm.getAdvertismentTbl().getSelectedRow();
+        String value = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
+        restCtr.setId(value);
+        
+        restCtr.ValidAdvertisment();
+        mainFrm.setStatusLbl(restCtr.getValidAdvertismentMessage());
+        
+        disposeConfirmProblematicFrame();
+        
+        initTables();
+    }
+    private void getLoginStatus() {
+        String message = restCtr.getLoginMessage();
+        if(restCtr.getLoginMessage() != null) {
+            mainFrm.setStatusLbl(restCtr.getLoginMessage());
+        }else {
+            mainFrm.setStatusLbl("Nincs kapcsolat a kiszolgálóval!");
+            refresh();
+        }
+    }
+    private void refresh() {
+        mainFrm.getUpdateBtn().setVisible(true);
+    }
+    private void clearStatusLbl() {
+        mainFrm.setStatusLbl("");
+    }
+    Runnable thread02 = () -> {
         timer();
     };
-    public void timer() {
-        boolean time = true;
-        while(time) {
+    Runnable thread03 = () -> {
+        validBtnAvability();
+    };
+    private void timer() {
+        while(true) {
                initTables();
                try {
                 Thread.sleep(30000);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (InterruptedException ex){
+                Thread.currentThread().interrupt();
             }
         }
+    }
+    private void validBtnAvability() {
+        while(true) {
+            if(mainFrm.getTableTb().getSelectedIndex() != 0) {
+                mainFrm.getNotValidBtn().setVisible(true);
+            }else {
+                mainFrm.getNotValidBtn().setVisible(false);
+            }
+            try{
+		Thread.sleep(50);
+            }catch(InterruptedException ex){
+                Thread.currentThread().interrupt();
+            }
+        }
+
     }
 }

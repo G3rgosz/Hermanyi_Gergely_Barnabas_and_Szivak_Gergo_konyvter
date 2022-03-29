@@ -8,17 +8,16 @@ public class RESTController {
     private RESTModel restMdl;
     private String token;
     private String search_text;
-    private String method;
+    private String id;
     
     public RESTController() {
         restMdl = new RESTModel();
         token = getToken();
         search_text = "";
-        method = "GET";
+        id = "";
     }
     private String getToken() {
         String token = restMdl.tryLogin();
-        System.out.println(token);
         return token;
     }
     public void Logout() {
@@ -27,20 +26,49 @@ public class RESTController {
     public Vector<Vector<Object>> getUsers() {
         Vector<Vector<Object>> users = new Vector<>();
         
-        users = restMdl.tryUsers(token, search_text, method);
+        users = restMdl.tryUsers(token, search_text);
         
         return users;
     }
     public Vector<Vector<Object>> getAdvertisments() {
         Vector<Vector<Object>> advertisments = new Vector<>();
         
-        advertisments = restMdl.tryAdvertisments(token, search_text, method);
+        advertisments = restMdl.tryAdvertisments(token, search_text);
         
         return advertisments;
     }
-    public void setData(String search_text, String method) {
-        
+    public Boolean DeleteUser() {
+        boolean success = restMdl.tryDeleteUsers(token, id);
+        return success;
+    }
+    public Boolean DeleteAdvertisment() {
+        boolean success = restMdl.tryDeleteAdvertisments(token, id);
+        return success;
+    }
+    public Boolean ValidAdvertisment() {
+        boolean success = restMdl.tryValidAdvertisments(token, id);
+        return success;
+    }
+    public void setSearchData(String search_text) {
         this.search_text = search_text;
-        this.method = method;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getLoginMessage() {
+       String message = restMdl.getLoginMessage();
+       return message;
+    }
+    public String getDeleteAdvertismentMessage() {
+        String message = restMdl.getDeleteAdvertismentMessage();
+        return message;
+    }
+    public String getDeleteUserMessage() {
+        String message = restMdl.getDeleteUserMessage();
+        return message;
+    }
+    public String getValidAdvertismentMessage() {
+        String message = restMdl.getvalidAdvertismentMessage();
+        return message;
     }
 }
