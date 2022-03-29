@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../shared/auth.service';
+import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,14 +11,14 @@ export class AdvertisementComponent implements OnInit {
 
   host = 'http://localhost:8000/api/';
   server = 'http://localhost:8000';
+
   id:any;
-  ad:any;
-  book:any;
+  ad:any = [];
+  userArray:any = [];
+  bookArray:any = [];
 
   constructor(
-    private router: Router,
     private http: HttpClient,
-    private auth: AuthService,
     private route: ActivatedRoute
   ) { }
   ngOnInit(): void {
@@ -36,19 +34,29 @@ export class AdvertisementComponent implements OnInit {
       (res) => {
         this.ad = res.data;
         this.getBookData();
+        this.getUserData();
       }, (error) => {
         console.error(error);
     });
   }
   getBookData(){
-    console.log(this.ad);
     let endpoint = 'web/books/';
     let url = this.host + endpoint + this.ad.book_id;
     this.http.get<any>(url)
     .subscribe(
       (res) => {
-        this.book = res.data;
-        console.log(this.book)
+        this.bookArray = res.data;
+      }, (error) => {
+        console.error(error);
+    });
+  }
+  getUserData(){
+    let endpoint = 'account/';
+    let url = this.host + endpoint + this.ad.user_id;
+    this.http.get<any>(url)
+    .subscribe(
+      (res) => {
+        this.userArray = res.data;
       }, (error) => {
         console.error(error);
     });
