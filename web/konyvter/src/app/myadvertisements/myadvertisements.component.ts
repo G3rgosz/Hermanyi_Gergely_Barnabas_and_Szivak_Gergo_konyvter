@@ -61,12 +61,14 @@ export class MyadvertisementsComponent implements OnInit {
   }
   getBookTitle(book_id:any){
     let title;
+    let writer;
     for(let book of this.books){
       if(book.id == book_id){
+        writer = book.writer;
         title = book.title;
       }
     }
-    return title;
+    return writer+": "+title;
   }
   navigateAd(id:any){
     this.router.navigate(['advertisement/', id]);
