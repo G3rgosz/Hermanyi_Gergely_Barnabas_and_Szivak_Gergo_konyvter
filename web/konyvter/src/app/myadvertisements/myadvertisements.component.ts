@@ -11,7 +11,7 @@ import { ThisReceiver } from '@angular/compiler';
 export class MyadvertisementsComponent implements OnInit {
 
   myads:any;
-  books:any;
+  books:any = [];
 
   host = 'http://localhost:8000/api/';
   server = 'http://localhost:8000';
@@ -24,7 +24,6 @@ export class MyadvertisementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMyAds();
-    this.getBooks();
   }
   getMyAds(){
     let endpoint = 'web/advertisements/my';
@@ -42,27 +41,29 @@ export class MyadvertisementsComponent implements OnInit {
     .subscribe(
       (res) => {
         this.myads = res.data;
+        for(let ad of res.data){
+          this.getBook(ad.book_id);
+        }
       }, (error) => {
         console.error(error);
     });
   }
-  getBooks(){
-    let endpoint = 'web/books';
-    let url = this.host + endpoint;
+  getBook(book_id:any){
+    let endpoint = 'web/books/';
+    let url = this.host + endpoint + book_id;
     this.http.get<any>(url)
     .subscribe(
       (res) => {
-        this.books = res.data;
-        console.log(this.books);
+        this.books.push(res.data[0]);
       }, (error) => {
         console.error(error);
     });
   }
   getBookTitle(book_id:any){
     let title;
-    for (let index = 0; index < this.books.length; index++) {
-      if(this.books[index].id == book_id){
-        title = this.books[index].title;
+    for(let book of this.books){
+      if(book.id == book_id){
+        title = book.title;
       }
     }
     return title;
