@@ -48,7 +48,7 @@ Végpont | Metódus | Hitelesítés | Siker
 /api/web/advertisements | POST | igen | 200 OK |
 /api/web/advertisements/{id} | GET | nem | 200 OK |
 /api/web/advertisements/{id} | POST/_method:PUT | igen | 200 OK |
-/api/web/advertisements/report/{id} | PUT | igen | 200 OK |
+/api/web/advertisements/report/{id} | PUT | nem | 200 OK |
 /api/web/advertisements/{id} | DELETE | igen/user vagy admin | 200 OK |
 /api/web/advertisements/filter | POST | nem | 200 OK |
 

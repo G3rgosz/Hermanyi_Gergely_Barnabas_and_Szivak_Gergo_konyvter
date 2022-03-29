@@ -39,7 +39,6 @@ Route::group(["middleware" => ["auth:sanctum"]], function(){
     Route::get("/web/advertisements/my", [AdvertisementController::class, "getMyAds"]);
     Route::post("/web/advertisements", [AdvertisementController::class, "create"]);
     Route::put("/web/advertisements/{id}", [AdvertisementController::class, "update"]);
-    Route::put("/web/advertisements/report/{id}", [AdvertisementController::class, "reportAd"]);
     Route::delete("/web/advertisements/{id}", [AdvertisementController::class, "delete"]);
 }); 
 Route::post("/register", [AuthController::class, "register"]);
@@ -53,5 +52,7 @@ Route::get("/web/genres", [GenreController::class, "index"]);
 Route::get("/web/advertisements", [AdvertisementController::class, "index"]);
 Route::get("/web/advertisements/{id}", [AdvertisementController::class, "show"]);
 Route::post("/web/advertisements/filter", [AdvertisementController::class, "filter"]);
+
+Route::put("/web/advertisements/report/{id}", [AdvertisementController::class, "reportAd"]);
 
 Route::get("/account/{id}", [AccountController::class, "show"]);
