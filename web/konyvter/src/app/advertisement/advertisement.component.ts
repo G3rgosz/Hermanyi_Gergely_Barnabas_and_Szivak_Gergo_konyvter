@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -66,6 +66,28 @@ export class AdvertisementComponent implements OnInit {
     });
   }
   report(){
+    let messageData = {
+      badcontent: this.reportForm.value.message
+    }
+    let endpoint = 'web/advertisements/report/';
+    let url = this.host + endpoint + this.id;
 
+    let data = JSON.stringify(messageData);
+
+    let headerObj = new HttpHeaders({
+      'Content-Type':'application/json'
+    })
+    let header = {
+      headers: headerObj
+    }
+
+    this.http.put<any>(url,data, header)
+    .subscribe(
+      (res) => {
+        this.reportForm.reset();
+        alert("Hirdetés jelentve!");
+      }, (error) => {
+        console.error(error);
+    });
   }
 }
