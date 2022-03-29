@@ -14,7 +14,7 @@ export class AdvertisementComponent implements OnInit {
   host = 'http://localhost:8000/api/';
   server = 'http://localhost:8000';
   id:any;
-  ad!:any;
+  ad:any;
   book:any;
 
   constructor(
@@ -26,7 +26,6 @@ export class AdvertisementComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.getAdData();
-    // this.getBookData();
   }
   getAdData(){
     let endpoint = 'web/advertisements/';
@@ -36,15 +35,15 @@ export class AdvertisementComponent implements OnInit {
     .subscribe(
       (res) => {
         this.ad = res.data;
-        this.getBookData(res.data);
+        this.getBookData();
       }, (error) => {
         console.error(error);
     });
   }
-  getBookData(data:any){
+  getBookData(){
     console.log(this.ad);
     let endpoint = 'web/books/';
-    let url = this.host + endpoint + data.book_id;
+    let url = this.host + endpoint + this.ad.book_id;
     this.http.get<any>(url)
     .subscribe(
       (res) => {

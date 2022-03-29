@@ -4,7 +4,6 @@ a:hover > .block-card{
     transition: .5s;
 }
 .block-card {
-    border: 1px #FFFFFF solid;
     padding: 0;
     box-shadow: 1px 1px 8px #d8d8d8;
 }
@@ -21,4 +20,7 @@ a:hover > .block-card{
 }
 .box img {
     object-fit: contain;
+}
+.badge{
+    max-width: 50px;
 }

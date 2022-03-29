@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../shared/auth.service';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-myadvertisements',
   templateUrl: './myadvertisements.component.html',
@@ -10,6 +11,7 @@ import { AuthService } from '../shared/auth.service';
 export class MyadvertisementsComponent implements OnInit {
 
   myads:any;
+  books:any;
 
   host = 'http://localhost:8000/api/';
   server = 'http://localhost:8000';
@@ -22,6 +24,7 @@ export class MyadvertisementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMyAds();
+    this.getBooks();
   }
   getMyAds(){
     let endpoint = 'web/advertisements/my';
@@ -42,6 +45,27 @@ export class MyadvertisementsComponent implements OnInit {
       }, (error) => {
         console.error(error);
     });
+  }
+  getBooks(){
+    let endpoint = 'web/books';
+    let url = this.host + endpoint;
+    this.http.get<any>(url)
+    .subscribe(
+      (res) => {
+        this.books = res.data;
+        console.log(this.books);
+      }, (error) => {
+        console.error(error);
+    });
+  }
+  getBookTitle(book_id:any){
+    let title;
+    for (let index = 0; index < this.books.length; index++) {
+      if(this.books[index].id == book_id){
+        title = this.books[index].title;
+      }
+    }
+    return title;
   }
   navigateAd(id:any){
     this.router.navigate(['advertisement/', id]);

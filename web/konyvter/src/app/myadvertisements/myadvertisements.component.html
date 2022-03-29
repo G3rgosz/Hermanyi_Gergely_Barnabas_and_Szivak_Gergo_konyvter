@@ -2,14 +2,18 @@
 <div class="row mt-3" *ngFor="let myad of myads">
   <div class="col-8">
     <a class="nav-link text-dark" (click)="navigateAd(myad.id)">
-      <div class="row card-body block-card">
+      <div class="row card-body block-card position-relative">
         <div class="col-sm-5 box">
           <img class="" src="{{server}}{{myad.picturepath}}" alt="Hirdetési kép">
         </div>
         <div class="col-sm-7">
           <h4 class="card-title text-break"><b>{{myad.adtitle}}</b></h4>
-          <p class="card-text">Ár: {{myad.price}} Ft</p>
+          <p class="card-text text-break ">Könyv: {{getBookTitle(myad.book_id)}}</p>
+          <p class="card-text"><b>Ár: {{myad.price}} Ft</b></p>
         </div>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{myad.sawcounter}} <i class="bi bi-eye"></i>
+        </span>
       </div>
     </a>
   </div>
