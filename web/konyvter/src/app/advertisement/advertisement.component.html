@@ -1,8 +1,10 @@
 
-<div class="justify-content-center mt-2 myadbox" *ngFor="let book of bookArray">
+<div class="justify-content-center mt-5 myadbox" *ngFor="let book of bookArray">
   <div class="row mt-3">
     <div class="col-sm-5 imgbox">
-      <img class="" src="{{server}}{{ad.picturepath}}" alt="Hirdetési kép">
+      <a href="{{server}}{{ad.picturepath}}">
+        <img class="" src="{{server}}{{ad.picturepath}}" alt="Hirdetési kép">
+      </a>
     </div>
     <div class="col-sm-7 mt-3">
       <h2><ins>{{ad.adtitle}}</ins></h2>
@@ -16,6 +18,9 @@
           <i class="bi bi-phone">:</i> {{user.phone}}
         </p>
       </div>
+      <a class="btn report" aria-current="page" data-bs-toggle="modal" data-bs-target="#report">
+          <img src="../../assets/alert-svgrepo-com.svg" alt="alert">
+      </a>
     </div>
   </div>
   <div class="row mt-5">
@@ -35,4 +40,27 @@
     <p class="text-muted">Feladás dátuma: {{ad.created_at | date}}</p>
   </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="report" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Hirdetés jelentése</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="reportForm" (ngSubmit)="report()">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Jelentés indoklása:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Minimum 20 karakterben fejtse ki a problémát." formControlName="message"></textarea>
+              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
+              <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" [disabled]="!reportForm.valid">Küldés</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal end -->

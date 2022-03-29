@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-advertisement',
@@ -16,6 +17,7 @@ export class AdvertisementComponent implements OnInit {
   ad:any = [];
   userArray:any = [];
   bookArray:any = [];
+  reportForm!:FormGroup;
 
   constructor(
     private http: HttpClient,
@@ -24,11 +26,13 @@ export class AdvertisementComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.getAdData();
+    this.reportForm = new FormGroup({
+      message: new FormControl('', [Validators.required, Validators.minLength(20)])
+    })
   }
   getAdData(){
     let endpoint = 'web/advertisements/';
     let url = this.host + endpoint + this.id;
-    console.log(url);
     this.http.get<any>(url)
     .subscribe(
       (res) => {
@@ -60,5 +64,8 @@ export class AdvertisementComponent implements OnInit {
       }, (error) => {
         console.error(error);
     });
+  }
+  report(){
+
   }
 }

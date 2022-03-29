@@ -4,6 +4,9 @@ body{
 .container{
     min-height: 100vh;
 }
+nav{
+    height: 70px;
+}
 .navbar-brand{
     font-family: Georgia, serif;
     font-weight: bold;
