@@ -22,7 +22,6 @@ export class UpdateadvertisementComponent implements OnInit {
   bookArray:any = [];
 
   host = 'http://localhost:8000/api/';
-  server = 'http://localhost:8000';
 
   constructor(
     private router: Router,
@@ -54,9 +53,6 @@ export class UpdateadvertisementComponent implements OnInit {
       image: new FormControl('', Validators.required),
       description: new FormControl('', [Validators.required,  Validators.minLength(20)])
     });
-    // this.updateadForm.patchValue({
-    //   title: this.bookArray.title,
-    // });
   }
   checkboxController(genre:string){
     if(this.genreList.includes(genre)){
@@ -83,7 +79,23 @@ export class UpdateadvertisementComponent implements OnInit {
     return this.http.get<any>(url);
   }
   downloadFile(){
-    let url = this.server + this.ad.picturepath; 
+    let urlData = {
+      url: this.ad.picturepath
+    }
+    let endpoint = 'web/advertisements/image';
+    let url = this.host + endpoint;
+
+    let data = JSON.stringify(urlData);
+
+    fetch(url, {
+      "method": "POST",
+      "headers": {"Content-Type": "application/json"},
+      "body": data
+    }).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.error(err);
+    });
   }
   getAdData(){
     let endpoint = 'web/advertisements/';
@@ -93,7 +105,7 @@ export class UpdateadvertisementComponent implements OnInit {
       (res) => {
         this.ad = res.data;
         this.getBookData();
-        this.downloadFile();
+        // this.downloadFile();
       }, (error) => {
         console.error(error);
     });

@@ -273,8 +273,7 @@ class AdvertisementController extends BaseController{
         $url = $request->all()["url"];
         $url = "public".(explode("/storage", $url)[1]);
         try {
-            $image = Storage::download($url);
-            return $this->sendResponse($image, "Kép letöltve");
+            return Storage::download($url);
         } catch (\Throwable $e) {
             return $this->sendError("Hiba a letöltés során, az url nem található", $e);
         }
