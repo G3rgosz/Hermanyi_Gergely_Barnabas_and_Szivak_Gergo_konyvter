@@ -7,11 +7,15 @@ body{
 nav{
     height: 70px;
 }
+.active-brand{
+    color: black;
+}
 .navbar-brand{
     font-family: Georgia, serif;
     font-weight: bold;
     font-size: 25px;
     margin-left: 20px;
+    color: rgba(61, 61, 61, 0.726);
 }
 .settingsIcon{
     max-width: 60%;

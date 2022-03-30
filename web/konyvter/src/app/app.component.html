@@ -10,7 +10,7 @@
   <!-- Nav -->
   <nav class="navbar navbar-expand-lg navbar-light book-bg1">
     <div class="container-fluid">
-      <a class="navbar-brand" href="">
+      <a class="navbar-brand" routerLink="" routerLinkActive="active-brand">
         <i class="bi bi-book"></i> Főoldal
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,26 +20,26 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <div *ngIf="isLoggedIn()">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/myadvertisements">Hirdetéseim</a>
+              <a class="nav-link" aria-current="page" routerLink="myadvertisements">Hirdetéseim</a>
             </li>
           </div>
           <li class="nav-item">
             <div *ngIf="isLoggedIn()">
-              <a class="nav-link" aria-current="page" href="/newadvertisement">Hirdetésfeladás</a>
+              <a class="nav-link" aria-current="page" routerLink="newadvertisement">Hirdetésfeladás</a>
             </div>
             <div *ngIf="!isLoggedIn()">
-              <a class="nav-link" aria-current="page" href="/newadvertisement" data-bs-toggle="modal" data-bs-target="#modal">Hirdetésfeladás</a>
+              <a class="nav-link" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#modal">Hirdetésfeladás</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" routerLink="asd">
               Részletes keresés
             </a>
           </li>
         </ul>
         <div class="d-flex">
           <div *ngIf="isLoggedIn()">
-            <a class="nav-link" aria-current="page" href="#">
+            <a class="nav-link" aria-current="page" routerLink="asd">
               <svg class="settingsIcon"  x="0px" y="0px"
                 width="64" height="64"
                 viewBox="0 0 64 64"

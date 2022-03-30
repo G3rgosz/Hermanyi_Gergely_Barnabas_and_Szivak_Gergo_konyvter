@@ -13,7 +13,8 @@ const routes: Routes = [
   {path:'register', component: RegisterComponent},
   {path:'newadvertisement', component: NewadvertisementComponent, canActivate: [AuthGuard]},
   {path:'myadvertisements', component: MyadvertisementsComponent, canActivate: [AuthGuard]},
-  {path:'advertisement/:id', component: AdvertisementComponent}
+  {path:'advertisement/:id', component: AdvertisementComponent},
+  {path: '**', redirectTo: ''}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
