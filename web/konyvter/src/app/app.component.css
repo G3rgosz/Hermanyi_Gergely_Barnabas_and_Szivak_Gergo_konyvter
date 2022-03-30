@@ -4,23 +4,16 @@ body{
 .container{
     min-height: 100vh;
 }
-nav{
-    height: 70px;
-}
-nav a[ng-reflect-router-link] {
+nav a[ng-reflect-router-link]{
     color: black;
     font-weight: 700;
-  }
+}
 .navbar-brand{
     font-family: Georgia, serif;
     font-weight: bold;
     font-size: 25px;
     margin-left: 20px;
     color: black;
-}
-.settingsIcon{
-    max-width: 60%;
-    max-height: 60%;
 }
 .settingsIcon:hover{
     transform: scale(1.1);

@@ -74,6 +74,9 @@ export class MyadvertisementsComponent implements OnInit {
   navigateAd(id:any){
     this.router.navigate(['advertisement/', id]);
   }
+  updateAd(id:any){
+    this.router.navigate(['updateadvertisement/', id]);
+  }
   delete(id:any){
     let endpoint = 'web/advertisements/';
     let url = this.host + endpoint + id;

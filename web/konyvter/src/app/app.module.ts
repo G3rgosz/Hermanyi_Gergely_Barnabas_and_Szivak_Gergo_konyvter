@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { NewadvertisementComponent } from './newadvertisement/newadvertisement.component';
 import { MyadvertisementsComponent } from './myadvertisements/myadvertisements.component';
 import { AdvertisementComponent } from './advertisement/advertisement.component';
+import { UpdateadvertisementComponent } from './updateadvertisement/updateadvertisement.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AdvertisementComponent } from './advertisement/advertisement.component'
     MainComponent,
     NewadvertisementComponent,
     MyadvertisementsComponent,
-    AdvertisementComponent
+    AdvertisementComponent,
+    UpdateadvertisementComponent
   ],
   imports: [
     BrowserModule,

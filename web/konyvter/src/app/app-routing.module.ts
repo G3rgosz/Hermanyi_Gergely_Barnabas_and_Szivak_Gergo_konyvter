@@ -6,6 +6,7 @@ import { AuthGuard } from './shared/auth.guard';
 import { NewadvertisementComponent } from './newadvertisement/newadvertisement.component';
 import { MyadvertisementsComponent } from './myadvertisements/myadvertisements.component';
 import { AdvertisementComponent } from './advertisement/advertisement.component';
+import { UpdateadvertisementComponent } from './updateadvertisement/updateadvertisement.component'; 
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'newadvertisement', component: NewadvertisementComponent, canActivate: [AuthGuard]},
   {path:'myadvertisements', component: MyadvertisementsComponent, canActivate: [AuthGuard]},
   {path:'advertisement/:id', component: AdvertisementComponent},
+  {path:'updateadvertisement/:id', component: UpdateadvertisementComponent},
   {path: '**', redirectTo: ''}
 ];
 @NgModule({
