@@ -1,1 +1,20 @@
-<h1>Főoldal a hirdetések helye</h1>
+<h2 class="mt-4"><ins>Főoldal</ins></h2>
+<div class="row mt-3 justify-content-center" *ngFor="let ad of ads">
+  <div class="col-8">
+    <a class="nav-link text-dark" (click)="navigateAd(ad.id)">
+      <div class="row card-body block-card position-relative">
+        <div class="col-sm-5 box">
+          <img class="" src="{{server}}{{ad.picturepath}}" alt="Hirdetési kép">
+        </div>
+        <div class="col-sm-7">
+          <h4 class="card-title text-break"><b>{{ad.adtitle}}</b></h4>
+          <p class="card-text text-break ">{{getBookTitle(ad.book_id)}}</p>
+          <p class="card-text"><b>Ár: {{ad.price}} Ft</b></p>
+        </div>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{ad.sawcounter}} <i class="bi bi-eye"></i>
+        </span>
+      </div>
+    </a>
+  </div>
+</div>

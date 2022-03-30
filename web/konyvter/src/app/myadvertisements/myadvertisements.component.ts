@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../shared/auth.service';
-import { ThisReceiver } from '@angular/compiler';
+
 @Component({
   selector: 'app-myadvertisements',
   templateUrl: './myadvertisements.component.html',
