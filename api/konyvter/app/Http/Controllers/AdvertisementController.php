@@ -155,7 +155,7 @@ class AdvertisementController extends BaseController{
         if($validator->fails()){
             return $this->sendError($validator->errors());
         }
-        $ads = Advertisement::all();
+        $ads = DB::table('advertisements')->orderByDesc('created_at')->get();
         foreach ($ads as $ad) {
             $adData[] = $ad->id;
         }
@@ -163,6 +163,7 @@ class AdvertisementController extends BaseController{
             $filters = DB::table('advertisements')
                 ->select('id')
                 ->where('adtitle', 'like', '%'.$input["adtitle"].'%')
+                ->orderByDesc('created_at')
                 ->get();
             if(count($filters)==0){
                 return $this->sendError("Nincs találat a szűrésre");
@@ -180,6 +181,7 @@ class AdvertisementController extends BaseController{
                 ->join('books', 'advertisements.book_id', '=', 'books.id')
                 ->where('books.title', 'like', '%'.$input["title"].'%')
                 ->select('advertisements.id')
+                ->orderByDesc('created_at')
                 ->get();
             if(count($filters)==0){
                 return $this->sendError("Nincs találat a szűrésre");
@@ -196,6 +198,7 @@ class AdvertisementController extends BaseController{
             $filters = DB::table('advertisements')
                 ->where('price', '<=', $input["max_price"])
                 ->select('advertisements.id')
+                ->orderByDesc('created_at')
                 ->get();
             if(count($filters)==0){
                 return $this->sendError("Nincs találat a szűrésre");
@@ -213,6 +216,7 @@ class AdvertisementController extends BaseController{
                 ->join('books', 'advertisements.book_id', '=', 'books.id')
                 ->where('books.writer', 'like', '%'.$input["writer"].'%')
                 ->select('advertisements.id')
+                ->orderByDesc('created_at')
                 ->get();
             if(count($filters)==0){
                 return $this->sendError("Nincs találat a szűrésre");
@@ -240,6 +244,7 @@ class AdvertisementController extends BaseController{
                     ->join('bgswitches', 'books.id', '=', 'bgswitches.book_id')
                     ->select('advertisements.id')
                     ->where('bgswitches.genre_id', '=', $genreid[0]->id)
+                    ->orderByDesc('created_at')
                     ->get(); 
             }
             if(is_null($filters)){
