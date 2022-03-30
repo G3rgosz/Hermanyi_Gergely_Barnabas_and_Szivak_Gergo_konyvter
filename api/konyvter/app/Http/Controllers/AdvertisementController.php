@@ -269,4 +269,14 @@ class AdvertisementController extends BaseController{
         }
         return $this->sendResponse($advertisements, "Szűrési találatok betöltve");
     }
+    public function returnImage(Request $request){
+        $url = $request->all()["url"];
+        $url = "public".(explode("/storage", $url)[1]);
+        try {
+            $image = Storage::download($url);
+            return $this->sendResponse($image, "Kép letöltve");
+        } catch (\Throwable $e) {
+            return $this->sendError("Hiba a letöltés során, az url nem található", $e);
+        }
+    }
 }
