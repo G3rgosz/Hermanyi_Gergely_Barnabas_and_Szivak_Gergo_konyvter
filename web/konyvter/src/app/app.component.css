@@ -7,15 +7,16 @@ body{
 nav{
     height: 70px;
 }
-.active-brand{
+nav a[ng-reflect-router-link] {
     color: black;
-}
+    font-weight: 700;
+  }
 .navbar-brand{
     font-family: Georgia, serif;
     font-weight: bold;
     font-size: 25px;
     margin-left: 20px;
-    color: rgba(61, 61, 61, 0.726);
+    color: black;
 }
 .settingsIcon{
     max-width: 60%;

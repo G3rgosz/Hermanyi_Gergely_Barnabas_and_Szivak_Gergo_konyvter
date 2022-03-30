@@ -46,6 +46,7 @@ export class MyadvertisementsComponent implements OnInit {
         }
       }, (error) => {
         console.error(error);
+        alert('Nincsenek hirdetéseid!');
     });
   }
   getBook(book_id:any){
