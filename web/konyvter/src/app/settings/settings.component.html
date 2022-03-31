@@ -3,7 +3,7 @@
       <h2><ins>Beállítások</ins></h2>
       <form class="mt-5" [formGroup]="updateuserForm" (ngSubmit)="update(); clicked = true;" *ngFor="let user of userData">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
+          <label for="exampleInputEmail1" class="form-label">E-mail</label>
           <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="user.email" formControlName="mail">
           <span *ngIf="updateuserForm.controls['mail'].invalid && updateuserForm.controls['mail'].touched">Az e-mail cím kötelező</span>
         </div>

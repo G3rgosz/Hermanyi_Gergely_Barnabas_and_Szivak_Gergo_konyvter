@@ -4,7 +4,7 @@
     <h2><ins>Regisztráció</ins></h2>
     <form [formGroup]="registerForm" (ngSubmit)="register(); clicked = true;">
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <label for="exampleInputEmail1" class="form-label">E-mail</label>
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="mail">
         <span *ngIf="registerForm.controls['mail'].invalid && registerForm.controls['mail'].touched">Az e-mail cím kötelező</span>
       </div>

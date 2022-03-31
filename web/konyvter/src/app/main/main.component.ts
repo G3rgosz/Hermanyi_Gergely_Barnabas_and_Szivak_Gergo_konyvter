@@ -38,7 +38,6 @@ export class MainComponent implements OnInit {
     this.http.get<any>(url)
     .subscribe(
       (res) => {
-        console.log(res.data)
         this.ads = res.data;
         for(let ad of res.data){
           this.getBook(ad.book_id);
@@ -96,8 +95,7 @@ export class MainComponent implements OnInit {
           this.getBook(ad[0].book_id);
           ads.push(ad[0]);
         }
-        this.ads = ads
-        console.log(this.ads)
+        this.ads = ads;
       }, (error) => {
         console.error(error);
         alert('Nincs találat a keresésre!');
