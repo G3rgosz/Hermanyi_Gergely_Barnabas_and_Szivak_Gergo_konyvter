@@ -1,0 +1,6 @@
+
+public/images/*
+!public/images/TesztElek/1
+!public/images/TesztElek/2
+!public/images/TesztElek/3
+!.gitignore
