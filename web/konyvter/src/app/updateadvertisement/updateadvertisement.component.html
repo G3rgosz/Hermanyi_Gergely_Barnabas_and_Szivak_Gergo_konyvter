@@ -51,9 +51,8 @@
         <span *ngIf="updateadForm.controls['price'].invalid && updateadForm.controls['price'].touched">Az ár megadása kötelező (szám, maximum 10 karakter)</span>
     </div>
     <div class="mb-3">
-        <label for="formFile" class="form-label">Hirdetési kép feltöltése</label>
+        <label for="formFile" class="form-label">Új hirdetési kép feltöltése</label>
         <input class="form-control" type="file" id="formFile" accept="image/jpeg, image/png, image/jpg" (change)="handleFileInput($event)" formControlName="image">
-        <span *ngIf="updateadForm.controls['image'].invalid && updateadForm.controls['image'].touched">A képfeltöltés kötelező</span>
     </div>
     <div class="mb-3">
         <label for="description" class="form-label">Leírás</label>
@@ -61,7 +60,7 @@
         <span *ngIf="updateadForm.controls['description'].invalid && updateadForm.controls['description'].touched">A leírás kötelező, minimum 20 karakterben</span>
       </div>
     <div class="col-12">
-      <button type="submit" class="btn book-bg2" [disabled]="clicked" [disabled]="!updateadForm.valid">Hirdetés létrehozása</button>
+      <button type="submit" class="btn book-bg2" [disabled]="clicked" [disabled]="!updateadForm.valid">Hirdetés módosítása</button>
     </div>
   </form>
 </div>

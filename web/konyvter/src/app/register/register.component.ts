@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     let pass = this.registerForm.value.pass;
     let pass2 = this.registerForm.value.pass2;
     let phone = this.registerForm.value.phone;
-    console.log(phone)
+
     if(pass != pass2){
       alert("A jelszavak nem egyeznek!")
       this.registerForm.reset();

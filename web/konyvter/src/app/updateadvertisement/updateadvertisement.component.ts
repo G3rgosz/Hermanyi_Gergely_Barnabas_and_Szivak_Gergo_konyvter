@@ -50,7 +50,7 @@ export class UpdateadvertisementComponent implements OnInit {
       genres: new FormControl(''),
       adtitle: new FormControl('', [Validators.required,  Validators.maxLength(49)]),
       price: new FormControl('', [Validators.required,  Validators.maxLength(10), Validators.pattern("[0-9]*$")]),
-      image: new FormControl('', Validators.required),
+      image: new FormControl(''),
       description: new FormControl('', [Validators.required,  Validators.minLength(20)])
     });
   }
@@ -78,25 +78,6 @@ export class UpdateadvertisementComponent implements OnInit {
     let url = this.host + endpoint;
     return this.http.get<any>(url);
   }
-  downloadFile(){
-    let urlData = {
-      url: this.ad.picturepath
-    }
-    let endpoint = 'web/advertisements/image';
-    let url = this.host + endpoint;
-
-    let data = JSON.stringify(urlData);
-
-    fetch(url, {
-      "method": "POST",
-      "headers": {"Content-Type": "application/json"},
-      "body": data
-    }).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.error(err);
-    });
-  }
   getAdData(){
     let endpoint = 'web/advertisements/';
     let url = this.host + endpoint + this.id;
@@ -105,7 +86,6 @@ export class UpdateadvertisementComponent implements OnInit {
       (res) => {
         this.ad = res.data;
         this.getBookData();
-        // this.downloadFile();
       }, (error) => {
         console.error(error);
     });
@@ -117,9 +97,80 @@ export class UpdateadvertisementComponent implements OnInit {
     .subscribe(
       (res) => {
         this.bookArray = res.data;
+        this.genreList = this.bookArray[0].genres;
       }, (error) => {
         console.error(error);
     });
   }
-  updateAdvertisement(){}
+  updateAdvertisement(){
+    if(this.genreList.length == 0){
+      alert("Válasszon ki legalább egy műfajt!")
+      this.clicked = false;
+    }else{
+      this.clicked = true;
+      this.updateBook()
+      .subscribe(
+        (res) => {
+          this.updateAd(res.data)
+          .subscribe(
+            (res) => {
+              alert("Hirdetés sikeresen módosítva!");
+              this.router.navigate(['myadvertisements']);
+            }, (error) => {
+              console.error(error);
+            })
+        }, (error) => {
+          console.error(error);
+        });
+    }
+  }
+  updateBook(){
+    let endpoint = 'web/books/';
+    let url = this.host + endpoint + this.ad.book_id;
+
+    let bookData = {
+      title: this.updateadForm.value.title,
+      writer: this.updateadForm.value.writer,
+      publisher: this.updateadForm.value.publisher,
+      release: this.updateadForm.value.release,
+      language: this.updateadForm.value.language,
+      genres: this.genreList
+    }
+    let token = this.auth.isLoggedIn();
+
+    let data = JSON.stringify(bookData);
+    let headerObj = new HttpHeaders({
+      'Content-Type':'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    let header = {
+      headers: headerObj
+    }
+    return this.http.put<any>(url,data,header);
+  }
+  updateAd(data:any){
+    let endpoint = 'web/advertisements/';
+    let url = this.host + endpoint + this.ad.id;
+    const formData = new FormData();
+
+    formData.append('adtitle', this.updateadForm.value.adtitle);
+    formData.append("price", this.updateadForm.value.price);
+    formData.append("description", this.updateadForm.value.description);
+    formData.append("book_id", data);
+    formData.append("_method", "PUT");
+
+    if(this.file !== undefined){
+      formData.append("image", this.file); 
+    }
+
+    let token = this.auth.isLoggedIn();
+
+    let headerObj = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    let header = {
+      headers: headerObj
+    }
+    return this.http.post<any>(url,formData,header);
+  }
 }
