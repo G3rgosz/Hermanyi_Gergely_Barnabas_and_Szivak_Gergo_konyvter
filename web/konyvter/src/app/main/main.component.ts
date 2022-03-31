@@ -18,6 +18,7 @@ export class MainComponent implements OnInit {
   host = 'http://localhost:8000/api/';
   server = 'http://localhost:8000';
 
+  page = 1;
 
   constructor(
     private router: Router,
@@ -26,12 +27,15 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getMyAds();
+    this.getAds();
     this.searchForm = new FormGroup({
       search: new FormControl('')
     })
   }
-  getMyAds(){
+  changePage(event:any){
+    this.page = event
+  }
+  getAds(){
     let endpoint = 'web/advertisements';
     let url = this.host + endpoint;
     

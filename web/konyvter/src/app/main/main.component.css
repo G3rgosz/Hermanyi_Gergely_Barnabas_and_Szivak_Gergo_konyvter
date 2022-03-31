@@ -1,3 +1,6 @@
+.onePage{
+    min-height: 100vh;
+}
 a:hover > .block-card{
     background-color: #f2e5bb;
     transform: scale(1.01);
@@ -21,4 +24,7 @@ a:hover > .block-card{
 }
 .badge{
     max-width: 50px;
+}
+#pagination{
+    text-align: center;
 }

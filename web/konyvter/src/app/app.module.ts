@@ -13,6 +13,7 @@ import { MyadvertisementsComponent } from './myadvertisements/myadvertisements.c
 import { AdvertisementComponent } from './advertisement/advertisement.component';
 import { UpdateadvertisementComponent } from './updateadvertisement/updateadvertisement.component';
 import { SettingsComponent } from './settings/settings.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SettingsComponent } from './settings/settings.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
