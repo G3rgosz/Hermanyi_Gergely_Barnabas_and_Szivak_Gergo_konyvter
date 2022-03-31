@@ -51,7 +51,6 @@ Végpont | Metódus | Hitelesítés | Siker
 /api/web/advertisements/report/{id} | PUT | nem | 200 OK |
 /api/web/advertisements/{id} | DELETE | igen/user vagy admin | 200 OK |
 /api/web/advertisements/filter | POST | nem | 200 OK |
-/api/web/advertisements/image | POST | nem | 200 OK |
 
 ### Megjegyzés a végpontokhoz
 

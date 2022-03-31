@@ -52,7 +52,6 @@ Route::get("/web/genres", [GenreController::class, "index"]);
 Route::get("/web/advertisements", [AdvertisementController::class, "index"]);
 Route::get("/web/advertisements/{id}", [AdvertisementController::class, "show"]);
 Route::post("/web/advertisements/filter", [AdvertisementController::class, "filter"]);
-Route::post("/web/advertisements/image", [AdvertisementController::class, "returnImage"]);
 
 Route::put("/web/advertisements/report/{id}", [AdvertisementController::class, "reportAd"]);
 

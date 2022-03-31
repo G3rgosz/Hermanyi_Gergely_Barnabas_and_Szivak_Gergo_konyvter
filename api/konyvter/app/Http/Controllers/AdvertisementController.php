@@ -65,7 +65,7 @@ class AdvertisementController extends BaseController{
                 "adtitle" => "required|max:50",
                 "description" => "required",
                 "price" => "required|integer",
-                'image' => 'required|image:jpeg,png,jpg,gif,svg|max:8192',
+                'image' => 'image:jpeg,png,jpg,gif,svg|max:8192',
                 "book_id" => "required|integer",
             ]);
             if($validator->fails()){
@@ -79,12 +79,14 @@ class AdvertisementController extends BaseController{
                     "book_id" => $input['book_id'],
                     "user_id" => $user->id
                 ]);
-                $destination = 'public/images/'.$user->username.'/'.$advertisement->id;
-                $files = Storage::files($destination);
-                Storage::delete($files);
-                $path = Storage::put($destination, $input['image']);
-                $advertisement->picturepath = Storage::url($path);
-                $advertisement->save();
+                if(isset($input['image'])){
+                    $destination = 'public/images/'.$user->username.'/'.$advertisement->id;
+                    $files = Storage::files($destination);
+                    Storage::delete($files);
+                    $path = Storage::put($destination, $input['image']);
+                    $advertisement->picturepath = Storage::url($path);
+                    $advertisement->save();
+                }
                 return $this->sendResponse(new AdvertisementResource($advertisement), "Hirdetés módosítva");
             } catch (\Throwable $e) {
                 return $this->sendError("Hiba a módosítás során", $e);
@@ -268,14 +270,5 @@ class AdvertisementController extends BaseController{
             return $this->sendError("Nincs találat a szűrésre");
         }
         return $this->sendResponse($advertisements, "Szűrési találatok betöltve");
-    }
-    public function returnImage(Request $request){
-        $url = $request->all()["url"];
-        $url = "public".(explode("/storage", $url)[1]);
-        try {
-            return Storage::download($url);
-        } catch (\Throwable $e) {
-            return $this->sendError("Hiba a letöltés során, az url nem található", $e);
-        }
     }
 }
