@@ -33,15 +33,21 @@ export class RegisterComponent implements OnInit {
     let pass = this.registerForm.value.pass;
     let pass2 = this.registerForm.value.pass2;
     let phone = this.registerForm.value.phone;
-
-    this.auth.register(mail, user, pass, pass2, phone)
-    .subscribe(
-      (res) => {
-        alert("Sikeres regisztráció!");
-        this.router.navigate(['']);
-      }, (error) => {
-        console.error(error);
-        alert("A regisztráció sikertelen!\nEllenőrizze, hogy a jelszavak egyeznek-e?\nValamint lehetséges, hogy a felhasználónév vagy e-mail cím már regisztrálva van, ez esetben próbáljon meg másik e-mail címet és felhasználó nevet!");
-      })
+    console.log(phone)
+    if(pass != pass2){
+      alert("A jelszavak nem egyeznek!")
+      this.registerForm.reset();
+    }else{
+      this.auth.register(mail, user, pass, pass2, phone)
+      .subscribe(
+        (res) => {
+          alert("Sikeres regisztráció!");
+          this.router.navigate(['']);
+        }, (error) => {
+          console.error(error);
+          alert("A regisztráció sikertelen!\nA megadott email cím vagy felhasználónév már benne van a rendszerünkben!");
+          this.registerForm.reset();
+        })
+    }
   }
 }

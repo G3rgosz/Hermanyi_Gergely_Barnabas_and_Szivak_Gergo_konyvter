@@ -12,8 +12,8 @@ export class AuthService {
   register(mail: string, user: string, pass: string, pass2: string, phone: string) {
 
     let authData;
-
-    if(phone == ""){
+    
+    if(phone == ''){
       authData = {
         email: mail,
         username: user,
