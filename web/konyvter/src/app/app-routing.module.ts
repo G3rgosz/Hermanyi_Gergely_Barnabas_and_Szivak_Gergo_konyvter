@@ -15,7 +15,7 @@ const routes: Routes = [
   {path:'newadvertisement', component: NewadvertisementComponent, canActivate: [AuthGuard]},
   {path:'myadvertisements', component: MyadvertisementsComponent, canActivate: [AuthGuard]},
   {path:'advertisement/:id', component: AdvertisementComponent},
-  {path:'updateadvertisement/:id', component: UpdateadvertisementComponent},
+  {path:'updateadvertisement/:id', component: UpdateadvertisementComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''}
 ];
 @NgModule({

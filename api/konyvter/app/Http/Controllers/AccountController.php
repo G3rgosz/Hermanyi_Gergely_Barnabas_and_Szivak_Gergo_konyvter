@@ -11,10 +11,14 @@ use Validator;
 
 class AccountController extends BaseController{
 
-    public function show($id){
-        $test = User::find($id);
-        if( is_null($test)){
-            return $this->sendError("Nincs ilyen felhasználó");
+    public function show( $id = null){
+        if(is_null($id)){
+            $id = auth("sanctum")->user()->id;
+        }else{
+            $test = User::find($id);
+            if( is_null($test)){
+                return $this->sendError("Nincs ilyen felhasználó");
+            }
         }
         $userinfo = DB::table('users')
             ->select('username', 'email', 'phone')

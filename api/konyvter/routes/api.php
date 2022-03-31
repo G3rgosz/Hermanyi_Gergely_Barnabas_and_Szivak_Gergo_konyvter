@@ -55,4 +55,4 @@ Route::post("/web/advertisements/filter", [AdvertisementController::class, "filt
 
 Route::put("/web/advertisements/report/{id}", [AdvertisementController::class, "reportAd"]);
 
-Route::get("/account/{id}", [AccountController::class, "show"]);
+Route::get("/account/{id?}", [AccountController::class, "show"]);

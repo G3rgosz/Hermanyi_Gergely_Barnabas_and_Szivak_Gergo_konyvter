@@ -40,7 +40,7 @@ Végpont | Metódus | Hitelesítés | Siker
 /api/web/books/{id} | GET | nem | 200 OK |
 /api/web/books/{id} | PUT | igen | 200 OK |
 /api/web/books/{id} | DELETE | igen | 200 OK |
-/api/account/{id} | GET | nem | 200 OK |
+/api/account/{id?} | GET | nem | 200 OK |
 /api/account/{id?} | PUT | igen/user vagy admin | 200 OK |
 /api/account/{id?} | DELETE | igen/user vagy admin | 200 OK |
 /api/web/advertisements | GET | nem | 200 OK |
