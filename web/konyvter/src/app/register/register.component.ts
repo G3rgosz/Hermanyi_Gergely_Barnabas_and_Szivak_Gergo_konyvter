@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['']);
         }, (error) => {
           console.error(error);
-          alert("A regisztráció sikertelen!\nA megadott email cím vagy felhasználónév már benne van a rendszerünkben!");
+          alert("A regisztráció sikertelen!\nValószínüleg a megadott email-cím vagy felhasználónév már benne van a rendszerünkben!");
           this.registerForm.reset();
         })
     }

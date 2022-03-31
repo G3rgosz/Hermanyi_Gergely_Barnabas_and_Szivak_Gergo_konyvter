@@ -7,6 +7,7 @@ import { NewadvertisementComponent } from './newadvertisement/newadvertisement.c
 import { MyadvertisementsComponent } from './myadvertisements/myadvertisements.component';
 import { AdvertisementComponent } from './advertisement/advertisement.component';
 import { UpdateadvertisementComponent } from './updateadvertisement/updateadvertisement.component'; 
+import { SettingsComponent } from './settings/settings.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'myadvertisements', component: MyadvertisementsComponent, canActivate: [AuthGuard]},
   {path:'advertisement/:id', component: AdvertisementComponent},
   {path:'updateadvertisement/:id', component: UpdateadvertisementComponent, canActivate: [AuthGuard]},
+  {path:'settings', component: SettingsComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''}
 ];
 @NgModule({

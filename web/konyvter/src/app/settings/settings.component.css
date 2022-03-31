@@ -1,0 +1,16 @@
+input.ng-invalid {
+    border-style: solid;
+    border-width: 3px;
+    border-color: red;
+}
+span{
+    color: red;
+}
+.confirmbuttons .btn-secondary{
+    float: left;
+    width: 100px;
+}
+.confirmbuttons .btn-danger{
+    float: right;
+    width: 100px;
+}

@@ -1,1 +1,51 @@
-<p>settings works!</p>
+<div class="row justify-content-center mt-5">
+    <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 ">
+      <h2><ins>Beállítások</ins></h2>
+      <form class="mt-5" [formGroup]="updateuserForm" (ngSubmit)="update(); clicked = true;" *ngFor="let user of userData">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="user.email" formControlName="mail">
+          <span *ngIf="updateuserForm.controls['mail'].invalid && updateuserForm.controls['mail'].touched">Az e-mail cím kötelező</span>
+        </div>
+        <div class="mb-3">
+          <label for="user" class="form-label">Felhasználónév</label>
+          <input type="text" class="form-control" id="user" [(ngModel)]="user.username"  formControlName="user">
+          <span *ngIf="updateuserForm.controls['user'].invalid && updateuserForm.controls['user'].touched">A felhasználónév kötelező, legalább 4 karakter</span>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Jelszó (jelenlegi vagy új)</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" formControlName="pass">
+          <span *ngIf="updateuserForm.controls['pass'].invalid && updateuserForm.controls['pass'].touched">A jelszó kötelező, legalább 5 karakter</span>
+        </div>
+        <div class="mb-3">            
+          <label for="exampleInputPassword2" class="form-label">Jelszó újra</label>
+          <input type="password" class="form-control" id="exampleInputPassword2" formControlName="pass2">
+          <span *ngIf="updateuserForm.controls['pass2'].invalid && updateuserForm.controls['pass2'].touched">A jelszó kötelező, legalább 5 karakter</span>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Telefonszám</label>
+          <input type="text" class="form-control" id="phone" [(ngModel)]="user.phone"  formControlName="phone">
+          <span *ngIf="updateuserForm.controls['phone'].invalid"></span>
+        </div>
+        <button type="submit" class="btn book-bg2" [disabled]="clicked" [disabled]="!updateuserForm.valid">Adatok megváltoztatása</button>
+      </form>
+      <div class="row justify-content-center mt-5">
+        <button class="btn btn-danger mt-5 w-25" aria-current="page" data-bs-toggle="modal" data-bs-target="#confirm">Fiók törlése!</button>
+      </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="confirm" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <h5 class="modal-title" id="modalLabel">Biztosan törli a fiókját?</h5>
+          <div class="mt-2 confirmbuttons">
+            <button type="button" class="btn btn-secondary m-3" data-bs-dismiss="modal">Mégse</button>
+            <button type="button" class="btn btn-danger m-3" data-bs-dismiss="modal" (click)="deleteAccount()">Igen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal end -->
