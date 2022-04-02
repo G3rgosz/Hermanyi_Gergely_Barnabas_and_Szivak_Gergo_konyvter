@@ -16,7 +16,7 @@ nav a[ng-reflect-router-link]{
     color: black;
 }
 .settingsIcon:hover{
-    transform: scale(1.1);
+    transform: rotate(1turn);
     transition: .5s;
 }
 .navbar .btn{

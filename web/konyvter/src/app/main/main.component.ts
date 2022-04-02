@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../shared/auth.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +13,10 @@ export class MainComponent implements OnInit {
   
   ads:any;
   books:any = [];
-  searchForm!:FormGroup;
+  filterForm!:FormGroup;
+  genres:any;
+
+  filter:boolean = false;
 
   host = 'http://localhost:8000/api/';
   server = 'http://localhost:8000';
@@ -27,9 +30,14 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getGenres();
     this.getAds();
-    this.searchForm = new FormGroup({
-      search: new FormControl('')
+    this.filterForm = new FormGroup({
+      adtitle: new FormControl(''),
+      title: new FormControl(''),
+      writer: new FormControl(''),
+      max_price: new FormControl('', [Validators.maxLength(10), Validators.pattern("[0-9]*$")]),
+      genres: new FormControl('')
     })
   }
   changePage(event:any){
@@ -72,17 +80,61 @@ export class MainComponent implements OnInit {
     }
     return writer+": "+title;
   }
+  getGenres(){
+    let endpoint = 'web/genres';
+    let url = this.host + endpoint;
+    this.http.get<any>(url)
+    .subscribe(
+      (res) => {
+        this.genres = res.data;
+      }, (error) => {
+        console.error(error);
+    });
+  }
+  filterShow(){
+    if(this.filter == false){
+      this.filter = true;
+    }else{
+      this.filterForm.reset();
+      this.filter = false;
+    }
+  }
   navigateAd(id:any){
     this.router.navigate(['advertisement/', id]);
   }
   search(){
+    let adtitle:any = this.filterForm.value.adtitle;
+    let title:any = this.filterForm.value.title;
+    let writer:any = this.filterForm.value.writer;
+    let max_price:any = this.filterForm.value.max_price;
+    let genres:any = [this.filterForm.value.genres];
+
     let searchData = {
-      adtitle: this.searchForm.value.search
+      adtitle: adtitle,
+      title: title,
+      writer: writer,
+      max_price: max_price,
+      genres: genres
+    };
+
+    console.log(searchData);
+    if(adtitle == '' || adtitle == null){
+      delete searchData['adtitle'];
+    }if(title == '' || title == null){
+      delete searchData['title'];
+    }if(writer == '' || writer == null){
+      delete searchData['writer'];
+    }if(max_price == '' || max_price == null){
+      delete searchData['max_price'];
+    }if(genres == '' || genres == null){
+      delete searchData["genres"];
     }
+
     let endpoint = 'web/advertisements/filter';
     let url = this.host + endpoint;
 
     let data = JSON.stringify(searchData);
+    console.log(data)
 
     let headerObj = new HttpHeaders({
       'Content-Type':'application/json'

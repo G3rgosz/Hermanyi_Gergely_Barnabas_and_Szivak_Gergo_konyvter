@@ -1,5 +1,30 @@
+@keyframes show {
+    0%   { opacity: 0; }
+    25%  { opacity: 0.33; }
+    50%  { opacity: 0.66; }
+    100% { opacity: 1; }
+  }
 .onePage{
     min-height: 100vh;
+}
+.filterbox{
+    animation-name: show;
+    animation-duration: 1s;
+    text-align: right;
+}
+.filterbox input.ng-invalid {
+    border-style: solid;
+    border-width: 3px;
+    border-color: red;
+}
+.filterlinkbox{
+    text-align: center;
+}
+.filter{
+    color: black;
+    font-size: 120%;
+    padding: 5px 18px 3px 18px;
+    border-radius: 25px;
 }
 a:hover > .block-card{
     background-color: #f2e5bb;

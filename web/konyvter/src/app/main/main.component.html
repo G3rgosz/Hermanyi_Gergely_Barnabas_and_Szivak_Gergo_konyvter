@@ -1,15 +1,62 @@
 <div class="onePage">
+<form [formGroup]="filterForm" (ngSubmit)="search()">
 <div class="row justify-content-center mt-5">
   <div class="col-8">
-    <form [formGroup]="searchForm" (ngSubmit)="search()">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Keresés..." aria-describedby="button-addon2" formControlName="search">
-        <button class="btn book-bg2" type="submit" id="button-addon2"><i class="bi bi-search"></i></button>
-      </div>
-    </form>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Keresés..." aria-describedby="button-addon2" formControlName="adtitle">
+      <button class="btn book-bg2" type="submit" id="button-addon2" [disabled]="!filterForm.valid"><i class="bi bi-search"></i></button>
+    </div>
   </div>
 </div>
-  
+<div class="row justify-content-center mt-1">
+  <div class="col-8 ">
+    <div *ngIf="filter" class="filterbox">
+      <div class="row mt-1">
+        <div class="col-md-6 row mb-1">
+          <div class="col-3">
+            <label for="title" class="col-form-label">Könyv:</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="title" class="form-control" formControlName="title">
+          </div>
+        </div>
+        <div class="col-md-6 row mb-1">
+          <div class="col-3">
+            <label for="title" class="col-form-label">Író:</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="title" class="form-control" formControlName="writer">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-md-6 row mb-1">
+          <div class="col-3">
+            <label for="title" class="col-form-label">Ár:</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="title" class="form-control" placeholder="maximum" formControlName="max_price">
+          </div>
+        </div>
+        <div class="col-md-6 row mb-1">
+          <div class="col-3">
+            <label for="title" class="col-form-label">Műfaj:</label>
+          </div>
+          <div class="col-9">
+            <select class="form-select" formControlName="genres">
+              <option selected></option>
+              <option *ngFor="let genre of genres">{{genre.genre}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filterlinkbox mt-3">
+      <a (click)="filterShow()" class="btn filter book-bg2"><i class="bi bi-sliders"></i></a>
+    </div>
+  </div>
+</div>
+</form>
 <div class="row mt-3 justify-content-center" *ngFor="let ad of ads | paginate:{itemsPerPage: 5, currentPage:page}">
   <div class="col-8">
     <a class="nav-link text-dark" (click)="navigateAd(ad.id)">
