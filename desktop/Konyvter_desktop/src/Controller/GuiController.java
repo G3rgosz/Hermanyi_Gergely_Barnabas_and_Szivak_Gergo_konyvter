@@ -4,9 +4,7 @@ import Model.ViewModel;
 import View.confirmDeleteFrame;
 import View.confirmNotProblematicFrame;
 import View.mainFrame;
-import java.net.URL;
 import java.util.Vector;
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -164,7 +162,6 @@ public class GuiController {
         initTables();
     }
     private void getLoginStatus() {
-        String message = restCtr.getLoginMessage();
         if(restCtr.getLoginMessage() != null) {
             mainFrm.setStatusLbl(restCtr.getLoginMessage());
         }else {

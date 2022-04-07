@@ -17,37 +17,34 @@ public class RESTController {
         id = "";
     }
     private String getToken() {
-        String token = restMdl.tryLogin();
+        String token = restMdl.Login();
         return token;
     }
     public void Logout() {
-        restMdl.tryLogout(token);
+        restMdl.Logout(token);
     }
     public Vector<Vector<Object>> getUsers() {
         Vector<Vector<Object>> users = new Vector<>();
         
-        users = restMdl.tryUsers(token, search_text);
+        users = restMdl.Users(token, search_text);
         
         return users;
     }
     public Vector<Vector<Object>> getAdvertisments() {
         Vector<Vector<Object>> advertisments = new Vector<>();
         
-        advertisments = restMdl.tryAdvertisments(token, search_text);
+        advertisments = restMdl.Advertisments(token, search_text);
         
         return advertisments;
     }
-    public Boolean DeleteUser() {
-        boolean success = restMdl.tryDeleteUsers(token, id);
-        return success;
+    public void DeleteUser() {
+        restMdl.DeleteUsers(token, id);
     }
-    public Boolean DeleteAdvertisment() {
-        boolean success = restMdl.tryDeleteAdvertisments(token, id);
-        return success;
+    public void DeleteAdvertisment() {
+        restMdl.DeleteAdvertisments(token, id);
     }
-    public Boolean ValidAdvertisment() {
-        boolean success = restMdl.tryValidAdvertisments(token, id);
-        return success;
+    public void ValidAdvertisment() {
+        restMdl.ValidAdvertisments(token, id);
     }
     public void setSearchData(String search_text) {
         this.search_text = search_text;

@@ -22,16 +22,24 @@ public class RESTModel {
     private String deleteAdvertismentMessage;
     private String validAdvertismentMessage;
     
-    public String tryLogin() {
+    public Integer loginResponseCode;
+    public Integer logoutResponseCode;
+    public Integer usersResponseCode;
+    public Integer advertismentResponseCode;
+    public Integer deleteUserResponseCode;
+    public Integer deleteAdvertismentResponseCode;
+    public Integer validAdvertismentResponseCode;
+    
+    public String Login() {
         String result = "";
         try {
-            result = Login();
+            result = tryLogin();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return result;
     }
-    private String Login() throws Exception{
+    private String tryLogin() throws Exception{
         
         URL url = new URL("http://localhost:8000/api/login");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -47,13 +55,13 @@ public class RESTModel {
         
         conn.connect();
         String text = "";
-        int responseCode = conn.getResponseCode();
-        if(responseCode == 200) {
+        loginResponseCode = conn.getResponseCode();
+        if(loginResponseCode == 200) {
             text = new String(
                 conn.getInputStream().readAllBytes(), 
                 StandardCharsets.UTF_8);
         }else {
-            throw new RuntimeException("Http válasz: " + responseCode);
+            throw new RuntimeException("Http válasz: " + loginResponseCode);
         }
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         JsonObject tokenObject = jsonObject.getAsJsonObject("data");
@@ -66,15 +74,14 @@ public class RESTModel {
         
         return token;
     }
-    public void tryLogout(String token) {
+    public void Logout(String token) {
         try {
-            
-            Logout(token);
+            tryLogout(token);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    private void Logout(String token) throws Exception{
+    private void tryLogout(String token) throws Exception{
     
         URL url = new URL("http://localhost:8000/api/logout");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -82,25 +89,26 @@ public class RESTModel {
         conn.setRequestProperty("Authorization", "Bearer " +token);
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
-        
+
         String data = token;
         byte[] out = data.getBytes(StandardCharsets.UTF_8);
         
         OutputStream stream = conn.getOutputStream();
         stream.write(out);
-
+        
+        logoutResponseCode = conn.getResponseCode();
     }
 
-    public Vector<Vector<Object>> tryUsers(String token, String search_text) {
+    public Vector<Vector<Object>> Users(String token, String search_text) {
         Vector<Vector<Object>> users = new Vector<>();
         try {
-            users = Users(token, search_text);
+            users = tryUsers(token, search_text);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return users;
     }
-    private Vector<Vector<Object>> Users(String token, String search_text) throws Exception{
+    private Vector<Vector<Object>> tryUsers(String token, String search_text) throws Exception{
     
         URL url = new URL("http://localhost:8000/api/admin/users/" + search_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -112,13 +120,13 @@ public class RESTModel {
         conn.connect();
         
         String text = "";
-        int responseCode = conn.getResponseCode();
-        if(responseCode == 200) {
+        usersResponseCode = conn.getResponseCode();
+        if(usersResponseCode == 200) {
             text = new String(
                 conn.getInputStream().readAllBytes(), 
                 StandardCharsets.UTF_8);
         }else {
-            throw new RuntimeException("Http válasz: " + responseCode);
+            throw new RuntimeException("Http válasz: " + usersResponseCode);
         }
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         GsonBuilder builder = new GsonBuilder();
@@ -145,16 +153,16 @@ public class RESTModel {
         }
         return users;
     }
-    public Vector<Vector<Object>> tryAdvertisments(String token, String search_text) {
+    public Vector<Vector<Object>> Advertisments(String token, String search_text) {
         Vector<Vector<Object>> advertisments = new Vector<>();
         try {
-            advertisments = Advertisments(token, search_text);
+            advertisments = tryAdvertisments(token, search_text);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return advertisments;
     }
-    private Vector<Vector<Object>> Advertisments(String token, String search_text) throws Exception{
+    private Vector<Vector<Object>> tryAdvertisments(String token, String search_text) throws Exception{
         URL url = new URL("http://localhost:8000/api/admin/reportedads/" + search_text);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
@@ -165,13 +173,13 @@ public class RESTModel {
         conn.connect();
         
         String text = "";
-        int responseCode = conn.getResponseCode();
-        if(responseCode == 200) {
+        advertismentResponseCode = conn.getResponseCode();
+        if(advertismentResponseCode == 200) {
             text = new String(
                 conn.getInputStream().readAllBytes(), 
                 StandardCharsets.UTF_8);
         }else {
-            throw new RuntimeException("Http válasz: " + responseCode);
+            throw new RuntimeException("Http válasz: " + advertismentResponseCode);
         }
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         GsonBuilder builder = new GsonBuilder();
@@ -199,16 +207,14 @@ public class RESTModel {
         return advertisments;
     }
     
-    public Boolean tryDeleteUsers(String token, String id) {
-        boolean success = false;
+    public void DeleteUsers(String token, String id) {
         try {
-            success = DeleteUsers(token, id);
+            tryDeleteUsers(token, id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return success;
     }
-    private Boolean DeleteUsers(String token, String id) throws Exception{
+    private void tryDeleteUsers(String token, String id) throws Exception{
     
         URL url = new URL("http://localhost:8000/api/account/" + id);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -219,36 +225,30 @@ public class RESTModel {
 
         conn.connect();
         
-        boolean success = false;
         String text = "";
-        int responseCode = conn.getResponseCode();
+        deleteUserResponseCode = conn.getResponseCode();
         
-        if(responseCode == 200) {
-            success = true;
+        if(deleteUserResponseCode == 200) {
             text = new String(
                 conn.getInputStream().readAllBytes(), 
                 StandardCharsets.UTF_8);
         }else {
-            throw new RuntimeException("Http válasz: " + responseCode);
+            throw new RuntimeException("Http válasz: " + deleteUserResponseCode);
         }
         
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         
         String message_raw = jsonObject.get("message").toString();
         deleteUserMessage = message_raw.substring(1, message_raw.length() - 1);
-        
-        return success;
     }
-    public Boolean tryDeleteAdvertisments(String token, String id) {
-        boolean success = false;
+    public void DeleteAdvertisments(String token, String id) {
         try {
-            success = DeleteAdvertisments(token, id);
+            tryDeleteAdvertisments(token, id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return success;
     }
-    private Boolean DeleteAdvertisments(String token, String id) throws Exception{
+    private void tryDeleteAdvertisments(String token, String id) throws Exception{
         URL url = new URL("http://localhost:8000/api/web/advertisements/" + id);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
@@ -258,17 +258,15 @@ public class RESTModel {
 
         conn.connect();
         
-        int responseCode = conn.getResponseCode();
+        deleteAdvertismentResponseCode = conn.getResponseCode();
         String text = "";
-        boolean success = false;
         
-        if(responseCode == 200) {
-            success = true;
+        if(deleteAdvertismentResponseCode == 200) {
             text = new String(
                 conn.getInputStream().readAllBytes(), 
                 StandardCharsets.UTF_8);
         }else {
-            throw new RuntimeException("Http válasz: " + responseCode);
+            throw new RuntimeException("Http válasz: " + deleteAdvertismentResponseCode);
         }
         
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
@@ -276,19 +274,16 @@ public class RESTModel {
         String message_raw = jsonObject.get("message").toString();
         deleteAdvertismentMessage = message_raw.substring(1, message_raw.length() - 1);
         
-        return success;
     }
     
-    public Boolean tryValidAdvertisments(String token, String id) {
-        boolean success = false;
+    public void ValidAdvertisments(String token, String id) {
         try {
-            success = ValidAdvertisments(token, id);
+            tryValidAdvertisments(token, id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return success;
     }
-    private Boolean ValidAdvertisments(String token, String id) throws Exception{
+    private void tryValidAdvertisments(String token, String id) throws Exception{
         URL url = new URL("http://localhost:8000/api/admin/reportedads/remove/" + id);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         
@@ -298,25 +293,21 @@ public class RESTModel {
 
         conn.connect();
         
-        int responseCode = conn.getResponseCode();
+        validAdvertismentResponseCode = conn.getResponseCode();
         String text = "";
-        boolean success = false;
         
-        if(responseCode == 200) {
-            success = true;
+        if(validAdvertismentResponseCode == 200) {
             text = new String(
                 conn.getInputStream().readAllBytes(), 
                 StandardCharsets.UTF_8);
         }else {
-            throw new RuntimeException("Http válasz: " + responseCode);
+            throw new RuntimeException("Http válasz: " + validAdvertismentResponseCode);
         }
         
         JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
         
         String message_raw = jsonObject.get("message").toString();
         validAdvertismentMessage = message_raw.substring(1, message_raw.length() - 1);
-        
-        return success;
     }
     
     public String getLoginMessage() {

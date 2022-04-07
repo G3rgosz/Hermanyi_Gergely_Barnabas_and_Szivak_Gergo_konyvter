@@ -14,7 +14,6 @@ public class ViewModel {
         
         return columnNames;
     }
-    
     public Vector<String> getAdvertismentColumnNames(){
         Vector<String> columNames = new Vector<>();
         

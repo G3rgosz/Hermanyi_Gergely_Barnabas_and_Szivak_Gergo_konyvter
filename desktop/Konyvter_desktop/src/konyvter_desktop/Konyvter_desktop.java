@@ -1,6 +1,5 @@
 package konyvter_desktop;
 
-import Controller.GuiController;
 import Controller.MainController;
 import View.mainFrame;
 
