@@ -4,6 +4,8 @@ import Model.ViewModel;
 import View.confirmDeleteFrame;
 import View.confirmNotProblematicFrame;
 import View.mainFrame;
+import java.awt.Desktop;
+import java.net.URI;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -30,6 +32,7 @@ public class GuiController {
         mainFrm.getSearchBtn().addActionListener( event -> { search(); } );
         mainFrm.getDeleteBtn().addActionListener( event -> { initConfirmDeleteFrame(); } );
         mainFrm.getNotValidBtn().addActionListener( event -> { initConfirmProblematicFrame(); } );
+        mainFrm.getOpenBtn().addActionListener( event -> { openAdvertisment(); });
         mainFrm.getUpdateBtn().addActionListener( event -> { reConnect(); } );
         mainFrm.getExitBtn().addActionListener( event -> { exit(); });
         mainFrm.getTableTb().addChangeListener(event -> {initTables(); });
@@ -72,6 +75,14 @@ public class GuiController {
     private void disposeConfirmProblematicFrame() {
         problemFrm.dispose();
     }
+    private void getLoginStatus() {
+        if(restCtr.getLoginMessage() != null) {
+            mainFrm.setStatusLbl(restCtr.getLoginMessage());
+        }else {
+            mainFrm.setStatusLbl("Nincs kapcsolat a kiszolgálóval!");
+            refresh();
+        }
+    }
     private void reConnect() { 
         clearStatusLbl();
         restCtr = new RESTController();
@@ -80,7 +91,6 @@ public class GuiController {
             mainFrm.getUpdateBtn().setVisible(false);
         }
         initTables();
-
     }
     private void initTables() {
     
@@ -161,12 +171,16 @@ public class GuiController {
         
         initTables();
     }
-    private void getLoginStatus() {
-        if(restCtr.getLoginMessage() != null) {
-            mainFrm.setStatusLbl(restCtr.getLoginMessage());
-        }else {
-            mainFrm.setStatusLbl("Nincs kapcsolat a kiszolgálóval!");
-            refresh();
+    private void openAdvertisment() {
+        int row = mainFrm.getAdvertismentTbl().getSelectedRow();
+        String id = mainFrm.getAdvertismentTbl().getModel().getValueAt(row, 3).toString();
+        
+        try {
+            Desktop desktop = java.awt.Desktop.getDesktop();
+            URI url = new URI("http://localhost:4200/advertisement/" + id);
+            desktop.browse(url);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     private void refresh() {
@@ -179,7 +193,7 @@ public class GuiController {
         timer();
     };
     Runnable thread03 = () -> {
-        validBtnAvability();
+        buttonsAvability();
     };
     private void timer() {
         while(true) {
@@ -191,12 +205,14 @@ public class GuiController {
             }
         }
     }
-    private void validBtnAvability() {
+    private void buttonsAvability() {
         while(true) {
             if(mainFrm.getTableTb().getSelectedIndex() != 0) {
                 mainFrm.getNotValidBtn().setVisible(true);
+                mainFrm.getOpenBtn().setVisible(true);
             }else {
                 mainFrm.getNotValidBtn().setVisible(false);
+                mainFrm.getOpenBtn().setVisible(false);
             }
             try{
 		Thread.sleep(50);
@@ -204,6 +220,5 @@ public class GuiController {
                 Thread.currentThread().interrupt();
             }
         }
-
     }
 }

@@ -1,0 +1,1 @@
+START ./Konyvter_desktop/dist/Konyvter_desktop.jar

@@ -41,6 +41,7 @@ public class confirmNotProblematicFrame extends javax.swing.JFrame {
         setTitle("Figyelem!");
         setPreferredSize(new java.awt.Dimension(360, 240));
 
+        northPnl.setBackground(new java.awt.Color(219, 195, 140));
         northPnl.setPreferredSize(new java.awt.Dimension(559, 20));
 
         javax.swing.GroupLayout northPnlLayout = new javax.swing.GroupLayout(northPnl);
@@ -56,6 +57,7 @@ public class confirmNotProblematicFrame extends javax.swing.JFrame {
 
         getContentPane().add(northPnl, java.awt.BorderLayout.PAGE_START);
 
+        eastPnl.setBackground(new java.awt.Color(219, 195, 140));
         eastPnl.setPreferredSize(new java.awt.Dimension(20, 319));
 
         javax.swing.GroupLayout eastPnlLayout = new javax.swing.GroupLayout(eastPnl);
@@ -71,15 +73,22 @@ public class confirmNotProblematicFrame extends javax.swing.JFrame {
 
         getContentPane().add(eastPnl, java.awt.BorderLayout.LINE_END);
 
+        southPnl.setBackground(new java.awt.Color(219, 195, 140));
         southPnl.setPreferredSize(new java.awt.Dimension(647, 50));
         southPnl.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel3.setBackground(new java.awt.Color(219, 195, 140));
+
+        confirmBtn.setBackground(new java.awt.Color(242, 229, 187));
         confirmBtn.setText("Igen");
         confirmBtn.setPreferredSize(new java.awt.Dimension(80, 35));
         jPanel3.add(confirmBtn);
 
         southPnl.add(jPanel3);
 
+        jPanel4.setBackground(new java.awt.Color(219, 195, 140));
+
+        cancelBtn.setBackground(new java.awt.Color(242, 229, 187));
         cancelBtn.setText("Mégse");
         cancelBtn.setPreferredSize(new java.awt.Dimension(80, 35));
         jPanel4.add(cancelBtn);
@@ -88,6 +97,7 @@ public class confirmNotProblematicFrame extends javax.swing.JFrame {
 
         getContentPane().add(southPnl, java.awt.BorderLayout.PAGE_END);
 
+        westPnl.setBackground(new java.awt.Color(219, 195, 140));
         westPnl.setPreferredSize(new java.awt.Dimension(20, 319));
 
         javax.swing.GroupLayout westPnlLayout = new javax.swing.GroupLayout(westPnl);
@@ -103,6 +113,7 @@ public class confirmNotProblematicFrame extends javax.swing.JFrame {
 
         getContentPane().add(westPnl, java.awt.BorderLayout.LINE_START);
 
+        centerPnl.setBackground(new java.awt.Color(219, 195, 140));
         centerPnl.setLayout(new java.awt.GridLayout(1, 0));
 
         questionLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

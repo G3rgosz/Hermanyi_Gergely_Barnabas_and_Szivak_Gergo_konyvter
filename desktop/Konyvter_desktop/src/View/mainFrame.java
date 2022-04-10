@@ -38,6 +38,7 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         notValidBtn = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
+        openBtn = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         searchTf = new javax.swing.JTextField();
@@ -66,24 +67,30 @@ public class mainFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         advertismentTbl = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
+        jPanel1.setBackground(new java.awt.Color(219, 195, 140));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        northPnl.setBackground(new java.awt.Color(219, 195, 140));
         northPnl.setPreferredSize(new java.awt.Dimension(678, 50));
         northPnl.setLayout(new java.awt.GridLayout(1, 0));
 
+        jPanel8.setBackground(new java.awt.Color(219, 195, 140));
         jPanel8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
 
+        deleteBtn.setBackground(new java.awt.Color(242, 229, 187));
         deleteBtn.setText("Törlés");
         deleteBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel8.add(deleteBtn);
 
         northPnl.add(jPanel8);
 
-        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
+        jPanel9.setBackground(new java.awt.Color(219, 195, 140));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 15, 10));
 
+        notValidBtn.setBackground(new java.awt.Color(242, 229, 187));
         notValidBtn.setText("Nem valós");
         notValidBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel9.add(notValidBtn);
@@ -91,18 +98,18 @@ public class mainFrame extends javax.swing.JFrame {
 
         northPnl.add(jPanel9);
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        jPanel12.setBackground(new java.awt.Color(219, 195, 140));
+        jPanel12.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 0, 10));
+
+        openBtn.setBackground(new java.awt.Color(242, 229, 187));
+        openBtn.setText("Megnyit");
+        openBtn.setPreferredSize(new java.awt.Dimension(100, 35));
+        jPanel12.add(openBtn);
+        openBtn.setVisible(false);
 
         northPnl.add(jPanel12);
+
+        jPanel11.setBackground(new java.awt.Color(219, 195, 140));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -117,6 +124,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         northPnl.add(jPanel11);
 
+        jPanel10.setBackground(new java.awt.Color(219, 195, 140));
         jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 10));
 
         searchTf.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -124,8 +132,10 @@ public class mainFrame extends javax.swing.JFrame {
 
         northPnl.add(jPanel10);
 
-        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
+        jPanel7.setBackground(new java.awt.Color(219, 195, 140));
+        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 10, 10));
 
+        searchBtn.setBackground(new java.awt.Color(242, 229, 187));
         searchBtn.setText("Keresés");
         searchBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel7.add(searchBtn);
@@ -133,6 +143,8 @@ public class mainFrame extends javax.swing.JFrame {
         northPnl.add(jPanel7);
 
         jPanel1.add(northPnl, java.awt.BorderLayout.PAGE_START);
+
+        eastPnl.setBackground(new java.awt.Color(219, 195, 140));
 
         javax.swing.GroupLayout eastPnlLayout = new javax.swing.GroupLayout(eastPnl);
         eastPnl.setLayout(eastPnlLayout);
@@ -142,17 +154,20 @@ public class mainFrame extends javax.swing.JFrame {
         );
         eastPnlLayout.setVerticalGroup(
             eastPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 368, Short.MAX_VALUE)
+            .addGap(0, 370, Short.MAX_VALUE)
         );
 
         jPanel1.add(eastPnl, java.awt.BorderLayout.LINE_END);
 
+        southPnl.setBackground(new java.awt.Color(219, 195, 140));
         southPnl.setPreferredSize(new java.awt.Dimension(678, 50));
         southPnl.setLayout(new java.awt.GridLayout(1, 3));
 
+        jPanel14.setBackground(new java.awt.Color(219, 195, 140));
         jPanel14.setPreferredSize(new java.awt.Dimension(110, 39));
         jPanel14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 2));
 
+        updateBtn.setBackground(new java.awt.Color(242, 229, 187));
         updateBtn.setText("Frissítés");
         updateBtn.setPreferredSize(new java.awt.Dimension(90, 35));
         jPanel14.add(updateBtn);
@@ -160,6 +175,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         southPnl.add(jPanel14);
 
+        jPanel16.setBackground(new java.awt.Color(219, 195, 140));
         jPanel16.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
 
         statusLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -168,8 +184,10 @@ public class mainFrame extends javax.swing.JFrame {
 
         southPnl.add(jPanel16);
 
+        jPanel2.setBackground(new java.awt.Color(219, 195, 140));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 20, 2));
 
+        exitBtn.setBackground(new java.awt.Color(242, 229, 187));
         exitBtn.setText("Kilépés");
         exitBtn.setPreferredSize(new java.awt.Dimension(100, 35));
         jPanel2.add(exitBtn);
@@ -177,6 +195,8 @@ public class mainFrame extends javax.swing.JFrame {
         southPnl.add(jPanel2);
 
         jPanel1.add(southPnl, java.awt.BorderLayout.PAGE_END);
+
+        westPnl.setBackground(new java.awt.Color(219, 195, 140));
 
         javax.swing.GroupLayout westPnlLayout = new javax.swing.GroupLayout(westPnl);
         westPnl.setLayout(westPnlLayout);
@@ -186,13 +206,15 @@ public class mainFrame extends javax.swing.JFrame {
         );
         westPnlLayout.setVerticalGroup(
             westPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 368, Short.MAX_VALUE)
+            .addGap(0, 370, Short.MAX_VALUE)
         );
 
         jPanel1.add(westPnl, java.awt.BorderLayout.LINE_START);
 
+        centerPnl.setBackground(new java.awt.Color(219, 195, 140));
         centerPnl.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(new java.awt.Color(219, 195, 140));
         jPanel3.setPreferredSize(new java.awt.Dimension(944, 5));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -208,6 +230,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         centerPnl.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
+        jPanel17.setBackground(new java.awt.Color(219, 195, 140));
         jPanel17.setPreferredSize(new java.awt.Dimension(5, 263));
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -218,11 +241,12 @@ public class mainFrame extends javax.swing.JFrame {
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
 
         centerPnl.add(jPanel17, java.awt.BorderLayout.LINE_END);
 
+        jPanel18.setBackground(new java.awt.Color(219, 195, 140));
         jPanel18.setPreferredSize(new java.awt.Dimension(944, 5));
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -238,6 +262,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         centerPnl.add(jPanel18, java.awt.BorderLayout.PAGE_END);
 
+        jPanel19.setBackground(new java.awt.Color(219, 195, 140));
         jPanel19.setPreferredSize(new java.awt.Dimension(5, 358));
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -248,12 +273,15 @@ public class mainFrame extends javax.swing.JFrame {
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
 
         centerPnl.add(jPanel19, java.awt.BorderLayout.LINE_START);
 
+        jPanel20.setBackground(new java.awt.Color(219, 195, 140));
         jPanel20.setLayout(new java.awt.GridLayout(1, 0));
+
+        tableTb.setBackground(new java.awt.Color(242, 229, 187));
 
         userTb.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -365,6 +393,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel northPnl;
     private javax.swing.JButton notValidBtn;
+    private javax.swing.JButton openBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchTf;
     private javax.swing.JPanel southPnl;
@@ -389,6 +418,9 @@ public class mainFrame extends javax.swing.JFrame {
     }
     public JButton getUpdateBtn() {
         return updateBtn;
+    }
+    public JButton getOpenBtn() {
+        return openBtn;
     }
     public JTextField getSearchTf() {
         return searchTf;
