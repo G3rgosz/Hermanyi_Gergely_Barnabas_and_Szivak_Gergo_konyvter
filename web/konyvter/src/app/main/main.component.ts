@@ -117,7 +117,6 @@ export class MainComponent implements OnInit {
       genres: genres
     };
 
-    console.log(searchData);
     if(adtitle == '' || adtitle == null){
       delete searchData['adtitle'];
     }if(title == '' || title == null){
