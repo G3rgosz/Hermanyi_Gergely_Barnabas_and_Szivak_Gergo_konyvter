@@ -134,7 +134,6 @@ export class MainComponent implements OnInit {
     let url = this.host + endpoint;
 
     let data = JSON.stringify(searchData);
-    console.log(data)
 
     let headerObj = new HttpHeaders({
       'Content-Type':'application/json'

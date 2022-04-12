@@ -43,10 +43,7 @@ export class AuthService {
     let url = this.host + endpoint;
     return this.http.post<any>(url, data, header);
   }
-
   login(user: string, pass: string) {
-    console.log(user)
-    console.log(pass)
     
     let authData = {
       username: user,
