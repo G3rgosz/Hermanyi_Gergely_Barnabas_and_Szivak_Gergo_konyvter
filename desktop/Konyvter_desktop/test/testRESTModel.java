@@ -26,8 +26,19 @@ public class testRESTModel {
         
         assertEquals(expected, actual);
     }
-    @Test //Helyes adat
+    @Test //Hibás adat 500
     public void testLogout02() {
+        restMdl = new RESTModel();
+        String token = "test";
+        restMdl.Logout(token);
+        
+        Integer expected = 500;
+        Integer actual = restMdl.logoutResponseCode;
+        
+        assertEquals(expected, actual);
+    }
+    @Test //Helyes adat
+    public void testLogout03() {
         restMdl = new RESTModel();
         String token = restMdl.Login();
         restMdl.Logout(token);
