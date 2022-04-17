@@ -15,7 +15,7 @@ junit-platform-console-standalone-1.8.2
 
 ### Megjegyzés az indításhoz
 
-> Az alkalmazás megfelelő futásához nem szükésges, de az atadok beöltődéséhez és az azokkal való műveletekhez esszenciális a már működő, és futó Backend.
+> Az alkalmazás megfelelő futásához nem szükésges, de az adatok beöltődéséhez és az azokkal való műveletekhez esszenciális a már működő, és futó Backend.
 
 >A hirdetések megnyitásánál pedig a futó Frontend
 
