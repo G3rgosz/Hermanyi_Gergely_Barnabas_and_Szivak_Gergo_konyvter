@@ -15,7 +15,6 @@ class AdvertisementController extends BaseController{
         $advertisements = DB::table('advertisements')->orderByDesc('created_at')->get();
         return $this->sendResponse( $advertisements, "Hirdetések betöltve" );
     }
-    //TODO: Először A könyvet létehozni és az id-t továbbküldeni ide
     public function create(Request $request){
         $input = $request->all();
         $validator = Validator::make($input, [

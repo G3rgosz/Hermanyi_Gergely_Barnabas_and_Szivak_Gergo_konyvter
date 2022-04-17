@@ -84,7 +84,7 @@ class BookController extends BaseController{
             $advertisements = DB::table('advertisements')
                 ->where('book_id', '=', $book->id)
                 ->count();
-            if($advertisements > 1){ //A könyv egy másik felhasználónál használatban van, ezért használjuk a create metódust!
+            if($advertisements > 1){
                 return $this->create($request);
             }
         }
